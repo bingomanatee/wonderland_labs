@@ -1,0 +1,109 @@
+<h1>Register for <%= layout_options.site_title %></h1>
+        <div class="well">Already a member? <a href="/sign_in" class="btn btn-large">Sign In</a></div>
+<form class="form" id="reg_form" method="post" action="/join_us">
+    <div class="row-fluid">
+        <div class="span7">
+
+            <fieldset style="width: auto">
+                <legend>Required Fields</legend>
+                <table class="table">
+                    <tbody>
+                    <tr class="member_name_row first">
+                        <th style="width: 6em">Member Name</th>
+                        <td><input name="member[member_name]" type="text" onkeyup="REG.val()"
+                                   tabindex="1" placeholder="Use this to sign in" class="input-xlarge"/>
+                        </td>
+                        <td class="alert_ph"></td>
+                    </tr>
+                    <tr class="pass_row">
+                        <th>Password</th>
+                        <td><input name="member[pass]" type="password" onkeyup="REG.val()"
+                                   tabindex="2" placeholder="required - must match" class="input-xlarge"/><br/>
+                            <span class="pass_time"/>
+
+                        </td>
+                        <td class="alert_ph"></td>
+
+                    </tr>
+                    <tr class="pass2_row">
+                        <th>Password (repeat)</th>
+                        <td><input name="member[pass2]" type="password" onkeyup="REG.val()"
+                                   tabindex="3" placeholder="required - must match" class="input-xlarge"/></td>
+                        <td class="alert_ph"></td>
+
+                    </tr>
+                    <tr class="pass_rating_row">
+                        <td colspan="3">
+                            <div class="progress">
+                                <div id="pass_bar" class="bar" style="width: 0%;"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="pass_rating_desc_row first">
+                        <td colspan="3" class="alert_ph">
+
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+        </div>
+        <div class="span5">
+            <fieldset style="width: auto">
+                <legend>Optional Fields</legend>
+                <table class="table">
+                    <tr class="real_name_row first">
+                        <th>Real Name</th>
+                        <td><input name="member[real_name]" type="text" onkeyup="REG.val()"
+                                   tabindex="4" placeholder="optional" class="input-xlarge"/></td>
+                        <td class="alert_ph"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td><input name="member[email]" onkeyup="REG.val()"
+                                   tabindex="5" placeholder="optional - useful for password retrieval"
+                                   class="input-xlarge"/></td>
+                    </tr>
+                    <tr>
+                        <th>Public Biography</th>
+                        <td><textarea name="member[public_profile]" placeholder="optional - exposed to membership"
+                                      tabindex="6" class="input-xlarge" style="height: 8em"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>Private Biography</th>
+                        <td><textarea name="member[private_profile]"
+                                      tabindex="7" placeholder="optional - only viewable by site management"
+                                      class="input-xlarge" style="height: 8em"></textarea></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th><button class="btn" onclick="document.location='/'; return false" >Cancel</button> </th>
+                        <td>
+                            <button id="submit_reg" type="submit" class="btn btn-primary btn-large"
+                                    onclick="$(this).hide();" style="display: none" tabindex="8" type="submit">Join <%=
+                                layout_options.site_title %>
+                            </button>
+
+
+                        </td>
+                    </tr>
+                    </tfoot>
+
+                </table>
+
+            </fieldset>
+        </div>
+    </div>
+</form>
+<style>
+
+    form.form table tr.first th {
+        width: 8em;
+    }
+
+    form.form table tr.first td,
+    form.form table tr.first th {
+        border-top: none;
+    }
+</style>

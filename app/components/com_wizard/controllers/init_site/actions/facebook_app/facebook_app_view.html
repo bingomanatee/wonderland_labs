@@ -1,0 +1,37 @@
+<form method="post" class="wizard"><h1>Site Initialization</h1>
+<%- partial("../../views/step_header.html", {step: "facebook_app"}) %> <br />
+<h2>Facebook App Configuration</h2>
+<p>
+	Enter your Facebook App information into the form below</p>
+    <table border="0" cellpadding="0" cellspacing="0">
+		<tbody>
+			<tr>
+				<th>
+					Facebook App ID</th>
+				<td>
+					<input name="facebook_app_id" type="text" autocomplete="off" value="<%= facebook_app_id %>" /></td>
+				<td>
+					&nbsp;</td>
+			</tr>
+			<tr>
+				<th>
+					Facebook Secret</th>
+				<td>
+					<input name="facebook_app_secret" type="text" autocomplete="off" value="<%= facebook_app_secret %>"/></td>
+				<td>
+					&nbsp;</td>
+			</tr>
+			<tr>
+				<th>
+					Facebook Domain</th>
+				<td>
+					<input name="facebook_app_domain" type="text" autocomplete="off"/ value="<%= facebook_app_domain %>"/></td>
+				<td>
+					&nbsp;</td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		You do not have to synchronize your site with a Facebook app but if you don&#39;t
+        you won&#39;t be able to use Facebook oAuth to log in new members.</p>
+<%- partial("../../views/step_footer.html", {step: "facebook_app"}) %></form>

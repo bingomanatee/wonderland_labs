@@ -1,0 +1,7 @@
+{
+    "route":"*/articles",
+    "method":"get",
+    "javascript": [
+        "/admin/js/wiki/articles/articles.js"
+    ]
+}

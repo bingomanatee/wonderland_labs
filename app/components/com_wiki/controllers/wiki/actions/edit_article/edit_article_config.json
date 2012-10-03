@@ -1,0 +1,12 @@
+{
+    "method":"*",
+    "get_route":["*/ae/:scope/:article", "*/se/:scope"],
+    "put_route":["*/ae/:scope/:article", "*/se/:scope"],
+
+    "javascript":[
+        "/js/wiki/edit/jquery.date_format.js",
+        "/js/wiki/async.js",
+        "/js/wiki/marked.js",
+        "/js/wiki/edit/edit_article.js"
+    ]
+}

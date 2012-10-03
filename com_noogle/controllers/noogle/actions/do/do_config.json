@@ -1,0 +1,4 @@
+{
+    "method": "get",
+    "route": "*/do/:act"
+}

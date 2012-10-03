@@ -1,0 +1,106 @@
+<div ng-app="articles">
+    <span ng-controller="ArticleCtrl">
+
+        <h1>Create article {{new_article.scope }}: {{ new_article.name }}</h1>
+        <div class="row-fluid">
+    <div class="span8">
+
+        <form class="form" method="POST" action="/wiki/add_article" onsubmit="return false">
+            <table class="table">
+                <tbody>
+                <tr class="{{name_row_class}}">
+                    <td class="span3">
+                        <label class="control-label" for="inputName">
+                            Name
+                        </label>
+                    </td>
+                    <td class="span5">
+                        <input id="inputName" type="text" class="input-xlarge" ng-model="new_article.name" name="name" readonly="readonly"/>
+                    </td>
+                    <td class="span4">
+                        <span class="help-inline" ng-visibile="name_error">{{name_error}}</span>
+                    </td>
+                </tr>
+                <tr class="{{title_row_class}}">
+                    <td>
+                        <label class="control-label" for="inputTitle">
+                            Title
+                        </label>
+                    </td>
+                    <td>
+                        <input id="inputTitle" type="text" class="input-xlarge" ng-model="new_article.title"
+                               name="title"/>
+                    </td>
+                    <td>
+                        <span class="help-inline" ng-visibile="title_error">{{title_error}}</span>
+                    </td>
+                </tr>
+                <tr class="{{summary_row_class}}">
+                    <td colspan="3">
+                        <label style="float: right"><input type="checkbox" ng-model="summary_preview" /> Preview</label>
+                        <label class="control-label" for="inputSummary">Summary</label>
+
+                        <textarea id="inputSummary" name="summary" class="mono text_region"
+                                  ng-model="new_article.summary" ng-show="!summary_preview"
+                                  rows="5"></textarea>
+                        <div id="summary_md" class="text_region" ng-show="summary_preview">
+                        </div>
+
+                        <br/>
+                        <small>This is a markdown-enabled field</small>
+                        <span class="help-inline" ng-visibile="summary_error">{{summary_error}}</span>
+                    </td>
+                </tr>
+                <tr class="{{content_row_class}}">
+                    <td colspan="3">
+                        <label style="float: right"><input type="checkbox" ng-model="content_preview" /> Preview</label>
+                        <label class="control-label" for="inputContent">Content</label>
+
+                        <textarea id="inputContent" name="content" class="mono text_region"
+                                  ng-model="new_article.content" ng-show="!content_preview"
+                                  rows="5"></textarea>
+                        <div id="content_md" class="text_region" ng-show="content_preview">
+                        </div>
+
+                        <br/>
+                        <small>This is a markdown-enabled field</small>
+                        <span class="help-inline" ng-visibile="content_error">{{content_error}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        &nbsp;
+                    </th>
+                    <td>
+                        <button name="add" class="btn cancel" type="submit">Cancel</button>
+
+                        <button name="add" ng-show="can_submit" ng_click="add_article()" class="btn btn-primary" type="submit">Add Article</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="span4">
+        <h3>Existing Articles:</h3>
+        <p>TODO</p>
+    </div>
+        </div>
+</span>
+</div>
+<script language="javascript">
+    var article = <%- JSON.stringify(article) %>;
+</script>
+<style>
+    .mono {
+        white-space: pre;
+        font-family: Monaco, "Courier New", Courier, monospace;
+        font-size: 85%;
+    }
+    .text_region {
+        height: 12em;
+        overflow: scroll;
+        width: 100%;
+        border: 1px solid rgb(153,153,153);
+    }
+</style>

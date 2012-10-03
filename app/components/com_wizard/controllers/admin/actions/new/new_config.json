@@ -1,0 +1,13 @@
+{
+
+    "method" : "*",
+
+    "get_route": "*/new",
+
+    "put_route": "*/new",
+
+    "javascript": [
+        "/js/wizard_support/util/utils.js"
+    ]
+
+}

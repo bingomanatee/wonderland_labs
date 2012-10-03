@@ -1,0 +1,24 @@
+<form class="form" method="post" style="padding: 0px; margin: 0px" action="/admin/member_role/<%- role.name.replace(/\s/g, '%20') %>/edit">
+ <input type="hidden" name="role[_id]" value="<%= role._id %>" />
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Edit Role</h3>
+    </div>
+    <div class="modal-body" style="min-height: 10em">
+        <label>Name</label><input type="text" name="role[name]" value="<%= role.name %>"/>
+        <fieldset>
+            <legend>Tasks</legend>
+            <% tasks.forEach(function(task){%>
+            <label style="display: inline-block; width: 12em">
+                <input name="role[tasks]" type="checkbox"
+                       <% if (task.checked){ %> checked="checked" <% } %>
+             value="<%= task.name %>"/> <%= task.name %></label>
+            <% }) %>
+        </fieldset>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary" type="submit">Update Role</button>
+    </div>
+</form>

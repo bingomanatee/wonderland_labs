@@ -1,0 +1,10 @@
+{
+    "options": [
+        {
+            "name":"unix_username",
+            "data_type":"string",
+            "default":"",
+            "notes":"the identity you use to maniuplate files. used by the own_by_me resource. "
+        }
+    ]
+}

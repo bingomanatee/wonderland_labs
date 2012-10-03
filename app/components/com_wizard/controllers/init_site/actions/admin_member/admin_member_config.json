@@ -1,0 +1,9 @@
+{
+    "post_route":"*/admin_member",
+    "get_route":"*/admin_member",
+    "method":"*",
+    "javascript": ["//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js",
+        "/js/init_site/admin_member/strength.js",
+        "/js/init_site/admin_member/validate.js"
+    ]
+}

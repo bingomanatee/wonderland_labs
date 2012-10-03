@@ -1,0 +1,14 @@
+{
+    "get_route":"*/add_scope",
+    "method":"*",
+    "put_route":"*/add_scope",
+    "post_route":"*/add_scope",
+    "delete_route":"*/add_scope",
+
+    "javascript":[
+        "/js/wiki/async.js",
+        "/js/wiki/marked.js",
+        "/js/wiki/wiki.js",
+        "/admin/js/wiki/add_scope/add_scope.js"
+    ]
+}

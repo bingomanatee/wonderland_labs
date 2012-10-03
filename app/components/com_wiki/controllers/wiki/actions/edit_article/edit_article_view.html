@@ -1,0 +1,192 @@
+<script type="text/javascript" language="javascript">
+    var article = <%- JSON.stringify(article) %>;
+    <% if (promoted){ %>
+    var promoted = <%- JSON.stringify(promoted) %>;
+    <% } else { %>
+    var promoted = false;
+    <% } %>
+
+</script>
+<script type="text/javascript" language="javascript"
+        src="/js/wiki/wiki.js?scope=<%= article.scope %>"
+        >
+
+</script>
+<div ng-app="scopes">
+    <span ng-controller="ScopesCtrl">
+    <h1>
+        <button class="btn pull-right" ng-click="show_history()"><i class="icon-search"></i> Show History
+        </button>
+        Edit Article <a href="/wiki/s/<%- article.scope %>"><%= article.scope %></a>:&quot;<%=article.title %>&quot; <span style="color: #808080">(<%= article.name %>)</span>
+    </h1>
+
+    <div class="row-fluid">
+        <div class="{{main_span}}">
+
+            <form class="form" method="POST" action="/wiki/ae" onsubmit="return false">
+                <ul class="nav nav-tabs" id="wiki_tab">
+                    <li><a href="#tab_title" data-toggle="tab">Title</a></li>
+                    <li><a href="#tab_summary" data-toggle="tab">Summary</a></li>
+                    <li><a href="#tab_content" data-toggle="tab">Content</a></li>
+                    <li><a href="#tab_promotion" data-toggle="tab">Promotion</a></li>
+                    <li><a href="#tab_debug" data-toggle="tab">Debug</a></li>
+                </ul>
+
+                <div id="wiki_tab_content" class="tab-content" style="padding-left: 2em">
+                    <div class="tab-pane clearfix" id="tab_debug">
+                        <pre>
+                            {{ article_json() }}
+                        </pre>
+                     </div>
+                        <div class="tab-pane clearfix" id="tab_title">
+                        <h3>Title</h3>
+                        <div class="row-fluid {{title_row_class}}">
+                            <div class="span2">  <label class="control-label" for="inputTitle">
+                                Title
+                            </label></div>
+                            <div class="span6">  <input id="inputTitle" type="text" class="input-xlarge" ng-model="edit_article.title"
+                                                        name="title"/></div>
+                            <div class="span4">
+                                <span class="help-inline" ng-visibile="title_error">{{title_error}}</span>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                    </div>
+                    <div class="tab-pane active" id="tab_summary">
+                        <div style="width:95%">
+                            <label style="float: right"><input type="checkbox" ng-model="summary_preview"/>
+                            Preview</label>
+                        <h3>Summary</h3>
+                            </div>
+                        <textarea style="padding: 0px" id="inputSummary" name="summary"
+                                  class="mono text_region"
+                                  ng-model="edit_article.summary" ng-show="!summary_preview"
+                                  rows="5"></textarea>
+
+                        <div id="summary_md" class="text_region" ng-show="summary_preview">
+                        </div>
+                        <small>This is a markdown-enabled field</small>
+                        <span class="help-inline" ng-visibile="summary_error">{{summary_error}}</span>
+
+
+                    </div>
+                    <!-- end summary tab -->
+                    <div class="tab-pane" id="tab_content">
+                        <span class="{{content_row_class}}">
+                            <td colspan="3">
+                                <div style="width: 95%">
+                                    <label style="float: right"><input type="checkbox" ng-model="content_preview"/>
+                                        Preview</label>
+                                    <h3>Content</h3>
+                                </div>
+                                <textarea style="padding: 0px" id="inputContent" name="content"
+                                               class="mono content_region"
+                                               ng-model="edit_article.content" ng-show="!content_preview"
+                                               rows="5"></textarea>
+
+                                <div id="content_md" class="content_region" ng-show="content_preview">
+                                </div>
+                                <small>This is a markdown-enabled field</small>
+                                <span class="help-inline" ng-visibile="content_error">{{content_error}}</span>
+                            </td>
+                        </span></div>
+                    <div class="tab-pane" id="tab_promotion"><h3>Promote on home page</h3>
+                        <label><input type="checkbox" ng-model="promote"/> Promote</label>
+
+                        <blockquote ng-show="promote">
+                            <label>
+                                <input type="checkbox" ng-model="promoted.limit_from"/>
+                                from </label>
+                                <span ng-show="promoted.limit_from" style="display: inline-block; width: 5em">
+                                    <input type="text" ng-model="promoted.limit_from_date"
+                                           class="datepicker input-medium"/>
+                                </span>
+
+                            <label>
+                                <input type="checkbox" ng-model="promoted.limit_to"/>
+                                to </label>
+                                <span ng-show="promoted.limit_to" style="display: inline-block; width: 5em">
+                                    <input type="text" ng-model="promoted.limit_to_date"
+                                           class="datepicker input-medium"/>
+                                    </span>
+                        </blockquote>
+                        <span class="help-inline">
+                         Dislay a link to this article on home page
+                        </span>
+
+                    </div>
+                </div>
+                <!-- end tab -->
+                <hr />
+                <div>
+                    <button name="cancel" class="btn cancel" ng_click="cancel_edit()" type="submit">Cancel
+                    </button>
+
+                    <button name="add" ng-show="can_submit" ng_click="update_article()" class="btn btn-primary"
+                            type="submit">
+                        <i class="icon-check"></i>
+                        Update Article
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="span4" ng-show="history">
+            <div class="well">
+
+                <h3>Revision history:</h3>
+
+                <table>
+                    <thead>
+                    <th>Date</th>
+                    <th>Author</th>
+                    </thead>
+                    <tr ng-repeat="article in versions">
+                        <td nowrap>{{ article.write_date }}</td>
+                        <td>{{ article.author.member_name }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div><!-- end history span -->
+        </div><!-- end main row span -->
+        </span><!-- end controller span -->
+        </div><!-- end ng-app scopes -->
+        <script language="javascript" type="text/javascript">
+            $(function () {
+                $('.datepicker').datepicker();
+
+                $('#wiki_tab a').click(function (e) {
+                    e.preventDefault();
+                    console.log('tabbing', this.innerHTML);
+                    $(this).tab('show');
+                })
+
+                $('#wiki_tab a:first').tab('show');
+            }
+        )
+        </script>
+
+
+<style>
+.mono {
+    white-space: pre;
+    font-family: Monaco, "Courier New", Courier, monospace;
+    font-size: 85%;
+}
+
+.text_region {
+    height: 12em;
+    overflow: scroll;
+    width: 95%;
+    border: 1px solid rgb(153, 153, 153);
+    display: block;
+}
+
+.content_region {
+    height: 18em;
+    overflow: scroll;
+    width: 95%;
+    border: 1px solid rgb(153, 153, 153);
+    display: block;
+}
+
+</style>

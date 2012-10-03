@@ -1,0 +1,74 @@
+<% if (list){%>
+
+<%- partial(helpers.nebsavr + '/data_table.html', data_table_config) %>
+        <% if (data_table_config.data.length >= 50){ %>
+
+        <p><small>Viewing first 50 members.</small></p>
+        <% } %>
+<% } else { %>
+<h1>Members</h1>
+<p>Please search for your members using the form below. Your result will return up to 50 members.</p>
+<div class="well">
+    <form class="form" id="member_search_form">
+        <table class="table">
+            <thead>
+            <tr>
+                <th width="23%"><input type="checkbox" name="find_by_name" onchange="MEMBER_SEARCH.refresh()"
+                                       checked="checked"/>
+                    Member or Real Name
+                </th>
+
+                <th width="23%"><input type="checkbox" name="find_by_role" onchange="MEMBER_SEARCH.refresh()"/>
+                    Role(s)
+                </th>
+
+                <th width="23%"><input type="checkbox" name="find_by_task" onchange="MEMBER_SEARCH.refresh()"/>
+                    Task(s)
+                </th>
+                <td width="20%">&nbsp;</td>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>
+                    <span id="name_to_find">
+                        <input type="text" name="name"/>
+                    </span>
+                </td>
+
+                <td>
+                    <span id="roles_to_find" style="display: none">
+
+                    <% roles.forEach(function(r){ %>
+                    <label>
+                        <input type="checkbox" name="roles"
+                               value="<%= r %>"/> <%= r %>
+                    </label>
+                    <% }) %>
+                    </span>
+                </td>
+
+                <td>
+                    <span id="tasks_to_find" style="display: none"><% tasks.forEach(function(t){ %>
+                    <label>
+                        <input type="checkbox" name="tasks"
+                               value="<%= t %>"/> <%= t %>
+                        <% }) %>
+                    </label></span>
+                </td>
+
+                <td>
+                    <button type="submit" class="btn btn-primary">Find Members</button>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<div class="well" id="members_list">
+    ...
+</div>
+<% } %>

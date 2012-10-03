@@ -1,0 +1,4 @@
+{
+    "method": "get",
+    "route": "/admin/member_tasks"
+}

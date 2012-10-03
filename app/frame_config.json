@@ -1,0 +1,20 @@
+{
+    "server":{
+        "port":80
+    },
+
+    "mongoose":{
+        "db":"ne_bootstrap"
+    },
+
+    "default_layout_name":"ne_bootstrap",
+
+    "open_admin":true,
+
+    "layout_name":"ne_bootstrap",
+
+    "session_secret": "Every minute you watch TV, one of your sperm commits suicide. two, if you're circumcised",
+
+    "css": []
+
+}

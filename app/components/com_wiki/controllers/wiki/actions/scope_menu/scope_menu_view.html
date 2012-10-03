@@ -1,0 +1,9 @@
+<div class="scope_menu">
+    <h3><%= scope.title %></h3>
+    <dl class="dl-horizontal">
+        <% items.forEach(function(si){ %>
+        <dt><a href="/wiki/a/<%= si.scope %>/<%= si.name %>"><%= si.title %></a></dt>
+        <dd><%- si.summary %></dd>
+        <% }) %>
+    </dl>
+</div>

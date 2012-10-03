@@ -1,0 +1,5 @@
+{
+    "name": "wizard_admin",
+    "route_prefix": "/admin/wizard",
+    "layout_name": "ne_bs_admin"
+}

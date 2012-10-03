@@ -1,0 +1,5 @@
+{
+    "method":"*",
+    "post_route":"*/unix_username",
+    "get_route":"*/unix_username"
+}

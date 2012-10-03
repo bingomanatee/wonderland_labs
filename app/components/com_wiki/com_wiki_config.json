@@ -1,0 +1,16 @@
+{
+    "tasks":[
+        "create article",
+        "edit own article",
+        "edit any article",
+        "rename article",
+        "delete own article",
+        "delete any article",
+
+        "create scope",
+        "edit own scope",
+        "edit any scope",
+        "delete own scope",
+        "delete any scope"
+    ]
+}

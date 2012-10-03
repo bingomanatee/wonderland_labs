@@ -1,0 +1,6 @@
+{
+
+    "name": "wizard_provider",
+    "route_prefix": "/wizard"
+
+}

@@ -1,0 +1,19 @@
+{
+    "method":"*",
+
+    "get_route":"*s",
+
+    "post_route":"*s/:wizard_name",
+
+    "javascript":[
+        "//code.angularjs.org/1.1.0/angular.min.js",
+        "//code.angularjs.org/1.1.0/angular-resource.min.js",
+        "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js",
+        "/admin/js/wizards/wizards.js",
+        "/js/wizard_support/ckeditor/ckeditor.js",
+        "/js/wizard_support/ckeditor/config.js"
+    ],
+
+    "overwrite":true
+
+}

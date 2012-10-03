@@ -1,0 +1,170 @@
+<div ng-app="scopes">
+    <span ng-controller="ScopesCtrl">
+
+        <h1>
+            Create Scope &quot;{{ new_scope.title}}&quot;
+            <span style="color: #808080">({{ new_scope.name }})</span>
+        </h1>
+
+        <form class="form" method="POST" action="/wiki/ae" onsubmit="return false">
+            <ul class="nav nav-tabs" id="wiki_tab">
+                <li><a href="#tab_title" data-toggle="tab">Name and Title</a></li>
+                <li><a href="#tab_summary" data-toggle="tab">Summary</a></li>
+                <li><a href="#tab_content" data-toggle="tab">Content</a></li>
+                <li><a href="#tab_promotion" data-toggle="tab">Promotion</a></li>
+            </ul>
+
+            <div id="wiki_tab_content" class="tab-content" style="padding-left: 2em">
+                <div class="tab-pane clearfix" id="tab_title">
+                    <h3>Name and Title</h3>
+                    <div class="row-fluid {{name_row_class}}">
+                        <div class="span2">  <label class="control-label" for="inputName">
+                            Name
+                        </label></div>
+                        <div class="span6">
+                            <input id="inputName" type="text" class="input-xlarge"
+                                   ng-model="new_scope.name" name="name"/></div>
+                        <div class="span4">
+                            <span class="help-inline" ng-visibile="name_error">{{name_error}}</span>
+                        </div>
+                    </div>
+                    <div class="row-fluid {{title_row_class}}">
+                        <div class="span2">  <label class="control-label" for="inputTitle">
+                            Title
+                        </label></div>
+                        <div class="span6">
+                            <input id="inputTitle" type="text" class="input-xlarge"
+                                   ng-model="new_scope.title" name="title"/></div>
+                        <div class="span4">
+                            <span class="help-inline" ng-visibile="title_error">{{title_error}}</span>
+                        </div>
+                    </div>
+                    <!-- end row -->
+                </div>
+                <div class="tab-pane active" id="tab_summary">
+                    <div style="width:95%" class="{{summary_row_class}}">
+                        <label style="float: right"><input type="checkbox" ng-model="summary_preview"/>
+                        Preview</label>
+                    <h3>Summary</h3>
+                    <textarea style="padding: 0px" id="inputSummary" name="summary"
+                              class="mono text_region"
+                              ng-model="new_scope.summary" ng-show="!summary_preview"
+                              rows="5"></textarea>
+
+                    <div id="summary_md" class="text_region" ng-show="summary_preview">
+                    </div>
+                    <small>This is a markdown-enabled field</small>
+                    <span class="help-inline" ng-visibile="summary_error">{{summary_error}}</span>
+
+
+                </div>
+                </div>
+                <!-- end summary tab -->
+                <div class="tab-pane" id="tab_content">
+                    <span class="{{content_row_class}}">
+                            <div style="width: 95%">
+                                <label style="float: right">
+                                    <input type="checkbox" ng-model="content_preview"/>
+                                    Preview</label>
+                                <h3>Content</h3>
+                            </div>
+                            <textarea style="padding: 0px" id="inputContent" name="content"
+                                           class="mono content_region"
+                                           ng-model="new_scope.content" ng-show="!content_preview"
+                                           rows="7"></textarea>
+
+                            <div id="content_md" class="content_region" ng-show="content_preview">
+                            </div>
+                            <small>This is a markdown-enabled field</small>
+                            <span class="help-inline" ng-visibile="content_error">{{content_error}}</span>
+                    </span></div>
+                <div class="tab-pane" id="tab_promotion"><h3>Promote on home page</h3>
+                    <label><input type="checkbox" ng-model="promote"/> Promote</label>
+
+                    <blockquote ng-show="promote">
+                        <label>
+                            <input type="checkbox" ng-model="promoted.limit_from"/>
+                            from </label>
+                            <span ng-show="promoted.limit_from"
+                                  style="display: inline-block; width: 5em">
+                                <input type="text" ng-model="promoted.limit_from_date"
+                                       class="datepicker input-medium"/>
+                            </span>
+
+                        <label>
+                            <input type="checkbox" ng-model="promoted.limit_to"/>
+                            to </label>
+                            <span ng-show="promoted.limit_to"
+                                  style="display: inline-block; width: 5em">
+                                <input type="text" ng-model="promoted.limit_to_date"
+                                       class="datepicker input-medium"/>
+                                </span>
+                    </blockquote>
+                    <span class="help-inline">
+                     Dislay a link to this scope on home page
+                    </span>
+
+                </div>
+            </div>
+            <!-- end tab -->
+            <div style="margin-top: 2em;">
+                <button name="cancel" class="btn cancel" ng_click="cancel_edit()" type="submit">Cancel
+                </button>
+
+                <button name="add" ng-show="can_submit" ng_click="create_scope()"
+                        class="btn btn-primary" style="display: none"
+                        type="submit">
+                    <i class="icon-plus"></i>
+                    Create Scope
+                </button>
+                <span ng-show="!can_submit">Edit all four fields: name, title, summary, content</span>
+            </div>
+        </form>
+<ul>
+    <li>Name Error {{ name_error }}/ row class {{ name_row_class }}</li>
+    <li>Title Error {{ title_error }}/ title class {{ title_row_class }}</li>
+    <li>Content Error {{ content_error }}/ content class {{ content_row_class }}</li>
+    <li>Summary Error {{ summary_error }}/ summary class {{ summary_row_class }}</li>
+</ul>
+    </span><!-- end controller span -->
+</div><!-- end ng-app scopes -->
+<script language="javascript" type="text/javascript">
+    $(function () {
+        $('.datepicker').datepicker();
+
+        $('#wiki_tab a').click(function (e) {
+            e.preventDefault();
+            console.log('tabbing', this.innerHTML);
+            $(this).tab('show');
+        })
+
+        $('#wiki_tab a:first').tab('show');
+    }
+)
+</script>
+
+
+<style>
+            .mono {
+                white-space: pre;
+                font-family: Monaco, "Courier New", Courier, monospace;
+                font-size: 85%;
+            }
+
+            .text_region {
+                height: 12em;
+                overflow: scroll;
+                width: 95%;
+                border: 1px solid rgb(153, 153, 153);
+                display: block;
+            }
+
+            .content_region {
+                height: 18em;
+                overflow: scroll;
+                width: 95%;
+                border: 1px solid rgb(153, 153, 153);
+                display: block;
+            }
+
+        </style>

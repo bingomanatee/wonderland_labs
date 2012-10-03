@@ -1,0 +1,23 @@
+{
+
+    "options":[
+        {
+            "name":"facebook_app_id",
+            "data_type":"string",
+            "default":"",
+            "notes":"the app id given in your Facebook app configuration page. "
+        },
+        {
+            "name":"facebook_app_secret",
+            "data_type":"string",
+            "default":"",
+            "notes":"the app secret given in your Facebook app configuration page."
+        },
+        {
+            "name":"facebook_app_domain",
+            "data_type":"string",
+            "default":"",
+            "notes":"the app domain given in your Facebook app configuration page."
+        }
+    ]
+}

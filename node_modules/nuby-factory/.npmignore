@@ -1,0 +1,14 @@
+.DS_Store
+/tests/wizard_test/
+/tests/com_test/com_maker/com_maker_config.json
+/tests/com_test/com_maker/components/com_foo/com_foo_config.json
+/tests/com_test/com_maker/controllers/bar/actions/bob/bob_action.js
+/tests/com_test/com_maker/controllers/bar/actions/bob/bob_config.json
+/tests/com_test/com_maker/controllers/bar/actions/bob/bob_view.html
+/tests/com_test/com_maker/controllers/bar/actions/ray/ray_action.js
+/tests/com_test/com_maker/controllers/bar/actions/ray/ray_config.json
+/tests/com_test/com_maker/controllers/bar/actions/ray/ray_view.html
+/tests/com_test/com_maker/controllers/bar/bar_config.json
+/tests/com_test/components/com_maker/com_maker_config.json
+/tests/com_test/
+/.idea/

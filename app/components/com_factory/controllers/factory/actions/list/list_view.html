@@ -1,0 +1,244 @@
+<%
+var methods = '<option value="*">All</option>' +
+'<option value="get">Get</option>' +
+'<option value="post">Post</option>' +
+'<option value="put">Put</option>' +
+'<option value="delete">Delete</option>'
+%>
+<h2>Site Maker</h2>
+<ul class="nav nav-tabs" id="pane_tab">
+    <li class="active">
+        <a href="#pane_frame" data-toggle="tab">Add Components </a>
+    </li>
+
+    <li><a href="#pane_comp" data-toggle="tab">Components: Add Controllers</a>
+    </li>
+
+    <li><a href="#pane_con" data-toggle="tab">Controllers: Add Actions</a>
+    </li>
+
+    <li><a href="#pane_act" data-toggle="tab">Actions</a>
+    </li>
+
+    <li><a href="#pane_route" data-toggle="tab">Routes</a>
+    </li>
+
+    <li><a href="#static_path_route" data-toggle="tab">Static Files</a>
+    </li>
+</ul>
+<div id="pane_tab_content" class="tab-content">
+    <div class="tab-pane active" id="pane_frame">
+        <div><%= framework %>
+            <button onClick="NE_MAKE.add_component('<%= framework %>', 'framework')">Add Component</button>
+        </div>
+    </div>
+
+    <div class="tab-pane" id="pane_comp">
+        <% components.forEach(function(c){%>
+        <div><%= c %>
+            <button onClick="NE_MAKE.add_controller('<%= c %>', 'component')">Add Controller</button>
+        </div>
+        <%}); %>
+
+    </div>
+
+    <div class="tab-pane" id="pane_con">
+        <h3>Controllers</h3>
+        <ul>
+            <% controllers.forEach(function(c){%>
+            <li><%= c %>
+                <button onClick="NE_MAKE.add_action('<%= c %>')">Add Action</button>
+            </li>
+            <%}); %>
+        </ul>
+    </div>
+
+    <div class="tab-pane" id="pane_act">
+
+        <h3>Actions</h3>
+        <ul>
+            <% actions.forEach(function(c){%>
+            <li><%= c %></li>
+            <%}); %>
+        </ul>
+    </div>
+
+    <div class="tab-pane" id="pane_route">
+
+
+        <h3>Routes</h3>
+        <ul>
+            <% routes.forEach(function(c){%>
+            <li><b><%= c.route %></b>(<%-c.method %>) <%if (c.method == 'get'){%>
+                <a href="<%- c.route %>">View</a><%} %>
+            </li>
+            <%}); %>
+        </ul>
+    </div>
+
+    <div class="tab-pane" id="static_path_route">
+        <h3>Static roots</h3>
+        <ul>
+        <% statics.forEach(function(s){ if (s.prefix) { %>
+        <li><b><%= s.prefix %></b> (<%= s.root %>)</li>
+        <% }}) %>
+        </ul>
+
+    </div>
+</div>
+
+
+<!-- **************************** MAKE COMPONENT FORM ********************************** -->
+
+<form action="/make_component" method="post" id="new_comp" style="display: none" class="new">
+    <input type="hidden" name="type"/>
+    <input type="hidden" name="root"/>
+
+    <p><b>Root Path</b>: <tt class="root"></tt><br/>
+        <b>Root Type</b>: <span class="root_type"/></span></p>
+    <table>
+        <thead>
+
+        <tr>
+            <td colspan="6">
+
+                <h3>Root Component Name</h3>
+                <label>Name</label><input name="comp_name" type="text"/>
+
+                <small><span color="red">Required</span> - all other fields are optional</small>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th colspan="2"> Controller 1</th>
+            <th colspan="2">Controller 2</th>
+            <th colspan="2">Controller 3</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input name="controller1" type="text">
+            </td>
+            <td colspan="2"><input name="controller2" type="text">
+            </td>
+            <td colspan="2"><input name="controller3" type="text"></td>
+        </tr>
+        <tr>
+            <th>Action Name<sup>*</sup></th>
+            <th>Method</th>
+            <th>Action Name<sup>*</sup></th>
+            <th>Method</th>
+            <th>Action Name<sup>*</sup></th>
+            <th>Method</th>
+        </tr>
+        <% for(var actnum = 1; actnum <5; ++actnum ){ %>
+        <tr>
+            <% for (var con = 1; con <= 3; ++con) {%>
+            <td><input name="con_<%= con %>_action_<%= actnum %>" type="text"/></td>
+            <td><select name="con_<%= con %>_action_<%= actnum %>_method"><%- methods %></select></td>
+            <% } %>
+        </tr>
+        <%} %>
+        </tbody>
+    </table>
+
+    <hr/>
+    <button type="submit">Make Component</button>
+    <p style="color: red">You will have to restart your app to enable new elements</p>
+
+    <p>* the name you choose will be part of a url - so no spaces, special symbols, capital letters</p>
+</form>
+
+
+<!-- **************************** MAKE CONTROLLER FORM ********************************** -->
+
+<form action="/make_controller" method="post" id="new_con" style="display: none" class="new">
+    <input type="hidden" name="type"/>
+    <input type="hidden" name="root"/>
+
+    <p><b>Root Path</b>: <tt class="root"></tt><br/>
+        <b>Root Type</b>: <span class="root_type"/></span></p>
+    <table>
+        <thead>
+
+        <tr>
+            <td colspan="2">
+
+                <h3>Controller Name</h3>
+                <label>Name</label><input name="con_name" type="text"/> <br/>
+
+                <small><span color="red">Required</span> - all other fields are optional</small>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>Action Name<sup>*</sup></th>
+            <th>Method</th>
+        </tr>
+        <% for(var actnum = 1; actnum <5; ++actnum ){ %>
+        <tr>
+            <td><input name="action_<%= actnum %>" type="text"/></td>
+            <td><select name="action_<%= actnum %>_method"><%- methods %></select></td>
+        </tr>
+        <%} %>
+        </tbody>
+    </table>
+
+    <hr/>
+    <button type="submit">Make Controller</button>
+    <p style="color: red">You will have to restart your app to enable new elements</p>
+
+    <p>* the name you choose will be part of a url - so no spaces, special symbols, capital letters</p>
+</form>
+
+
+<!-- **************************** MAKE ACTION FORM ********************************** -->
+
+<form action="/make_action" method="post" id="new_action" style="display: none" class="new">
+    <input type="hidden" name="type"/>
+    <input type="hidden" name="root"/>
+
+    <p><b>Root Path</b>: <tt class="root"></tt><br/>
+        <b>Root Type</b>: <span class="root_type"/></span></p>
+    <table>
+        <tbody>
+        <tr>
+            <th>Action Name<sup>*</sup></th>
+            <th>Method</th>
+        </tr>
+        <% for(var actnum = 1; actnum <5; ++actnum ){ %>
+        <tr>
+            <td><input name="action_<%= actnum %>" type="text"/></td>
+            <td><select name="action_<%= actnum %>_method"><%- methods %></select></td>
+        </tr>
+        <%} %>
+        </tbody>
+    </table>
+
+    <hr/>
+    <button type="submit">Make Actions</button>
+    <p style="color: red">You will have to restart your app to enable new actions</p>
+
+    <p>* the name you choose will be part of a url - so no spaces, special symbols, capital letters</p>
+</form>
+
+<script type="text/javascript">
+    $(
+            function () {
+                $('#pane_tab a').click(function (e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                })
+
+                $('#pane_tab a:first').tab('show');
+            }
+    )
+</script>
+
+<style>
+   #pane_tab_content div.tab-pane {
+       max-height: 40em;
+       overflow: scroll;
+   }
+</style>

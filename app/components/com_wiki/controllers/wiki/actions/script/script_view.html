@@ -1,0 +1,39 @@
+<% if (false) {%>
+<script language="javascript">
+    //  <% } %>
+    function wiki(txt, callback, env) {
+        // <% if (scope) { %>
+        var scope = "<%=  scope %>";
+        // <% } else { %>
+        var scope = '';
+        // <% } %>
+
+        if (!callback){
+            throw new Error('no callback to wiki');
+        } else {
+            console.log('wiki callback: ', callback);
+        }
+
+        function marked_cb(txt, cb) {
+            if (!cb){
+                throw new Error('marked_cb: no callback passed');
+            }
+            try {
+                txt = marked(txt);
+                cb(null, txt);
+            } catch (err) {
+                cb(err);
+            }
+        }
+
+        async.waterfall([
+                function(cb){
+                    cb(null, txt)
+                },
+<%- parsers.join(',') %>
+        ], callback);
+
+    }
+    //  <% if (false) {%>
+</script>
+<% } %>

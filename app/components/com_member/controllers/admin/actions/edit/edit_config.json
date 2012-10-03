@@ -1,0 +1,5 @@
+{
+    "method": "*",
+    "get_route": "/admin/member/:_id",
+    "post_route": "/admin/member/:_id"
+}

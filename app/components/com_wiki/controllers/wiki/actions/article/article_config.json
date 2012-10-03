@@ -1,0 +1,8 @@
+{
+    "route":["*/a/:scope/:article", "*/s/:scope"],
+    "method":"get",
+    "javascript_head": [
+        "/js/wiki/async.js",
+        "/js/wiki/marked.js"
+    ]
+}

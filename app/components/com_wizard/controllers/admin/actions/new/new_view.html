@@ -1,0 +1,43 @@
+<h1>Create Wizard</h1>
+
+<figure>
+    <form class="dialog_form" id="new_wizard">
+        <table>
+            <tr>
+                <th><label>Name</label></th>
+                <td><input type="text" name="title" ng-model="new_wizard.title"/></td>
+            </tr>
+
+            <tr>
+                <th><label>Description</label></th>
+                <td><textarea name="notes" ng-model="new_wizard.notes"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <th><label>Definition Path</label></th>
+                <td><input type="text" name="def_path" ng-model="new_wizard.def_path"/></td>
+            </tr>
+
+            <tr>
+                <th>&nbsp;</th>
+                <td>
+                    <button type="submit">Create</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</figure>
+
+<script language="javascript">
+    $('#new_wizard').submit(function () {
+        var data = deserialize($('#new_wizard').serializeArray())
+        console.log('data', data);
+        $.post('/admin/wizard/rest', data, function(result){
+            console.log('put result: ', result);
+            document.location = '/admin/wizards';
+        })
+        return false;
+    })
+
+</script>

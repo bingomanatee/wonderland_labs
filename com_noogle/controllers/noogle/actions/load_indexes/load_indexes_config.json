@@ -1,0 +1,4 @@
+{
+    "method": "get",
+    "route": "*/load_indexes/:scope"
+}

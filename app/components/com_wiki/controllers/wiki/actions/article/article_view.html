@@ -1,0 +1,84 @@
+<% if (article.scope_root){ %>
+<script language="javascript">
+
+    function new_article(scope) {
+        var a_name = window.prompt('New Article in ' + scope, 'new_article');
+        if (/[_\w]{3,}/.test(a_name)) {
+            document.location = '/wiki/' + scope + '/' + a_name + '/new';
+        }
+    }
+
+</script>
+
+<h1><%= article.title %>: home
+    <% if (can_create){ %>
+    <button class="btn pull-right"
+            onclick="new_article('<%= article.scope %>')"
+            ><i class="icon-plus"></i> Create Scope Article
+    </button>
+    <% } %>
+    <button class="btn pull-right"
+            onclick="document.location='/wiki/se/<%= article.scope %>'; return false"
+            ><i class="icon-pencil"></i> Edit Scope Article
+    </button>
+</h1>
+<% } else { %>
+<h1><a href="/wiki/s/<%- article.scope %>"><%= article.scope %></a>: <%= article.title %>
+    <button class="btn pull-right"
+            onclick="document.location='/wiki/ae/<%= article.scope %>/<%= article.name %>'; return false"
+            ><i class="icon-pencil"></i> Edit Article
+    </button>
+</h1>
+<% } %>
+
+<article style="display: none">
+    <% if (article.linked_from.length){%>
+    <div class="well">
+        <b>Linked From </b> <% article.linked_from.forEach(function(from_art){
+        if (from_art.name == from_art.scope){
+        %><a href="/wiki/s/<%- from_art.scope %>"><%- from_art.title ? from_art.title : from_art.name.replace(/_/g, ' ')
+        %></a>
+        <% } else {
+        %><a href="/wiki/a/<%- from_art.scope %>/<%- from_art.name %>"><%- from_art.title ? from_art.title :
+        from_art.name.replace(/_/g, ' ') %></a>
+        <% } // if scope.root
+        }) %>
+    </div>
+    <% } %>
+    <div class="summary">
+        <%- article.summary %>
+    </div>
+    <hr/>
+    <div class="content"><%- article.content %></div>
+</article>
+<script type="text/javascript" language="javascript"
+        src="/js/wiki/wiki.js?scope=<%= article.scope %>">
+</script>
+<script type="text/javascript" language="javascript">
+    $(function () {
+
+        var hs = $('article .summary').html();
+
+        var hcount = 0;
+
+        wiki(hs, function (err, txt) {
+            $('article .summary').html(txt);
+            show_article();
+        })
+
+        var hc = $('article .content').html();
+
+        wiki(hc, function (err, txt) {
+            $('article .content').html(txt);
+            show_article();
+        })
+
+        function show_article() {
+            if (++hcount > 1) {
+                $('article').show();
+            }
+        }
+
+    })
+
+</script>

@@ -1,0 +1,5 @@
+{
+    "route":"/js/wiki/wiki.js",
+    "method":"get",
+    "layout_name": "empty"
+}

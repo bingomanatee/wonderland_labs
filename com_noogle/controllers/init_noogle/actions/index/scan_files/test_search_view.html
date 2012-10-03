@@ -1,0 +1,14 @@
+<form method="post" class="wizard"><h1>Initilaize Noogle</h1>
+<%- partial("../../views/step_header.html", {step: "test_search"}) %> <br />
+<h2>Test Search</h2>
+<p>
+	Let&#39;s see what results we get with the currently indexed data.&nbsp;</p>
+<p>
+	<label>Search:</label>&nbsp;<input name="search_term" type="text" /></p>
+<p>
+	results:&nbsp;</p>
+<div id="search_results">
+....
+</div>
+
+<%- partial("../../views/step_footer.html", {step: "test_search"}) %></form>

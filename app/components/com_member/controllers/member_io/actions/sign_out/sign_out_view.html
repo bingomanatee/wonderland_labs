@@ -1,0 +1,13 @@
+<form class="form" id="sign_out_form" method="post" style="padding: 0px; margin: 0px" action="/sign_out">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Sign Out</h3>
+    </div>
+    <div class="modal-body" style="min-height: 10em">
+        <p>Do you want to sign out of <%- layout_options.site-name %></p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="$('#modal').empty(); $('#modal').hide(); return false;">Cancel</button>
+        <button class="btn btn-primary" type="submit">Goodbye</button>
+    </div>
+</form>

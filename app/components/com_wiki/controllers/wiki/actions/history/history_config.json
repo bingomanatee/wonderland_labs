@@ -1,0 +1,5 @@
+{
+    "route":["*/article_history/:scope/:article", "*/article_history/:scope"],
+
+    "method":"get"
+}

@@ -1,0 +1,57 @@
+<div class="wizard_outer">
+    <div class="wizard_frame">
+        <div class="wizard_content">
+
+            <h2><%= wizard.title %></h2>
+
+            <div class="content">
+                <%- wizard.content %>
+            </div>
+
+            <div class="nav">
+                <table>
+                    <tr><% steps.forEach(function(step){ %>
+
+                        <td class="step step_<%= step.order %>">
+                            <span class="number"><%= step.order %></span>
+                            <span class="name"><%= step.bc_title %></span></td>
+                        <% }) %>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    <span class="feedback">
+
+    </span>
+        <div class="steps">
+            <% steps.forEach(function(step){ %>
+            <div class="step step_<%= step.order %>">
+                <div class="step_inner">
+
+                    <h3><%= step.title %></h3>
+
+                    <div class="content <%= step.content_type ? step.content_type : 'text' %>"><%- step.content %>
+                        <span class="post_content"></span></div>
+                </div>
+                <div class="controls">
+                    <button class="first" tabindex="1000">Start Over</button>
+                    <button class="prev" tabindex="900">Back</button>
+                    <button class="next" tabindex="800">Next</button>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+<% if (script){ %>
+<script type="text/javascript" language="javascript">
+    <%= script %>
+    var wiz;
+
+    $(function () {
+        wiz = new NE_WIZARD.Wizard();
+        wiz.load('.wizard_outer');
+        wiz.init();
+    })
+</script>
+<% } %>

@@ -1,0 +1,7 @@
+{
+    "method":"*",
+    "get_route":["*/article_rest/:scope/:article", "*/article_rest/:scope"],
+    "put_route":["*/article_rest/:scope/:article", "*/article_rest/:scope"],
+    "post_route":["*/article_rest/:scope/:article", "*/article_rest/:scope"],
+    "delete_route":["*/article_rest/:scope/:article", "*/article_rest/:scope"]
+}

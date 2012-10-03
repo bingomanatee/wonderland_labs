@@ -1,0 +1,11 @@
+{
+    "get_route":"*/scopes",
+    "method":"*",
+    "put_route":"*/scopes",
+    "post_route":"*/scopes",
+    "delete_route":"*/scopes",
+
+    "javascript": [
+    "/admin/js/wiki/scopes/scopes.js"
+    ]
+}

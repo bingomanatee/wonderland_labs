@@ -1,0 +1,14 @@
+{
+
+    "method" : "*",
+
+    "get_route": ["*/rest", "*/rest/:_id"],
+
+    "post_route": "*/rest",
+
+    "put_route": "*/rest/:_id",
+
+    "delete_route": "*/rest/:_id",
+
+    "a": true
+}

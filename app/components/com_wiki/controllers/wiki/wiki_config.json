@@ -1,0 +1,8 @@
+{
+    "javascript_head":[
+        "//code.angularjs.org/1.1.0/angular.min.js",
+        "//code.angularjs.org/1.1.0/angular-resource.min.js"
+    ],
+    "layout_name":"ne_bs_wiki",
+    "route_prefix": "/wiki"
+}

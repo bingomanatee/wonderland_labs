@@ -1,0 +1,6 @@
+{
+    "route":["*/find_result",
+    "*/find_result/:size",
+    "*/find_result/:size/:start"],
+    "method":"post"
+}

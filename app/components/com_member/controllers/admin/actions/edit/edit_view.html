@@ -1,0 +1,56 @@
+<h1>Member &quot;<%= member.member_name %><% if (member.real_name){ %>(<%= member.real_name %>)<% } %>&quot;</h1>
+
+
+<form class="form" method="post" action="/admin/member/<%= member._id %>">
+    <input type="hidden" name="member[_id]" value="<%= member._id %>"/>
+    <table class="table">
+
+        <tbody>
+
+        <tr>
+            <th>Member Name</th>
+            <td><input type="text" name="member[member_name]" class="input-xlarge" value="<%- member.member_name %>"/></td>
+        </tr>
+
+        <tr>
+            <th>Real Name</th>
+            <td><input type="text" name="member[real_name]" class="input-xlarge"  value="<%- member.member_name %>"/></td>
+        </tr>
+
+
+        <tr>
+            <th>eMail</th>
+            <td><input type="text" name="member[email]" class="input-xlarge"  value="<%- member.email %>"/></td>
+        </tr>
+
+        <tr>
+            <th>Public Profile</th>
+            <td><textarea name="member[public_profile]" class="input-xlarge" ><%- member.public_profile %></textarea></td>
+        </tr>
+        <tr>
+            <th>Private Profile</th>
+            <td><textarea name="member[private_profile]" class="input-xlarge" ><%- member.private_profile %></textarea></td>
+        </tr>
+
+        <tr>
+            <th>Roles</th>
+            <td>
+                <% roles.forEach(function(role){ %>
+                <label><input type="checkbox" name="member[roles][]" value="<%= role.name %>" <% if (role.checked){ %>
+                    checked="checked" <% } %> />
+                    <%= role.name %></label>
+                <% }) %>
+            </td>
+        </tr>
+
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <button type="submit" class="btn btn-primary">Update Member</button>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</form>

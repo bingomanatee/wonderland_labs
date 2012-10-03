@@ -1,0 +1,1 @@
+{"route":["*/import", "*/import/:scope"],"method":"get"}

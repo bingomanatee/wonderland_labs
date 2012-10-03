@@ -1,0 +1,15 @@
+{
+    "method":"get",
+    "get_route":"*/create_scope",
+
+    "javascript_head": [
+        "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js"
+    ],
+    "javascript":[
+        "/admin/js/wiki/create/jquery.date_format.js",
+        "/js/wiki/async.js",
+        "/js/wiki/marked.js",
+        "/js/wiki/wiki.js",
+        "/admin/js/wiki/create/create.js"
+    ]
+}

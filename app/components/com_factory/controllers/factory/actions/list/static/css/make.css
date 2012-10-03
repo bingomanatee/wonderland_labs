@@ -1,0 +1,43 @@
+form.new {
+    font-size: 110%;
+    font-family: "Helvetica Neue", Helvetica, Genevaa, Arial, sans-serif;
+    -webkit-appearance: none;
+}
+
+form.new td,
+form.new th {
+    padding: 0.25em;
+    margin: 0px;
+    vertical-align: top;
+    text-align: left;
+}
+
+form.new tbody  th {
+    background-color: rgb(225, 225, 225);
+    border-bottom: 1px solid black;
+}
+
+form.new  tbody td input[type="text"] {
+    width: 16em;
+    padding: 3px;
+}
+
+form.new  thead td input[type="text"] {
+    width: 18em;
+    padding: 3px;
+}
+
+form.new input[type="button"] {
+    width: 18em;
+    padding: 3px;
+    font-weight: bold;
+}
+
+form.new button {
+    font-weight: bold;
+    padding: 0.25em;
+    width: 16em;
+    -webkit-appearance: none;
+    font-size: 90%;
+    background-color: rgb(255, 250, 240);
+}

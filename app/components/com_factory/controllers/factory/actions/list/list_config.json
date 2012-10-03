@@ -1,0 +1,13 @@
+{
+    "method":"get",
+
+    "route":"*/make",
+
+    "javascript":[
+        "/js/make/make_client_side.js"
+    ],
+    "css":[
+        "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css",
+        "/css/make/make.css"
+    ]
+}

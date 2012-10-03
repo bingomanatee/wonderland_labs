@@ -1,0 +1,84 @@
+<h1>Roles</h1>
+<p>These are roles that can be assigned to members to give them enhanced access to the site's features. Members can have
+    more than one role.</p>
+
+<div class="well-large">
+    <%- partial(helpers.nebsavr + '/data_table.html', data_table_config) %>
+    <hr/>
+    <a href="#new_role_modal" class="btn btn-primary" role="btn" data-toggle="modal"><i class="icon-edit"></i> Crete
+        Role</a>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="new_role_modal" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="display: none"
+        >
+    <form class="form" method="post" style="padding: 0px; margin: 0px" action="/admin/member_role/0/new">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Add Role</h3>
+        </div>
+        <div class="modal-body" style="min-height: 10em">
+            <label>Name</label><input type="text" name="role[name]"/>
+            <fieldset>
+                <legend>Tasks</legend>
+                <% tasks.forEach(function(task){%>
+                <label style="display: inline-block; width: 12em"
+                        ><input name="role[tasks]" type="checkbox"
+                                value="<%= task %>"/> <%= task %></label>
+                <% }) %>
+            </fieldset>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary" type="submit">Create Role</button>
+        </div>
+    </form>
+</div>
+
+
+<div class="modal" id="edit_role_modal" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="display: none"
+        >
+</div>
+
+<script language="javascript">
+    $(function () {
+        $('#new_role_modal form').submit(function () {
+            try {
+
+                var d = form_data('#new_role_modal form');
+
+                $.post('/admin/member_role/0/new', d, function (result) {
+                    document.location.reload();
+                })
+            } catch (err) {
+                console.log(err);
+            }
+            return false;
+        })
+    })
+
+
+    function form_data(form_id) {
+        var sd = $(form_id).serializeArray();
+        return _.reduce(sd, function (m, f) {
+            if (m[f.name]){
+                if (!_.isArray(m[f.name])){
+                    m[f.name] = [m[f.name]];
+                }
+                m[f.name].push(f.value);
+            } else {
+                m[f.name] = f.value;
+            }
+            return m;
+        }, {})
+    }
+
+    function edit_role(name) {
+        $('#edit_role_modal').load('/admin/member_role/' + name + '/edit')
+    }
+</script>

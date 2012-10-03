@@ -1,0 +1,83 @@
+<form method="post" class="wizard form"><h1>Site Initialization</h1>
+<%- partial("../../views/step_header.html", {step: "admin_member"}) %> <br />
+<h2>Admin Member</h2>
+<p>
+	Create an administrative user with full privileges.&nbsp;</p>
+
+              <fieldset style="width: auto">
+                  <legend>Required Fields</legend>
+                  <table class="table">
+                      <tbody>
+                      <tr class="member_name_row first">
+                          <th  width="20%">Member Name</th>
+                          <td><input name="member[member_name]" type="text" onkeyup="REG.val()"
+                                     tabindex="1" placeholder="Use this to sign in" />
+                          </td>
+                          <td class="alert_ph"></td>
+                      </tr>
+                      <tr class="pass_row">
+                          <th>Password</th>
+                          <td><input name="member[pass]" type="password" onkeyup="REG.val()"
+                                     tabindex="2" placeholder="required - must match" /><br/>
+                              <span class="pass_time"/>
+
+                          </td>
+                          <td class="alert_ph"></td>
+
+                      </tr>
+                      <tr class="pass2_row">
+                          <th>Password (repeat)</th>
+                          <td><input name="member[pass2]" type="password" onkeyup="REG.val()"
+                                     tabindex="3" placeholder="required - must match" /></td>
+                          <td class="alert_ph"></td>
+
+                      </tr>
+                      <tr class="pass_rating_row">
+                          <td colspan="3">
+                              <div class="progress">
+                                  <div id="pass_bar" class="bar" style="width: 0%;"></div>
+                              </div>
+                          </td>
+                      </tr>
+                      <tr class="pass_rating_desc_row first">
+                          <td colspan="3" class="alert_ph">
+
+                          </td>
+                      </tr>
+                  </table>
+              </fieldset>
+
+              <fieldset style="width: auto">
+                  <legend>Optional Fields</legend>
+                  <table class="table">
+                      <tr class="real_name_row first">
+                          <th width="20%">Real Name</th>
+                          <td><input name="member[real_name]" type="text" onkeyup="REG.val()"
+                                     tabindex="4" placeholder="optional" /></td>
+                          <td class="alert_ph"></td>
+                      </tr>
+                      <tr>
+                          <th>Email</th>
+                          <td><input name="member[email]" onkeyup="REG.val()" type="text"
+                                     tabindex="5" placeholder="optional - useful for password retrieval"
+                                     /></td>
+                      </tr>
+                      <tr>
+                          <th>Public Biography</th>
+                          <td><textarea name="member[public_profile]" placeholder="optional - exposed to membership"
+                                        tabindex="6"  style="height: 8em"></textarea></td>
+                      </tr>
+                      <tr>
+                          <th>Private Biography</th>
+                          <td><textarea name="member[private_profile]"
+                                        tabindex="7" placeholder="optional - only viewable by site management"
+                                         style="height: 8em"></textarea></td>
+                      </tr>
+                      </tbody>
+
+                  </table>
+
+              </fieldset>
+	<p>
+		Note - at this time you (actually, <u><strong>everyone</strong></u>) &nbsp;have full access to this site without an admin user because the configuration property &quot;open_admin&quot; is true. Once that flag has been set to false, only privlieged users will have access to this site&#39;s admin layer. You must change that configuration setting soon and restart your app to secure your site.&nbsp;</p>
+<%- partial("../../views/step_footer.html", {step: "admin_member"}) %></form>

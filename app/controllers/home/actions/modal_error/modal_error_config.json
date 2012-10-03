@@ -1,0 +1,5 @@
+{
+    "method": "get",
+    "route": "/modal_error",
+    "layout_name": "empty"
+}

@@ -1,0 +1,5 @@
+{
+    "method": "get",
+    "route": "/modal_confirm",
+    "layout_name": "empty"
+}

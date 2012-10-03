@@ -1,0 +1,11 @@
+{
+    "route":"*/:scope/:article/new",
+    "method":"get",
+
+    "javascript":[
+        "/js/wiki/async.js",
+        "/js/wiki/marked.js",
+        "/js/wiki/wiki.js",
+        "/js/wiki/new/new.js"
+    ]
+}
