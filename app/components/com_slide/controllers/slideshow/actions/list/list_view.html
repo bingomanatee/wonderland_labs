@@ -1,0 +1,7 @@
+<h1>Slideshows</h1>
+
+<ul>
+    <% slideshows.forEach(function(ss){%>
+    <li><a href="/slideshow/<%- ss._id %>"><%- ss.title %></a></li>
+    <% }) %>
+</ul>

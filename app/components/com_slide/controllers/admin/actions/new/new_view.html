@@ -1,0 +1,33 @@
+
+<form class="form" method="post" action="/admin/slideshow/rest">
+    <table class="table">
+
+        <tr>
+            <th><label>Title</label></th>
+            <td><input type="text" name="slideshow[title]" /></td>
+            <td><span class="title_feedback">&nbsp;</span></td>
+        </tr>
+
+
+        <tr>
+            <th><label>Notes</label></th>
+            <td><textarea name="slideshow[notes]" /></td>
+            <td><span class="node_feedback">&nbsp;</span></td>
+        </tr>
+
+
+        <tr>
+            <th><label>Content</label></th>
+            <td><textarea name="slideshow[content]" class="ckeditor" /></td>
+            <td><span class="note_content">&nbsp;</span></td>
+        </tr>
+
+        <tr>
+            <th>&nbsp;</th>
+            <td><button type="submit">Create Slide</button></td>
+        </tr>
+
+    </table>
+
+
+</form>

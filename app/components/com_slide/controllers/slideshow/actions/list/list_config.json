@@ -1,0 +1,5 @@
+{
+	"method":"get",
+	"route":"*s",
+	"layout_name":"ne_bootstrap"
+}
