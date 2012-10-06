@@ -3,16 +3,24 @@ var mm = NE.deps.support.mongoose_model;
 var util = require('util');
 var _ = require('underscore');
 
-var model_def = {
-    name:"slideshow",
-    type:"model"
-};
 
 var _model;
 
 module.exports = function (mongoose_inject) {
 
     if (!_model) {
+
+        var model_def = {
+            name:"slide",
+            type:"model",
+            for_slideshow: function(slideshow, cb){
+                if (slideshow._id){
+                    slideshow = slideshow._id;
+                }
+
+                this.active().where('slideshow').equals(slideshow).sort('weight').exec(cb);
+            }
+        };
 
         if (!mongoose_inject) {
             mongoose_inject = NE.deps.mongoose;
@@ -27,6 +35,7 @@ module.exports = function (mongoose_inject) {
             author:{type: oid, ref:'member'},
             created: {type: 'date', default: Date.now},
             deleted:{type: 'boolean', default:false},
+            slideshow: {type: oid, ref: 'slideshow'},
             parent: {type: oid, ref: 'slide'},
             weight: {type: 'number', default: 0}
         });

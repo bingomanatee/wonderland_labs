@@ -1,0 +1,102 @@
+<div ng-app="slides">
+    <div ng-controller="SlideCtrl">
+        <div class="well" ng-show="current_slideshow">
+            <div class="close" ng-click="view(false)">&times;</div>
+            <h1>Slideshow &quot;{{ current_slideshow.title }}&quot;</h1>
+            <blockquote>
+                {{current_slideshow.notes }}
+            </blockquote>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Slide</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="slide in slides">
+                    <td>{{slide.title }}</td>
+                    <td>
+                        <button class="btn" ng-click="edit_slide"><i
+                                class="icon icon-edit"></i> Edit Slide
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <button class="btn btn-primary" ng-click="add_slide(current_slideshow)"><i
+                    class="icon icon-plus-sign"></i>
+                Add Slide
+            </button>
+
+        </div>
+
+        <h1>Slideshows</h1>
+
+        <table class="table">
+            <tr ng-repeat="ss in slideshows">
+                <td>
+                    {{ ss.title }}
+                </td>
+                <td>
+                    <button class="btn btn-small" style="margin: 0px"
+                            ng-click="view(ss)">View
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-small" style="margin: 0px"
+                            onClick="document.location='/admin/slideshow/{{ ss._id }}/edit'"><i
+                            class="icon icon-edit"></i> Edit
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-small" style="margin: 0px"
+                            onClick="document.location='/admin/slideshow/{{ ss._id }}/edit'"><i
+                            class="icon icon-trash"></i>Delete
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Modal -->
+        <div class="modal bigModal" id="newSlide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+             style="display: none">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Add Slide</h3>
+            </div>
+            <div class="modal-body">
+                <p>Add slide to {{ current_slideshow.title }}:</p>
+                <table class="table">
+                    <tr>
+                        <td><label>Title</label></td>
+                        <td><input type="text" ng-model="new_slide.title" class="input input-xlarge" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Notes</label></td>
+                        <td><textarea ng-model="new_slide.notes" class="input input-xlarge" rows="3"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><label>Content</label></td>
+                        <td><textarea ng-model="new_slide.content" id="new_slide_content" rows="5" class="input input-xlarge" ></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" data-target="newSlide" aria-hidden="true">Cancel</button>
+                <button class="btn btn-primary">Add Slide</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        CKEDITOR.replace( 'new_slide_content' );
+    })
+</script>
+        <style>
+            .bigModal{
+                width:940px;
+                margin-left:-470px;
+            }
+        </style>

@@ -22,7 +22,7 @@ module.exports = {
 
             });
 
-            console.log('scope links: %s', util.inspect(scope_links));
+          //  console.log('scope links: %s', util.inspect(scope_links));
 
             self.add_menu_items(menus, 'nav', {
                 label:'Wikis',

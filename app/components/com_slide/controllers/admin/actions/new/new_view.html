@@ -1,33 +1,50 @@
-
-<form class="form" method="post" action="/admin/slideshow/rest">
+<form class="form" method="post" id="new_slideshow_form" action="/admin/slideshow/rest">
     <table class="table">
 
         <tr>
             <th><label>Title</label></th>
-            <td><input type="text" name="slideshow[title]" /></td>
+            <td><input type="text" name="slideshow[title]"/></td>
             <td><span class="title_feedback">&nbsp;</span></td>
         </tr>
 
 
         <tr>
             <th><label>Notes</label></th>
-            <td><textarea name="slideshow[notes]" /></td>
+            <td><textarea name="slideshow[notes]"></textarea></td>
             <td><span class="node_feedback">&nbsp;</span></td>
-        </tr>
-
-
-        <tr>
-            <th><label>Content</label></th>
-            <td><textarea name="slideshow[content]" class="ckeditor" /></td>
-            <td><span class="note_content">&nbsp;</span></td>
         </tr>
 
         <tr>
             <th>&nbsp;</th>
-            <td><button type="submit">Create Slide</button></td>
+            <td>
+                <button class="btn btn-primary" type="submit">Create Slide</button>
+            </td>
         </tr>
 
     </table>
-
-
 </form>
+
+<script language="javascript">
+    $(function () {
+        $('#new_slideshow_form').submit(function () {
+            try {
+
+
+                var data = _.reduce($('#new_slideshow_form').serializeArray(), function (ss, field) {
+                    ss.slideshow[field.name] = field.value;
+                }, {slideshow:{}});
+
+                console.log('data: ', data)
+                $.post('/admin/slideshow/rest', data, function (result) {
+                    console.log('result: ', result);
+                    document.location = "/slideshows?flash_info=" + encodeURI('slideshow ' + data.slideshow.title + ' created');
+                })
+
+            } catch(e){
+                console.log(e)
+            }
+            return false;
+        })
+    })
+
+</script>
