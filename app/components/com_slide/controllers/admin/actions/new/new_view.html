@@ -1,3 +1,4 @@
+<h1>Create Slideshow</h1>
 <form class="form" method="post" id="new_slideshow_form" action="/admin/slideshow/rest">
     <table class="table">
 
@@ -17,7 +18,7 @@
         <tr>
             <th>&nbsp;</th>
             <td>
-                <button class="btn btn-primary" type="submit">Create Slide</button>
+                <button class="btn btn-primary" type="submit">Create Slideshow</button>
             </td>
         </tr>
 
@@ -28,8 +29,6 @@
     $(function () {
         $('#new_slideshow_form').submit(function () {
             try {
-
-
                 var data = _.reduce($('#new_slideshow_form').serializeArray(), function (ss, field) {
                     ss.slideshow[field.name] = field.value;
                 }, {slideshow:{}});

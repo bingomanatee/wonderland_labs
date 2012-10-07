@@ -1,1 +1,7 @@
-{"route":"*/slides/:slideshow","method":"get"}
+{
+	"get_route":"*/slides/:slideshow",
+	"post_route": ["*/slides", "*/slides:slideshow"],
+	"put_route": "*/slides/:_id",
+	"delete_route": "*/slides/:_id",
+	"method":"*"
+}

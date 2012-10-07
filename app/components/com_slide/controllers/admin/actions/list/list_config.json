@@ -1,7 +1,6 @@
 {
 	"method":"get",
 	"route":"*s",
-	"layout_name":"ne_bootstrap",
 
 	"javascript_head":[
 		"/ne_bs_admin/js/vendor/angular-1.0.2/angular.min.js",
@@ -10,6 +9,7 @@
 	],
 
 	"javascript": [
-		"/js/slide_support/ckeditor/ckeditor.js"
+		"/js/slide_support/ckeditor/ckeditor.js",
+		"/js/slide_support/underscore.min.js"
 	]
 }

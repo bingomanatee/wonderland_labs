@@ -6,23 +6,36 @@
             <blockquote>
                 {{current_slideshow.notes }}
             </blockquote>
+            <h3>Slides</h3>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Slide</th>
-                </tr>
-                </thead>
-                <tr ng-repeat="slide in slides">
-                    <td>{{slide.title }}</td>
-                    <td>
-                        <button class="btn" ng-click="edit_slide"><i
-                                class="icon icon-edit"></i> Edit Slide
-                        </button>
-                    </td>
-                </tr>
-            </table>
-            <button class="btn btn-primary" ng-click="add_slide(current_slideshow)"><i
+            <div style="max-height: 250px; overflow: scroll">
+
+                <table class="table table-condensed editable">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Weight</th>
+                        <th>Notes</th>
+                    </tr>
+                    </thead>
+                    <tr ng-repeat="slide in ordered_slides()">
+                        <td><input ng-model="slide.title" type="text" /></td>
+                        <td><input ng-model="slide.weight" size="4" type="text" class="input input-small" /></td>
+                        <td>{{slide.notes }}</td>
+                        <td>
+                            <button class="btn nomargin" ng-click="edit_slide(slide)"><i
+                                    class="icon icon-edit"></i> Edit
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger nomargin" ng-click="delete_slide(slide)"><i
+                                    class="icon icon-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <button class="btn btn-primary" ng-click="add_slide()"><i
                     class="icon icon-plus-sign"></i>
                 Add Slide
             </button>
@@ -56,47 +69,95 @@
             </tr>
         </table>
 
-        <!-- Modal -->
-        <div class="modal bigModal" id="newSlide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+        <!-- Modal - new slide -->
+        <div class="modal bigModal" id="newSlide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true"
              style="display: none">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Slide</h3>
+                <h3>Add Slide to {{ current_slideshow.title }}</h3>
             </div>
             <div class="modal-body">
-                <p>Add slide to {{ current_slideshow.title }}:</p>
-                <table class="table">
+                <table>
                     <tr>
                         <td><label>Title</label></td>
-                        <td><input type="text" ng-model="new_slide.title" class="input input-xlarge" /></td>
-                    </tr>
-                    <tr>
+                        <td><input type="text" ng-model="new_slide.title" class="input input-xlarge"/></td>
+
                         <td><label>Notes</label></td>
-                        <td><textarea ng-model="new_slide.notes" class="input input-xlarge" rows="3"></textarea></td>
+                        <td><textarea ng-model="new_slide.notes" class="input input-xlarge" rows="2"></textarea></td>
                     </tr>
                     <tr>
-                        <td><label>Content</label></td>
-                        <td><textarea ng-model="new_slide.content" id="new_slide_content" rows="5" class="input input-xlarge" ></textarea></td>
+                        <td colspan="4">
+                            <textarea ng-model="new_slide.content" id="new_slide_content" rows="5"
+                                      class="input input-xlarge">{{ new_slide.content}}</textarea></td>
                     </tr>
                 </table>
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" data-target="newSlide" aria-hidden="true">Cancel</button>
-                <button class="btn btn-primary">Add Slide</button>
+                <button class="btn btn-primary" ng-click="save_new_slide()">Add Slide</button>
             </div>
         </div>
 
+
+        <!-- Modal - edit slide -->
+        <div class="modal bigModal" id="editSlide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true"
+             style="display: none">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>Edit slide &quot;{{current_slide.title}}&quot;
+                    </h3>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td><label>Title</label></td>
+                        <td><input type="text" ng-model="current_slide.title" class="input input-xlarge"/></td>
+                        <td><label>Notes</label></td>
+                        <td><textarea ng-model="current_slide.notes" class="input input-xlarge" rows="2"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <textarea ng-model="current_slide.content" id="current_slide_content" rows="5"
+                                      class="input input-xlarge"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" data-target="newSlide" aria-hidden="true">Cancel</button>
+                <button class="btn btn-primary" ng-click="save_current_slide()">Update Slide</button>
+            </div>
+        </div>
+<button class="btn btn-primary btn-large" ng-click="new_slideshow()">Create a new Slideshow</button>
     </div>
 </div>
 
 <script type="text/javascript">
-    $(function(){
-        CKEDITOR.replace( 'new_slide_content' );
+    var new_slide_ck;
+    var edit_slide_ck;
+    $(function () {
+       new_slide_ck = CKEDITOR.replace('new_slide_content');
+       edit_slide_ck = CKEDITOR.replace('current_slide_content');
     })
 </script>
-        <style>
-            .bigModal{
-                width:940px;
-                margin-left:-470px;
-            }
-        </style>
+<style>
+    .bigModal {
+        width: 940px;
+        margin-left: -470px;
+    }
+
+    .nomargin {
+        margin: 0px;
+    }
+
+    .editable td:not(:hover) textarea,
+    .editable td:not(:hover) input[type=text] {
+        border: 1px dotted rgb(225,225,255);
+        background-color: transparent;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none
+    }
+</style>
