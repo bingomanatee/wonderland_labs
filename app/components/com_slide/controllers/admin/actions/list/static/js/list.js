@@ -30,11 +30,15 @@ function SlideCtrl($scope, $filter, $compile, Slideshows, Slides) {
 
     $scope.current_slideshow = false;
 
-    $scope.view = function(ss){
+    $scope.edit_slides = function(ss){
         $scope.current_slideshow = ss;
         $scope.slides = Slides.query(ss, function(slides){
             console.log('slides: ', slides);
         })
+    }
+
+    $scope.view_slideshow = function(ss){
+        document.location= '/slideshow/view/' + ss._id;
     }
 
     $scope.add_slide = function(){
@@ -100,6 +104,10 @@ function SlideCtrl($scope, $filter, $compile, Slideshows, Slides) {
             notes: '',
             content: ''
         }
+    }
+
+    $scope.parentable_slides = function(){
+        return _.reject($scope.slides, function(s){ return s.checked});
     }
 
     $scope.save_current_slide = function(){

@@ -8,17 +8,21 @@
             </blockquote>
             <h3>Slides</h3>
 
-            <div style="max-height: 250px; overflow: scroll">
+            <div  style="max-height: 250px; overflow: scroll">
 
-                <table class="table table-condensed editable">
+                <table class="table table-condensed editable" style="width: 95%">
                     <thead>
                     <tr>
+                        <th>&nbsp;</th>
                         <th>Title</th>
                         <th>Weight</th>
                         <th>Notes</th>
                     </tr>
                     </thead>
+                    <tbody>
+
                     <tr ng-repeat="slide in ordered_slides()">
+                        <td><input type="checkbox" ng-model="slide.checked" /></td>
                         <td><input ng-model="slide.title" type="text" /></td>
                         <td><input ng-model="slide.weight" size="4" type="text" class="input input-small" /></td>
                         <td>{{slide.notes }}</td>
@@ -33,9 +37,23 @@
                             </button>
                         </td>
                     </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Title</th>
+                        <th>Weight</th>
+                        <th>Notes</th>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
-            <button class="btn btn-primary" ng-click="add_slide()"><i
+            <button class="btn" ng-click="parent_slides()"><i class="icon-list"></i> Parent slides to
+            </button>
+            <select ng-model="parent_to" ng_options="s.title for s in parentable_slides()">
+            </select> ({{parent_to.title }})
+
+            <button class="btn btn-primary pull-right" ng-click="add_slide()"><i
                     class="icon icon-plus-sign"></i>
                 Add Slide
             </button>
@@ -51,7 +69,12 @@
                 </td>
                 <td>
                     <button class="btn btn-small" style="margin: 0px"
-                            ng-click="view(ss)">View
+                            ng-click="edit_slides(ss)">Edit Slides
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-small" style="margin: 0px"
+                            ng-click="view_slideshow(ss)">View Slideshow
                     </button>
                 </td>
                 <td>

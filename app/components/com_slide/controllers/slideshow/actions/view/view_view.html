@@ -1,0 +1,8 @@
+<% slides.forEach(function(slide, i){%>
+<div class="step" data-color="color-<%= i %5 + 1 %>" data-x="1000" data-y="<%- 1000 + (1000 * i) %>">
+    <div class="jms-content">
+        <h1><%= slide.title %></h1>
+        <%- slide.content %>
+    </div>
+</div>
+<%}) %>

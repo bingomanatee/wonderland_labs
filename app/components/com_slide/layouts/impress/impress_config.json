@@ -1,0 +1,17 @@
+{
+	"static_prefix":"impress",
+
+	"javascript_head":[
+		"http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js",
+		"/impress/js/impress.js"],
+	"css":[
+			"http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300,300italic",
+		"/impress/js/jmpress.js",
+		"/impress/js/jquery.jmslideshow.js",
+		"/impress/js/modernizr.custom.48780.js"
+	],
+
+	"css": [		"/impress/css/demo.css",
+		"/impress/css/style_alt.css"
+	]
+}

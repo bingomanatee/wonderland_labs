@@ -7,7 +7,7 @@ var rmdir = require('rmdir');
 
 /* *************** CLOSURE *********************** */
 
-var _DEBUG = true;
+var _DEBUG = false;
 
 var EXPORT_ROOT = path.resolve(__dirname, '../../../../files');
 if (_DEBUG)    console.log('exporting wiki dir: %s', EXPORT_ROOT)

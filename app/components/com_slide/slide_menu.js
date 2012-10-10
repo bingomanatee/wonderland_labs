@@ -17,7 +17,7 @@ module.exports = {
                 return {
                     label:ss.title,
                     type:'link',
-                    link:'/slideshow/' + ss._id
+                    link:'/slideshow/view/' + ss._id
                 }
 
             });
