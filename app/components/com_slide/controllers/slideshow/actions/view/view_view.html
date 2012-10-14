@@ -1,8 +1,69 @@
 <% slides.forEach(function(slide, i){%>
-<div class="step" data-color="color-<%= i %5 + 1 %>" data-x="1000" data-y="<%- 1000 + (1000 * i) %>">
-    <div class="jms-content">
+<div class="step slide" data-color="color-<%= i %5 + 1 %>" data-x="-1000" data-y="<%- 1000 + (2000 * i) %>">
+
+    <article>
+        <% if (slide.title){ %>
         <h1><%= slide.title %></h1>
-        <%- slide.content %>
-    </div>
+        <% } %>
+        <section>
+            <%- slide.content %>
+        </section>
+    </article>
+    <header>
+        <div>
+            <a href="/">Home</a>
+        </div>
+        <div>
+            <a href="/slideshows">Slideshows</a>
+        </div>
+        <div class="slide_menu">
+            <a href="/slideshow/view/<%- slideshow._id %>" class="menu_top"><%- slideshow.title %></a>
+            <nav style="display: none">
+                <% slides.forEach(function(slide, i){%>
+                <div>
+                    <a href="/slideshow/view/<%- slideshow._id %>#/step-<%= i + 1 %>"><%- slide.title %></a>
+                </div>
+                <% }) %>
+            </nav>
+        </div>
+    </header>
 </div>
 <%}) %>
+<script language="javascript">
+
+    $(function () {
+
+        var show_slide_menu = false;
+
+        function _update_navs() {
+            $('.slide_menu nav').each(function (n2, ele2) {
+                if (show_slide_menu) {
+                   // console.log('showing ', ele2);
+                    $(ele2).show();
+                } else {
+                    $(ele2).hide();
+                }
+            });
+        }
+
+        $('.slide_menu a.menu_top').each(function (n, ele) {
+            $(ele).on('click', function () {
+                show_slide_menu = !show_slide_menu;
+                _update_navs();
+                return false;
+            });
+        });
+
+        $('.slide_menu nav div a').each(function(n, a_ele){
+        //    console.log('cloaking ', a_ele);
+            $(a_ele).on('click', function(){
+            //    console.log('closing the menu');
+                show_slide_menu = false;
+                _update_navs();
+                // note - continue on to work as link
+                return true;
+            });
+        });
+
+    })
+</script>

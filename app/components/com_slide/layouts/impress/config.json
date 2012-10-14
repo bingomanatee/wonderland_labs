@@ -1,0 +1,19 @@
+{
+	"static_prefix":"impress",
+
+	"javascript_head":[
+		"/impress/js/jquery-1.8.2.js",
+		"/impress/js/jquery-ui-1.9.0.custom.min.js",
+		"/impress/js/jmpress.min.js",
+		"/impress/js/modernizr.custom.48780.js",
+		"/impress/js/box.js"
+	],
+
+	"css":[
+		"http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300,300italic",
+		"/impress/css/normalize.css",
+		"/impress/css/impress.css",
+		"/impress/css/style.css",
+		"/impress/css/ui-impress/jquery-ui-1.9.0.custom.min.css"
+	]
+}
