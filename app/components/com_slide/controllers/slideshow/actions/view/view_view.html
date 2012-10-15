@@ -1,5 +1,8 @@
-<% slides.forEach(function(slide, i){%>
-<div class="step slide" data-color="color-<%= i %5 + 1 %>" data-x="-1000" data-y="<%- 1000 + (2000 * i) %>">
+<% series.forEach(function(data, i){
+var slide = data.slide;
+%>
+<div class="step slide"
+     data-x="<%= data.x %>" data-y="<%= data.y %>" data-scale="<%= data.scale %>">
 
     <article>
         <% if (slide.title){ %>

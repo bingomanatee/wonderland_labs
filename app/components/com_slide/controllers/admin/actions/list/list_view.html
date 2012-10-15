@@ -15,6 +15,7 @@
                     <tr>
                         <th>&nbsp;</th>
                         <th>Title</th>
+                        <th>Parent</th>
                         <th>Weight</th>
                         <th>Notes</th>
                     </tr>
@@ -24,8 +25,10 @@
                     <tr ng-repeat="slide in ordered_slides()">
                         <td><input type="checkbox" ng-model="slide.checked" /></td>
                         <td><input ng-model="slide.title" type="text" /></td>
+                        <td nowrap="nowrap">{{ parent_title(slide) }} <span ng-show="slide.parent"
+ng-click="unparent(slide)">&times;</span></td>
                         <td><input ng-model="slide.weight" size="4" type="text" class="input input-small" /></td>
-                        <td>{{slide.notes }}</td>
+                        <td>{{ slide.notes }}</td>
                         <td>
                             <button class="btn nomargin" ng-click="edit_slide(slide)"><i
                                     class="icon icon-edit"></i> Edit
@@ -42,6 +45,7 @@
                     <tr>
                         <th>&nbsp;</th>
                         <th>Title</th>
+                        <th>Parent</th>
                         <th>Weight</th>
                         <th>Notes</th>
                     </tr>

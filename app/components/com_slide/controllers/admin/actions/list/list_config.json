@@ -10,6 +10,6 @@
 
 	"javascript": [
 		"/js/slide_support/ckeditor/ckeditor.js",
-		"/js/slide_support/underscore.min.js"
+		"/js/slide_support/underscore-min.js"
 	]
 }

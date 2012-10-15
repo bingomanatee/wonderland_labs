@@ -29,6 +29,7 @@ function SlideCtrl($scope, $filter, $compile, Slideshows, Slides) {
     });
 
     $scope.current_slideshow = false;
+    $scope.slides = [];
 
     $scope.edit_slides = function(ss){
         $scope.current_slideshow = ss;
@@ -54,6 +55,7 @@ function SlideCtrl($scope, $filter, $compile, Slideshows, Slides) {
     }
 
     $scope.ordered_slides = function(){
+        if (!$scope.s)
         var out = _.sortBy($scope.slides, function(s){
             return parseInt(s.weight);
         })
@@ -105,9 +107,46 @@ function SlideCtrl($scope, $filter, $compile, Slideshows, Slides) {
             content: ''
         }
     }
+    function _checked(s){ return s.checked}
 
     $scope.parentable_slides = function(){
-        return _.reject($scope.slides, function(s){ return s.checked});
+        if (!$scope.slides){
+            return [];
+        }
+        return _.reject($scope.slides, _checked);
+    }
+
+    $scope.parent_to = false;
+
+    $scope.parent_slides = function(){
+        console.log('parent: ', $scope.parent_to);
+        var checked_slides = _.filter($scope.slides, _checked);
+        _.each(checked_slides, function(slide){
+            if ($scope.parent_to){
+                slide.parent = $scope.parent_to._id;
+            } else {
+                slide.parent = null;
+            }
+            Slides.update(slide);
+        })
+    }
+
+    $scope.parent_title = function(slide){
+        if (slide.parent){
+            console.log('getting parent: ', slide.parent);
+            var parent = _.find($scope.slides, function(s){
+                return s._id == slide.parent;
+            })
+            return (parent) ? parent.title : '';
+        } else {
+            return '';
+        }
+    }
+
+    $scope.unparent = function(slide){
+        slide.parent = null;
+
+        Slide.update(slide);
     }
 
     $scope.save_current_slide = function(){
