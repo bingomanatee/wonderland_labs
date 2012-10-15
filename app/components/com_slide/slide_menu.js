@@ -46,7 +46,7 @@ module.exports = {
                     admin_slideshow_links.push({
                         link:'/admin/slideshows',
                         type:'link',
-                        label:'list'
+                        label:'Slideshows'
                     })
                     self.add_menu_items(menus, 'admin',
                         {

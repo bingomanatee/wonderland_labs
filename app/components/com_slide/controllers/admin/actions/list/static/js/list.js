@@ -22,11 +22,14 @@ angular.module('slidesServices', ['ngResource']).factory('Slideshows',
 
 function SlideCtrl($scope, $filter, $compile, Slideshows, Slides) {
     $scope.slideshows = [];
-    Slideshows.query({}, function(ss, bb){
 
-        console.log('slideshows: ', ss);
-        $scope.slideshows = ss.slideshows;
-    });
+    function _init(){
+        Slideshows.query({}, function(ss, bb){
+            $scope.slideshows = ss.slideshows;
+        });
+    }
+
+    _init();
 
     $scope.current_slideshow = false;
     $scope.slides = [];
@@ -174,7 +177,11 @@ function SlideCtrl($scope, $filter, $compile, Slideshows, Slides) {
     }
 
     $scope.delete_slide = function(slide){
-        Slides.delete(slide)
+        Slides.delete(slide, _init);
+    }
+
+    $scope.delete_slideshow = function(ss){
+        Slideshows.delete(ss, _init);
     }
 }
 

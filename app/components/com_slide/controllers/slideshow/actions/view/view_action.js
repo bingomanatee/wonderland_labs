@@ -8,7 +8,7 @@ function _slide_children(slide, slides, y){
 
     var c = _.reduce(children, function(series, child, i){
         var data = {
-            slide: slide,
+            slide: child,
             x: 2000 + (1000 * i),
             y: y,
             scale: 0.75

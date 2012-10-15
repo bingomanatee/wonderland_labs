@@ -25,6 +25,7 @@
                     <tr ng-repeat="slide in ordered_slides()">
                         <td><input type="checkbox" ng-model="slide.checked" /></td>
                         <td><input ng-model="slide.title" type="text" /></td>
+                        <td><span ng-show="slide.hide_title">(hidden)</span></td>
                         <td nowrap="nowrap">{{ parent_title(slide) }} <span ng-show="slide.parent"
 ng-click="unparent(slide)">&times;</span></td>
                         <td><input ng-model="slide.weight" size="4" type="text" class="input input-small" /></td>
@@ -89,7 +90,7 @@ ng-click="unparent(slide)">&times;</span></td>
                 </td>
                 <td>
                     <button class="btn btn-danger btn-small" style="margin: 0px"
-                            onClick="document.location='/admin/slideshow/{{ ss._id }}/edit'"><i
+                            ng-click="delete_slideshow(ss)"><i
                             class="icon icon-trash"></i>Delete
                     </button>
                 </td>
@@ -140,7 +141,7 @@ ng-click="unparent(slide)">&times;</span></td>
                 <table>
                     <tr>
                         <td><label>Title</label></td>
-                        <td><input type="text" ng-model="current_slide.title" class="input input-xlarge"/></td>
+                        <td><input type="text" ng-model="current_slide.title" class="input input-xlarge"/><input type="checkbox" ng-model="current_slide.hide_title" />&nbsp;Hide</td>
                         <td><label>Notes</label></td>
                         <td><textarea ng-model="current_slide.notes" class="input input-xlarge" rows="2"></textarea>
                         </td>

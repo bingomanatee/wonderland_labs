@@ -1,11 +1,16 @@
+<pre style="display: none">
+    <%- JSON.stringify(series, true, 3) %>
+
+</pre>
+
 <% series.forEach(function(data, i){
 var slide = data.slide;
 %>
 <div class="step slide"
-     data-x="<%= data.x %>" data-y="<%= data.y %>" data-scale="<%= data.scale %>">
+     data-x="<%= data.x %>" data-y="<%= data.y %>" data-scale="<%- data.scale %>">
 
     <article>
-        <% if (slide.title){ %>
+        <% if (slide.title && !(slide.hide_title)){ %>
         <h1><%= slide.title %></h1>
         <% } %>
         <section>

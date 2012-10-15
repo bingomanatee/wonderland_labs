@@ -104,18 +104,35 @@ module.exports = {
 
     on_delete_validate:function (rs) {
         var self = this;
-        self.on_delete_input(rs)
+        if (rs.has_content('_id')){
+            self.models.member.can(rs, ['delete slideshow'], function (err, can) {
+                self.on_delete_input(rs)
+            });
+        } else {
+            self.emit('validate_error', rs, 'no _id');
+        }
     },
 
     on_delete_input:function (rs) {
         var self = this;
-        var input = rs.req_props;
-        self.on_delete_process(rs, input)
+        var id = rs.req_props._id;
+
+        self.model().get(id, function(err, ss){
+            if (err){
+                self.emit('input_error', rs, err);
+            } else if (ss){
+                self.on_delete_process(rs, ss);
+            } else {
+                self.emit('input_error', rs, 'cannot find ss ' + id);
+            }
+        });
     },
 
-    on_delete_process:function (rs, input) {
+    on_delete_process:function (rs, ss) {
         var self = this;
-        rs.send(input)
+        this.model().delete(ss.id, function(err, result){
+            rs.send(result);
+        }, true);
     },
 
     _on_error_go:true // return errors via REST

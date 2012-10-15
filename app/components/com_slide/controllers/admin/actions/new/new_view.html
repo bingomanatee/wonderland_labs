@@ -27,20 +27,31 @@
 
 <script language="javascript">
     $(function () {
-        $('#new_slideshow_form').submit(function () {
+        var nsf = $('#new_slideshow_form');
+        nsf.submit(function () {
             try {
-                var data = _.reduce($('#new_slideshow_form').serializeArray(), function (ss, field) {
-                    ss.slideshow[field.name] = field.value;
+                var sa = nsf.serializeArray();
+                console.log('sa: ', sa);
+
+                var data = _.reduce(sa, function (ss, field) {
+                    var n = /slideshow\[(.*)\]/.exec(field.name)[1];
+                    if (!n) return ss;
+                    ss.slideshow[n] = field.value;
+                    return ss;
                 }, {slideshow:{}});
 
                 console.log('data: ', data)
-                $.post('/admin/slideshow/rest', data, function (result) {
-                    console.log('result: ', result);
-                    document.location = "/slideshows?flash_info=" + encodeURI('slideshow ' + data.slideshow.title + ' created');
-                })
+                if (data.slideshow.title && data.slideshow.notes){
+                    $.post('/admin/slideshow/rest', data, function (result) {
+                        console.log('result: ', result);
+                        document.location = "/slideshows?flash_info=" + encodeURI('slideshow ' + data.slideshow.title + ' created');
+                    })
+                } else {
+                    alert('must complete all fields')
+                }
 
             } catch(e){
-                console.log(e)
+                console.log('error: ', e)
             }
             return false;
         })

@@ -4,4 +4,4 @@
 	"put_route":"*/rest",
 	"post_route":"*/rest",
 	"put_route": "*/rest/:_id",
-	"delete_route":"*/rest"}
+	"delete_route":"*/rest/:_id"}
