@@ -1,9 +1,8 @@
 var _ = require('underscore');
 
-
 function _slide_children(slide, slides, y){
     var children = _.filter(slides, function(s){
-         
+
         return s.parent && (s.parent == slide._id.toString());
     })
 
@@ -75,7 +74,6 @@ module.exports = {
             });
         });
     },
-
 
     /* ****** POST ****** */
 

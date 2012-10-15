@@ -1,6 +1,7 @@
 {
-	"get_route":"*/rest",
+	"get_route":["*/rest", "*/rest/:_id"],
 	"method":"*",
 	"put_route":"*/rest",
 	"post_route":"*/rest",
+	"put_route": "*/rest/:_id",
 	"delete_route":"*/rest"}

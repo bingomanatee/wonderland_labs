@@ -1,0 +1,16 @@
+{
+	"method":"get",
+	"route":"*/:_id/edit",
+
+	"javascript_head":[
+		"/ne_bs_admin/js/vendor/angular-1.0.2/angular.min.js",
+		"/ne_bs_admin/js/vendor/angular-1.0.2/angular-resource.min.js",
+		"/admin/slides/js/edit/edit.js"
+	],
+
+	"javascript": [
+		"/js/slide_support/ckeditor/ckeditor.js",
+		"/js/slide_support/marked.js",
+		"/js/slide_support/underscore-min.js"
+	]
+}

@@ -14,27 +14,33 @@ module.exports = {
     on_get_input:function (rs) {
         var self = this;
         var input = rs.req_props;
-        this.model().active(function(err, slideshows){
-            if (err){
-                self.emit('inpput_error', rs, err);
-            } else {
-                self.on_get_process(rs, {slideshows: slideshows});
-            }
-        })
+        if (rs.has_content('_id')){
+            this.model().get(rs.req_props._id, function(err, ss){
+               rs.send(ss);
+            });
+        } else {
+            this.model().active(function (err, slideshows) {
+                if (err) {
+                    self.emit('inpput_error', rs, err);
+                } else {
+                    self.on_get_process(rs, {slideshows:slideshows});
+                }
+            })
+        }
     },
 
     on_get_process:function (rs, input) {
         var self = this;
-         rs.send(input);
+        rs.send(input);
     },
 
     /* ****** POST ****** */
 
     on_post_validate:function (rs) {
         var self = this;
-        if (rs.has_content('slideshow')){
-           self.models.member.can(rs, ['create slideshow'], function(err, can){
-                if (can){
+        if (rs.has_content('slideshow')) {
+            self.models.member.can(rs, ['create slideshow'], function (err, can) {
+                if (can) {
                     self.on_post_input(rs);
                 } else {
                     self.emit('validate_error', rs, 'cannot create slideshows');
@@ -53,8 +59,8 @@ module.exports = {
 
     on_post_process:function (rs, input) {
         var self = this;
-        this.model().put(input.slideshow, function(err, new_slideshow){
-            rs.send({slideshow: new_slideshow});
+        this.model().put(input.slideshow, function (err, new_slideshow) {
+            rs.send({slideshow:new_slideshow});
         })
     },
 
@@ -62,13 +68,16 @@ module.exports = {
 
     on_put_validate:function (rs) {
         var self = this;
-        if (rs.has_content('slideshow')){
-            if (self.models.member.can(rs, ['create slideshow'])){
+        if (rs.has_content('slideshow')) {
+            self.models.member.can(rs, ['create slideshow'], function (err, can) {
+                if (can) {
+                    self.on_put_input(rs)
+                }
+                else {
+                    self.emit('validate_error', rs, 'cannot create slideshows');
+                }
+            });
 
-                self.on_put_input(rs)
-            } else {
-                self.emit('validate_error', rs, 'cannot create slideshows');
-            }
         } else {
             this.emit('validate_error', rs, 'no slideshow found');
         }
@@ -76,15 +85,18 @@ module.exports = {
 
     on_put_input:function (rs) {
         var self = this;
-        var input = rs.req_props;
-        self.on_put_process(rs, input)
+        var slideshow = rs.req_props.slideshow;
+        self.on_put_process(rs, slideshow)
     },
 
-    on_put_process:function (rs, input) {
+    on_put_process:function (rs, slideshow) {
         var self = this;
-        this.model().put(input.slideshow, function(err, new_slideshow){
-
-            rs.send({slideshow: slideshow});
+        this.model().revise(slideshow, function (err, new_slideshow) {
+            if (err){
+                self.emit('process_error', rs, err);
+            } else {
+                rs.send({slideshow:new_slideshow});
+            }
         })
     },
 
@@ -106,5 +118,5 @@ module.exports = {
         rs.send(input)
     },
 
-    _on_error_go: true // return errors via REST
+    _on_error_go:true // return errors via REST
 }

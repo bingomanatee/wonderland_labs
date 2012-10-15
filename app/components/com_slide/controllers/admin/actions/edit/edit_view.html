@@ -1,0 +1,80 @@
+<script language="javascript">
+    function ID($scope) {
+        console.log('id emitting');
+        $scope.$root.$emit('id', '<%- slideshow._id %>');
+    }
+</script>
+
+<h1>Edit Slideshow &quot;<%-slideshow._id %>&quot;</h1>
+
+<div ng-app="slides">
+    <div ng-controller="SlideshowCtrl">
+        <h2>Slideshow</h2>
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <td><input type="text" ng-model="slideshow.title"/></td>
+            </tr>
+            <tr>
+                <th>Notes</th>
+                <td><textarea ng-model="slideshow.notes" rows="5"></textarea></td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td>
+                    <button class="btn btn-primary" ng-click="update_slideshow(slideshow)">Save Slideshow</button>
+                </td>
+            </tr>
+        </table>
+        <h2>Slides</h2>
+
+        <div ng-repeat="slide in slides | orderBy:'weight'" class="clearfix">
+            <table class="table table-condensed">
+                <tr>
+                    <th>Title</th>
+                    <td><input type="text" ng-model="slide.title"/></td>
+                </tr>
+                <tr>
+                    <th>Notes</th>
+                    <td><textarea ng-model="slide.notes" rows="5"></textarea></td>
+                </tr>
+                <tr>
+                    <th>Markdown:</th>
+                    <td><label>
+                        <input type="checkbox" ng-model="slide.markdown"> Filter content through marked
+                    </label></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="tabbable">
+
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#edit{{slide._id}}" data-toggle="tab">Edit</a></li>
+                            <li><a href="#view{{slide._id}}" data-toggle="tab">View</a></li>
+                            <li><a href="#both{{slide._id}}" data-toggle="tab">Both</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="edit{{slide._id}}">
+                                <textarea ng-model="slide.content" class="input-xxlarge" rows="10"></textarea></div>
+                            <div class="tab-pane" id="view{{slide._id}}" ng-bind-html-unsafe="content(slide)"></div>
+                            <div class="tab-pane" id="both{{slide._id}}">
+                                <div class="clearfix">
+                                    <div style="float: left; margin: 1em">
+                                        <textarea ng-model="slide.content" rows="10"></textarea>
+                                    </div>
+                                    <div style="float:left; margin: 1em" ng-bind-html-unsafe="content(slide)"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td>
+                        <button class="btn btn-primary" ng-click="save_slide(slide)">Save Slide</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div ng-controller="ID"></div>
+</div>

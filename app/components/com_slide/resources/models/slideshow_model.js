@@ -51,6 +51,7 @@ module.exports = function (mongoose_inject) {
             title: {type: 'string', unique: true},
             notes: 'string',
             author:{type:oid, ref:'member' },
+            markdown: 'boolean',
             created: {type: 'date', default: Date.now},
             deleted:{type: 'boolean', default:false}
         });

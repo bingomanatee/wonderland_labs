@@ -35,6 +35,7 @@ module.exports = function (mongoose_inject) {
             author:{type: oid, ref:'member'},
             created: {type: 'date', default: Date.now},
             deleted:{type: 'boolean', default:false},
+            markdown: 'boolean',
             slideshow: {type: oid, ref: 'slideshow'},
             parent: {type: oid, ref: 'slide'},
             weight: {type: 'number', default: 0}
