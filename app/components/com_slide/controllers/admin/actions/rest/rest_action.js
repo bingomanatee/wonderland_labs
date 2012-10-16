@@ -6,7 +6,7 @@ module.exports = {
 
     /* ****** GET ****** */
 
-    on_get_validate:function (rs) {
+    on_get_validate:function (rs)   {
         var self = this;
         self.on_get_input(rs)
     },

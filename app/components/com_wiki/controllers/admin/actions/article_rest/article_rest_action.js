@@ -65,6 +65,7 @@ module.exports = {
 
     on_post_process:function (rs, article) {
         var self = this;
+        article._id = article.scope + (article.scope_root) ? '' : (':' + article.name);
         var promote = article.promoted;
         delete article.promoted;
 

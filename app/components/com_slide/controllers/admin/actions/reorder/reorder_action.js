@@ -38,7 +38,7 @@ module.exports = {
             if (!value.hasOwnProperty('weight')){
                 return;
             }
-            value.weight = parseInt(value.weight);
+            value.weight = parseFloat(value.weight);
 
             self.model().model.findOneAndUpdate({_id:id}, { $set:value}, gate.latch())
         })

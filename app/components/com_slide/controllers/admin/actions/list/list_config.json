@@ -9,7 +9,6 @@
 	],
 
 	"javascript": [
-		"/js/slide_support/vendor/ckeditor/ckeditor.js",
 		"/js/slide_support/vendor/underscore-min.js"
 	]
 }

@@ -1,4 +1,5 @@
 var _ = require('underscore');
+var marked = require('marked');
 
 function _slide_children(slide, slides, y){
     var children = _.filter(slides, function(s){
@@ -11,7 +12,7 @@ function _slide_children(slide, slides, y){
             slide: child,
             x: 2000 + (1000 * i),
             y: y,
-            scale: 0.75
+            scale: 0.25
         };
         series.push(data);
         return series;
@@ -69,6 +70,13 @@ module.exports = {
                     slides = [];
                 }
 
+                 _.each(slides, function(s){
+                    if (s.markdown){
+                        var m = marked(s.content);
+                        console.log('marking %s to %s', s.content, m)
+                        s.content = m;
+                    }
+                })
                 var slide_series = _slide_series(slides);
                 self.on_output(rs, {slideshow: slideshow, slides: slides, series: slide_series})
             });

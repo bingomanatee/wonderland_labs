@@ -39,6 +39,7 @@ module.exports = function (mongoose_inject) {
         var full_schema_def = _.extend({
             linked_from:[linked_from_schema_def],
             link_to:[linked_from_schema_def],
+            _id: 'string', // == scope + ':' + name
             name:{type:'string', index:true},
             versions:[arch_schema_def],
             deleted:{type:'boolean', default:false},

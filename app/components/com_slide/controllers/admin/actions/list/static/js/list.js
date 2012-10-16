@@ -26,6 +26,7 @@ function SlideCtrl($scope, $filter, $compile, Slideshows, Slides) {
     function _init(){
         Slideshows.query({}, function(ss, bb){
             $scope.slideshows = ss.slideshows;
+            $scope.slides = Slides.query($scope.current_slideshow)
         });
     }
 
@@ -46,14 +47,14 @@ function SlideCtrl($scope, $filter, $compile, Slideshows, Slides) {
     }
 
     $scope.add_slide = function(){
-        new_slide_ck.setData('');
+   //     new_slide_ck.setData('');
         $('#newSlide').modal({backdrop: true, show: true})
     }
 
     $scope.edit_slide = function(slide){
         $scope.current_slide = slide;
         console.log('editing ', slide);
-        edit_slide_ck.setData(slide.content);
+       // edit_slide_ck.setData(slide.content);
         $('#editSlide').modal({backdrop: true, show: true})
     }
 
@@ -93,7 +94,7 @@ function SlideCtrl($scope, $filter, $compile, Slideshows, Slides) {
 
     $scope.save_new_slide = function(){
         $scope.new_slide.slideshow = $scope.current_slideshow._id;
-        $scope.new_slide.content = new_slide_ck.getData();
+     //   $scope.new_slide.content = new_slide_ck.getData();
         console.log('saving new slide ', $scope.new_slide);
         Slides.add($scope.new_slide, function(e, r){
             console.log('added slide ', e, r);
@@ -154,7 +155,7 @@ function SlideCtrl($scope, $filter, $compile, Slideshows, Slides) {
 
     $scope.save_current_slide = function(){
         var slide = $scope.current_slide;
-        slide.content = edit_slide_ck.getData();
+     //   slide.content = edit_slide_ck.getData();
         console.log('edit - update slide ', slide);
         Slides.update(slide, function(e, r){
             console.log('updated slide ', e, r);

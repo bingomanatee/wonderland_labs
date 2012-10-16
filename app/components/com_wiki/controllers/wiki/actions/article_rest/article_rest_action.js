@@ -75,6 +75,7 @@ module.exports = {
     },
 
     on_post_process:function (rs, article) {
+        article._id = article.scope + (article.scope_root) ? '' : (':' + article.name);
         var self = this;
         self.model().sign(article, rs.session('member'));
         self.model().put(article, function (err, art_record) {
@@ -129,6 +130,7 @@ module.exports = {
 
     on_put_process:function (rs, article, input) {
         var self = this;
+        article._id = article.scope + (article.scope_root) ? '' : (':' + article.name);
         var promote = input.promoted;
         delete article.promoted;
 
