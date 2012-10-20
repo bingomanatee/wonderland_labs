@@ -1,4 +1,0 @@
-{
-    "method": "post",
-    "route": "*/api/search"
-}

@@ -1,7 +1,0 @@
-{
-    "route": "*/file_list",
-
-    "method": "get",
-
-    "layout_name": "empty"
-}
