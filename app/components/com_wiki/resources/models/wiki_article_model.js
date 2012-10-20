@@ -57,7 +57,7 @@ module.exports = function (mongoose_inject) {
             } else {
                 this._id = this.scope + ':' + this.name;
             }
-            this.next();
+            next();
         })
 
         _model = mm.create(
