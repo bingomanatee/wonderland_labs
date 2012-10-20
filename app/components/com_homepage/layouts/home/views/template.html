@@ -47,10 +47,13 @@
 <script>
     $(function () {
 
-        var $container = $('#container');
-
-        $container.isotope({
-            itemSelector:'.element'
+        $(function(){
+            $('#container').masonry({
+                // options
+                itemSelector : '.tweet',
+                columnWidth : 50,
+                isAnimated: true
+            });
         });
 
     });

@@ -39,7 +39,7 @@ module.exports = function (mongoose_inject) {
         var full_schema_def = _.extend({
             linked_from:[linked_from_schema_def],
             link_to:[linked_from_schema_def],
-            _id: 'string', // == scope + ':' + name
+            _id:{type:'string', unique:true}, // == scope + ':' + name
             name:{type:'string', index:true},
             versions:[arch_schema_def],
             deleted:{type:'boolean', default:false},
@@ -51,6 +51,14 @@ module.exports = function (mongoose_inject) {
         var schema = new mongoose_inject.Schema(full_schema_def);
         schema.index({title:true, scope:true});
         schema.index({name:true, scope:true});
+        schema.pre('save', function(next){
+            if (this.scope_root){
+                this._id = this.scope;
+            } else {
+                this._id = this.scope + ':' + this.name;
+            }
+            this.next();
+        })
 
         _model = mm.create(
             schema,
@@ -112,7 +120,7 @@ module.exports = function (mongoose_inject) {
 
                 articles_for_scope:function (scope, cb, full, inc_scope) {
                     var query = { scope:scope, deleted:false}
-                    if (!inc_scope){
+                    if (!inc_scope) {
                         query.scope_root = false;
                     }
                     var q = this.find(query);
@@ -192,6 +200,8 @@ module.exports = function (mongoose_inject) {
             ,
             mongoose_inject
         );
+
+        _model
 
         _model.link = require('model/wiki_article/link')(_model);
     }

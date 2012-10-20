@@ -1,5 +1,25 @@
 var util = require('util');
-var _DEBUG = false;
+var _DEBUG = true;
+var Twit = require('Twit');
+var _ = require('underscore');
+var fs = require('fs');
+
+function _digest_twitter_options(values){
+    var config = {};
+
+    var tw = /^twitter_(.*)/;
+
+    _.each(values, function (value, key) {
+      //  console.log('key: %s, value: %s, ', key, value);
+        if (tw.test(key)) {
+            var k = tw.exec(key)[1];
+            config[k] = value;
+        }
+    });
+
+    return config;
+}
+
 module.exports = {
     on_validate:function (rs) {
         this.on_input(rs);
@@ -7,69 +27,45 @@ module.exports = {
 
     on_input:function (rs) {
         var self = this;
-        this.models.wizard_state.get_state(function(err, state){
-            if (state != 'done'){
-                rs.flash('error', 'You need to complete the <a href="/init_site">Site Wizard</a>.');
 
-                rs.req_props.hero = {
-                    more:{
-                        title:'Start Site Wizard',
-                        link:'/init_site'
-                    },
-                    title:'Please complete the site wizard',
-                    text:'Where have all good men gone <br />' +
-                        'And where are all the gods? <br />' +
-                        'Where’s the street-wise Hercules <br />' +
-                        'To fight the rising odds? <br />' +
-                        ' <br />' +
-                        'Isn’t there a white knight upon a fiery steed? <br />' +
-                        'Late at night I toss and turn and dream of what I need'
+        this.models.site_options.option_value([
+            'twitter_consumer_key'
+            , 'twitter_consumer_secret'
+            , 'twitter_access_token',
+            , 'twitter_access_token_secret'
+
+        ], function (err, values) {
+         //   console.log('values: %s', util.inspect(values));
+            var config = _digest_twitter_options(values);
+            var twit_conn = new Twit(config);
+            var send = setTimeout(function(){
+                self.on_process(rs, [{text: 'offline'}], null, config);
+                send = false;
+                console.log('offline home page')
+            }, 1000);
+            twit_conn.get('statuses/user_timeline', {screen_name: 'david_edelhart', count: 100}, function (err, tweets) {
+                if (send){
+                    clearTimeout(send);
+                    if (err){
+                        if (err.code= 'ENOTFOUND'){
+                            self.on_process(rs, [{text: 'offline'}], err, config);
+                        } else {
+
+                            self.on_process(rs, [{text: err.message}], err, config);
+                        }
+                    } else {
+                        self.on_process(rs, tweets, util.inspect(err), config);
+                        console.log('online home page: %s, %s', util.inspect(tweets).slice(0, 100), util.inspect(err))
+                    }
                 }
-            }
-            self.on_process(rs, rs.req_props);
-        }, 'init_site', 'wizard') ;
+            });
+
+        })
+
     },
 
-    on_process:function (rs, input) {
-        if (!input) {
-            input = {name:'World'}
-        } else if (!input.name) {
-            input.name = 'World';
-        }
-        /* ************* SIDEBER ****** */
-            // note - this is a "proof of concept" that is sabotoged by the layout sidebar helper.
-
-        if (input.sidebar) {
-            input.sidebar = [
-                {  title:'Sidebar title',
-                    links:[
-                        {link:'/section/1', title:'Section One'},
-                        {link:'/section/2', title:'Section Two'}
-                    ]}
-            ];
-        }
-        /* ************* NAV ********** */
-
-        if (input.nav) {
-            input.nav = [
-                {
-                    dropdown:true,
-                    title:'Sections',
-                    links:[
-                        {link:'/section/1', title:'Section One'},
-                        {link:'/section/2', title:'Section Two'}
-                    ]
-                },
-                {
-                    title:'Section 3', link:'/section/3'
-                }
-
-            ]
-        }
-
-
-        if (_DEBUG) console.log('outputting %s', util.inspect(input))
-        this.on_output(rs, input);
+    on_process:function (rs, tweets, te, tv) {
+        this.on_output(rs, {tweets: tweets, te: te, tv: tv});
     }
 
 

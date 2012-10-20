@@ -1,5 +1,5 @@
 var util = require('util');
-var _DEBUG = false;
+var _DEBUG = true;
 
 module.exports = {
 
@@ -75,9 +75,10 @@ module.exports = {
     },
 
     on_post_process:function (rs, article) {
-        article._id = article.scope + (article.scope_root) ? '' : (':' + article.name);
+       // article._id = article.scope + (article.scope_root) ? '' : (':' + article.name);
         var self = this;
         self.model().sign(article, rs.session('member'));
+        if (_DEBUG) console.log('posting article: %s', util.inspect(article));
         self.model().put(article, function (err, art_record) {
             if (err) {
                 self.emit('process_error', rs, err);
@@ -133,13 +134,14 @@ module.exports = {
         article._id = article.scope + (article.scope_root) ? '' : (':' + article.name);
         var promote = input.promoted;
         delete article.promoted;
+        if (_DEBUG) console.log('put article %s', util.inspect(article));
 
         function _promote(err, new_art) {
             if (err) {
                 throw err;
             }
             var j = new_art.toJSON();
-            if (_DEBUG) console.log('put article %s', util.inspect(j));
+            if (_DEBUG) console.log('promoting article %s', util.inspect(j));
 
             delete j.versions;
 

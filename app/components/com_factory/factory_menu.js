@@ -14,12 +14,12 @@ module.exports = {
             if (can) {
                 self.add_menu_items(menus, 'admin',
                     {
-                        label:'Factory',
+                        label:'Site Structure',
                         weight:300,
                         links:[
                             {
                                 link:'/admin/factory/make',
-                                label:'Site Structure',
+                                label:'Factory',
                                 type:'link'
                             }
                         ]

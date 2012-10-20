@@ -1,4 +1,4 @@
-var _DEBUG = true;
+var _DEBUG = false;
 var util = require('util');
 var _ = require('underscore');
 
@@ -50,8 +50,10 @@ module.exports = {
             if (input.javascript_head) {
                 input.javascript_head = _localize(input.javascript_head);
             }
-        } else if (_DEBUG){
-            console.log('DUDEHEREsmyINTERNET')
+            input.offline = true;
+        } else{
+            if (_DEBUG) console.log('DUDEHEREsmyINTERNET')
+            input.offline = false;
         }
         cb();
     }

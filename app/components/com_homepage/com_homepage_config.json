@@ -1,0 +1,32 @@
+{
+
+	"options":[
+		{
+			"name":"twitter_consumer_key",
+			"data_type":"string",
+			"default":"---",
+			"notes":"used for twitter oAuth"
+		}
+
+		,{
+			"name":"twitter_consumer_secret",
+			"data_type":"string",
+			"default":"---",
+			"notes":"used for twitter oAuth"
+		}
+
+		,{
+			"name":"twitter_access_token",
+			"data_type":"string",
+			"default":"---",
+			"notes":"used for twitter oAuth"
+		}
+
+		,{
+			"name":"twitter_access_token_secret",
+			"data_type":"string",
+			"default":"---",
+			"notes":"used for twitter oAuth"
+		}
+	]
+}
