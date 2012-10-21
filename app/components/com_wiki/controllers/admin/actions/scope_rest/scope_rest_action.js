@@ -92,6 +92,7 @@ module.exports = {
         if (_DEBUG) console.log('put: new data %s', util.inspect(article));
         var member = rs.session('member');
         article.creator = article.author = member._id;
+        this.model().set_id(article);
         this.model().put(article, _promote);
 
     },
@@ -113,17 +114,19 @@ module.exports = {
         rs.send(input)
     },
 
-    /* ****** DELETE ****** *
+
+     /* ****** DELETE ****** */
 
     on_delete_validate:function (rs) {
         var self = this;
-        this.models.member.can(rs, ['create scope', 'edit any scope', 'delete any scope'], function (err, can) {
+
+        this.models.member.can(rs, ['delete any scope'], function (err, can) {
             if (err) {
                 self.emit('validate_error', rs, err);
             } else if (can) {
                 self.on_delete_input(rs)
             } else {
-                self.emit('validate_error', rs, 'you are not authorized to manage scopes')
+                self.emit('validate_error', rs, 'you are not authorized to delete scopes')
             }
         })
 
@@ -132,13 +135,23 @@ module.exports = {
     on_delete_input:function (rs) {
         var self = this;
         var input = rs.req_props;
-        self.on_delete_process(rs, input)
+        this.model().scope(input.scope, function(err, art){
+            if (err){
+                rs.emit('delete_input', rs, err);
+            } else if (art){
+                self.on_delete_process(rs, art)
+            } else {
+                rs.emit('input_error', rs, 'cannot get scope article ' + input.scope)
+            }
+        });
     },
 
-    on_delete_process:function (rs, input) {
+    on_delete_process:function (rs, art) {
         var self = this;
-        rs.send(input)
+        this.model().delete(art, function(){
+            rs.send(art)
+        }, true)
     },
-*/
+
     _on_error_go:true
 }

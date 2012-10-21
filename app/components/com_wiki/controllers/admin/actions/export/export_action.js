@@ -22,7 +22,6 @@ function _export_article(article, dir) {
     data.author = data.author.member_name;
     data.creator = data.creator.member_name;
     delete data.versions;
-    delete data.linked_from;
     delete data.link_to;
 
     fs.writeFile(filename, JSON.stringify(data), _.identity);

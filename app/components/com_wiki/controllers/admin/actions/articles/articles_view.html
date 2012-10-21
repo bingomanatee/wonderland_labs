@@ -18,7 +18,6 @@
                 <th>
                     Creator
                 </th>
-                <th>Linked From</th>
                 <th>Link To</th>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
@@ -30,7 +29,6 @@
                 <td ng-bind-html-unsafe=" article | article_name "></td>
                 <td>{{article.title }}</td>
                 <td>{{ article.creator.member_name }}</td>
-                <td><div ng-repeat="art in article.linked_from">{{art.name}}</div></td>
                 <td><div ng-repeat="art in article.link_to">{{art.name}}</div></td>
                 <td nowrap="nowrap">
                     <button class="btn btn-small nomargin" ng-click="view_article(article)">

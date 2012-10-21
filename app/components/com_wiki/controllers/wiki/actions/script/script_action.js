@@ -1,5 +1,6 @@
 var scope_menu = require('parsers/scope_menu');
 var wiki_links = require('parsers/wiki_links');
+var color = require('parsers/color');
 
 module.exports = {
 
@@ -17,11 +18,13 @@ on_input: function (rs){
 on_process: function (rs,input){
 	var self = this;
     var sm = scope_menu.toString();
-    console.log('scope menu: %s', sm);
+   // console.log('scope menu: %s', sm);
     var scope = input.scope ? input.scope : false;
+    //@TODO: custom functions per scope
     var wl = wiki_links.toString();
+    var co = color.toString();
 
-	self.on_output(rs, {parsers: ['marked_cb', sm, wl], scope: scope})
+	self.on_output(rs, {parsers: ['marked_cb', sm, wl, co]})
 },
 
 /* ****** GET ****** */

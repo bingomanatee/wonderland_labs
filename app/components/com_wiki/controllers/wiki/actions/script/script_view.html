@@ -1,12 +1,9 @@
 <% if (false) {%>
 <script language="javascript">
     //  <% } %>
-    function wiki(txt, callback, env) {
-        // <% if (scope) { %>
-        var scope = "<%=  scope %>";
-        // <% } else { %>
-        var scope = '';
-        // <% } %>
+    function wiki(txt, article, callback) {
+
+        console.log('text: ', txt, 'article: ', article);
 
         if (!callback){
             throw new Error('no callback to wiki');
@@ -14,13 +11,13 @@
             console.log('wiki callback: ', callback);
         }
 
-        function marked_cb(txt, cb) {
+        function marked_cb(txt, article, cb) {
             if (!cb){
                 throw new Error('marked_cb: no callback passed');
             }
             try {
                 txt = marked(txt);
-                cb(null, txt);
+                cb(null, txt, article);
             } catch (err) {
                 cb(err);
             }
@@ -28,7 +25,7 @@
 
         async.waterfall([
                 function(cb){
-                    cb(null, txt)
+                    cb(null,  txt, article)
                 },
 <%- parsers.join(',') %>
         ], callback);

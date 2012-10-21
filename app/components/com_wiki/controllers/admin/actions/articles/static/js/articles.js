@@ -17,15 +17,7 @@ angular.module('articleservices', ['ngResource']).factory('Articles',
         return function (article) {
             return article.scope_root ? '' : article.name;
         };
-    }).filter('article_linked_from', function () {
-        return function(article){
-            var out = [];
-            for(var i = 0; i < article.linked_from.length; ++i){
-                out.push(article.linked_from.name);
-            }
-            return out.join('<br />');
-        }
-});
+    });
 
 function ArticlesCtrl($scope, $filter, $compile, Articles) {
 

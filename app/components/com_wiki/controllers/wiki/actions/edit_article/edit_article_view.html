@@ -27,7 +27,7 @@
                 <ul class="nav nav-tabs" id="wiki_tab">
                     <li><a href="#tab_title" data-toggle="tab">Title</a></li>
                     <li><a href="#tab_summary" data-toggle="tab">Summary</a></li>
-                    <li><a href="#tab_content" data-toggle="tab">Content</a></li>
+                    <li class="active"><a href="#tab_content" class="active content" data-toggle="tab">Content</a></li>
                     <li><a href="#tab_promotion" data-toggle="tab">Promotion</a></li>
                     <li><a href="#tab_debug" data-toggle="tab">Debug</a></li>
                 </ul>
@@ -52,7 +52,7 @@
                         </div>
                         <!-- end row -->
                     </div>
-                    <div class="tab-pane active" id="tab_summary">
+                    <div class="tab-pane" id="tab_summary">
                         <div style="width:95%">
                             <label style="float: right"><input type="checkbox" ng-model="summary_preview"/>
                             Preview</label>
@@ -71,7 +71,8 @@
 
                     </div>
                     <!-- end summary tab -->
-                    <div class="tab-pane" id="tab_content">
+                    <!--  content tab -->
+                    <div class="tab-pane active" id="tab_content">
                         <span class="{{content_row_class}}">
                             <td colspan="3">
                                 <div style="width: 95%">
@@ -90,6 +91,7 @@
                                 <span class="help-inline" ng-visibile="content_error">{{content_error}}</span>
                             </td>
                         </span></div>
+                    <!-- end content tab -->
                     <div class="tab-pane" id="tab_promotion"><h3>Promote on home page</h3>
                         <label><input type="checkbox" ng-model="promote"/> Promote</label>
 
@@ -165,28 +167,9 @@
         )
         </script>
 
+<script>
+    $(function () {
+        $('#wiki_tab .content').tab('show')
 
-<style>
-.mono {
-    white-space: pre;
-    font-family: Monaco, "Courier New", Courier, monospace;
-    font-size: 85%;
-}
-
-.text_region {
-    height: 12em;
-    overflow: scroll;
-    width: 95%;
-    border: 1px solid rgb(153, 153, 153);
-    display: block;
-}
-
-.content_region {
-    height: 18em;
-    overflow: scroll;
-    width: 95%;
-    border: 1px solid rgb(153, 153, 153);
-    display: block;
-}
-
-</style>
+    })
+</script>

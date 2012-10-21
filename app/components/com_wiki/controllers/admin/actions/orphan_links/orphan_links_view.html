@@ -1,0 +1,42 @@
+
+<h1>Links</h1>
+<% for (scope in map){ %>
+
+<h2>Scope &quot;<%- scope %>&quot;</h2>
+
+<dl>
+    <% for (name in map[scope]){
+    var article = get_article(scope, name);
+    var lal = false;
+    var ol = false;
+    %>
+    <dt><a href="/wiki/a/<%-scope %>/<%-name %>"><%- name %>(<%= map[scope][name] %>)</a></dt>
+
+    <dd>
+            <% article.link_to.forEach(function(link){
+            var link_article = get_article(link.scope, link.name);
+            if (link_article){
+            %>
+        <% if (!lal){ %>
+        <i>Links</i>:
+        <% }
+        lal = true %>
+            <a href="/wiki/a/<%- link.scope %>/<%- link.name %>" class="btn btn-compressed"><%-link.name %> (<%- link_article.title %>)</a>
+            <% } }) %>
+        <% if (lal){ %>
+        <br />
+        <% } %>
+            <% article.link_to.forEach(function(link){
+            var link_article = get_article(link.scope, link.name);
+            if (!link_article){
+            %>
+        <% if (!ol){ %>
+
+        <i>Orphans</i>:
+        <% ol = true } %>
+            <a href="/wiki/a/<%- link.scope %>/<%- link.name %>" class="btn btn-compressed btn-primary"><%-link.name %></a>
+            <% } }) %>
+    </dd>
+    <% } %>
+</dl>
+<% } %>

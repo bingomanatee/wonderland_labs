@@ -32,8 +32,12 @@ tap.test('custom id', function (t) {
         scope: 'bar'
     }
 
+    wiki_model.set_id(article);
+
+    t.equals(article._id, 'bar:foo', 'setting of ID on object');
 
     wiki_model.put(article, function(err, art_model){
+
         t.equals(art_model._id, 'bar:foo', 'setting of ID on object');
         wiki_model.get('bar:foo', function(err2, am2){
             t.ok(am2, 'found bar:foo');
@@ -49,6 +53,9 @@ tap.test('custom id on document ', function(t){
         name: 'vey',
         scope: 'bar'
     });
+
+    wiki_model.set_id(article);
+    t.equals(article._id, 'bar:vey', 'setting of ID on object');
 
     wiki_model.put(article, function(err, art_model){
 

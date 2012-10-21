@@ -126,7 +126,7 @@ function ScopesCtrl($scope, $filter, $compile, Scopes) {
                 $scope.summary_row_class = 'control-group success';
             }
         }
-        wiki(summary, function (err, h) {
+        wiki(summary, $scope.new_scope, function (err, h) {
             if (err) {
                 return console.log('error in wiki: ', err);
             } else {
@@ -163,7 +163,7 @@ function ScopesCtrl($scope, $filter, $compile, Scopes) {
                 $scope.content_row_class = 'control-group success';
             }
         }
-        var h = wiki(content, function (err, h) {
+        var h = wiki(content, new_scope, function (err, h) {
             if (err) {
                 return console.log('error in wiki: ', err);
             } else {

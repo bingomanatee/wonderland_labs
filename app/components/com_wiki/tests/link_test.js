@@ -41,7 +41,7 @@ tap.test('linking', function (t) {
         }
 
         return {
-
+            _id: 'test:' + name,
             scope:'test',
             title:'Test ' + name,
             name:name,
@@ -63,28 +63,33 @@ tap.test('linking', function (t) {
                 wiki_model.link(article_c, function () {
 
                     wiki_model.article('test', 'a', function (err, article_a) {
+                        if (err){
+                            console.log('error finding article a: %s', err.message);
+                            _try_drop();
+                            return t.end();
+                        }
 
                         article_a.content = 'link to [[b:Article b]], [[c]]';
+                        wiki_model.link(article_a, function(err, article_a){
 
-                        article_a.save(function (err, saved) {
-                            if (err) {
-                                console.log('error: %s', err.message);
-                                _try_drop();
-                                t.end();
-                            } else {
+                            article_a.save(function (err, saved) {
+                                if (err) {
+                                    console.log('saving error: %s, %s', err.message);
+                                    _try_drop();
+                                    t.end();
+                                    throw(err);
+                                } else {
 
-                                wiki_model.link(article_a, function () {
+                                    wiki_model.article('test', 'a', function (err, art_a) {
 
-                                    wiki_model.article('test', 'b', function (err, art_b) {
+                                        t.equal(art_a.link_to.length, 2, 'two link_to items in a');
+                                        if (art_a.link_to.length) {
 
-                                        t.equal(art_b.linked_from.length, 2, 'two linked_from items in b');
-                                        if (art_b.linked_from.length) {
-
-                                            var las = _.sortBy(_.map(art_b.linked_from, function (lf) {
+                                            var link_to_names = _.sortBy(_.map(art_a.link_to, function (lf) {
                                                 return lf.name
                                             }), _.identity).join(',');
 
-                                            t.equal(las, 'a,c', 'b is linked from a and c');
+                                            t.equal(link_to_names, 'b,c', 'b is linked from a');
                                         }
 
                                         wiki_model.all(function (err, docs) {
@@ -95,9 +100,11 @@ tap.test('linking', function (t) {
                                         })
 
                                     });
-                                })
-                            }
-                        })
+                                }
+                            })
+
+                        });
+
                     })
                 })
 

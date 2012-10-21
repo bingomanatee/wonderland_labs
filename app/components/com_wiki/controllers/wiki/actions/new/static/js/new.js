@@ -28,7 +28,7 @@ function ArticleCtrl($scope, $filter, $compile, Articles) {
 
     $scope.add_article = function () {
         Articles.add($scope.new_article, function () {
-            document.location = "/wiki/a/" + $scope.new_article.scope + '/' + $scope.new_article.name + '/?flash_info=' + encodeURI('Scope Created');
+            document.location = "/wiki/a/" + $scope.new_article.scope + '/' + $scope.new_article.name + '/?flash_info=' + encodeURI('Article Created');
         });
     }
 
@@ -84,7 +84,7 @@ function ArticleCtrl($scope, $filter, $compile, Articles) {
                 $scope.summary_row_class = 'control-group success';
             }
         }
-        wiki(summary, function (err, h) {
+        wiki(summary, $scope.new_article, function (err, h) {
             if (err) {
                 return console.log('error in wiki: ', err);
             } else {
@@ -95,7 +95,7 @@ function ArticleCtrl($scope, $filter, $compile, Articles) {
         _set_can_submit();
     });
 
-    /* **************** SUMMARY ************************** */
+    /* **************** CONTENT ************************** */
 
     $scope.content_error = '';
     $scope.content_row_class = 'control-group';
@@ -113,7 +113,7 @@ function ArticleCtrl($scope, $filter, $compile, Articles) {
             $scope.content_error = '';
             $scope.content_row_class = 'control-group success';
         }
-        var h = wiki(content, function (err, h) {
+        var h = wiki(content, $scope.new_article, function (err, h) {
             if (err) {
                 return console.log('error in wiki: ', err);
             } else {

@@ -1,4 +1,15 @@
 var util = require('util');
+var _ = require('underscore');
+_.str = require('underscore.string');
+
+function _clean(article){
+
+    var out = _.clone(article);
+
+    out.content = _.str.escapeHTML(out.content);
+    out.summary = _.str.escapeHTML(out.summary);
+    return out;
+}
 
 module.exports = {
 
@@ -21,7 +32,10 @@ module.exports = {
                 self.emit('input_error', rs, err);
             } else if (article) {
                 self.models.member.can(rs, [ "create article"], function (err, can) {
-                    self.on_process(rs, article, can)
+                    self.model().links_to(article.scope, article.name, function(err, links_to){
+
+                        self.on_process(rs, article, can, links_to)
+                    })
 
                 })
             } else {
@@ -33,7 +47,7 @@ module.exports = {
                         rs.go(util.format('/wiki/%s/%s/new', input.scope, input.article));
                     } else {
                         self.emit('input_error', rs,
-                            util.format('cannot find article %s in scope %s, snf you are not authorized ot edit articles',
+                            util.format('cannot find article %s in scope %s, and you are not authorized ot edit articles',
                                 input.article, input.scope));
                     }
                 })
@@ -55,11 +69,13 @@ module.exports = {
 
     _on_input_error_go:'/',
 
-    on_process:function (rs, article, can_create) {
+    on_process:function (rs, article, can_create, links_to) {
         var self = this;
         self.on_output(rs, {
-            article:article,
+            article_json: _clean(article.toJSON()),
+            article: article,
             can_create:can_create,
+            links_to: links_to,
             menus:[
                 {
                     name:'wiki',

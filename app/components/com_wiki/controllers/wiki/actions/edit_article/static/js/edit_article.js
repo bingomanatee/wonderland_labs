@@ -10,7 +10,9 @@ angular.module('scopesServices', ['ngResource']).factory('Scopes',
             delete:{method:'DELETE'}
         });
     });
-
+/*
+note - article is a global variable
+ */
 function ScopesCtrl($scope, $filter, $compile, Scopes) {
 
     /* *************** MODEL ************************** */
@@ -25,6 +27,10 @@ function ScopesCtrl($scope, $filter, $compile, Scopes) {
             _original_article = _.clone(article);
         }
     );
+
+    $scope.cancel_edit = function(){
+        document.location = '/wiki/a/' + article.scope + '/' + article.name
+    }
 
     /* *************** TRACKING CHANGES *************** *
 
@@ -212,7 +218,7 @@ function ScopesCtrl($scope, $filter, $compile, Scopes) {
                 $scope.summary_row_class = 'control-group';
             }
         }
-        wiki(summary, function (err, h) {
+        wiki(summary, $scope.edit_article, function (err, h) {
             if (err) {
                 return // console.log('error in wiki: ', err);
             } else {
@@ -242,7 +248,7 @@ function ScopesCtrl($scope, $filter, $compile, Scopes) {
                 $scope.content_row_class = 'control-group';
             }
         }
-        var h = wiki(content, function (err, h) {
+        var h = wiki(content, $scope.edit_article, function (err, h) {
             if (err) {
                 return // console.log('error in wiki: ', err);
             } else {

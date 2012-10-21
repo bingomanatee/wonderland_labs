@@ -75,9 +75,10 @@ module.exports = {
     },
 
     on_post_process:function (rs, article) {
-       // article._id = article.scope + (article.scope_root) ? '' : (':' + article.name);
+
         var self = this;
         self.model().sign(article, rs.session('member'));
+        self.model().set_id(article);
         if (_DEBUG) console.log('posting article: %s', util.inspect(article));
         self.model().put(article, function (err, art_record) {
             if (err) {
@@ -85,7 +86,7 @@ module.exports = {
             } else {
                 self.model().link(art_record, function () {
                     rs.send(art_record);
-                });
+                }, true);
             }
         })
     },
@@ -131,7 +132,6 @@ module.exports = {
 
     on_put_process:function (rs, article, input) {
         var self = this;
-        article._id = article.scope + (article.scope_root) ? '' : (':' + article.name);
         var promote = input.promoted;
         delete article.promoted;
         if (_DEBUG) console.log('put article %s', util.inspect(article));
@@ -156,7 +156,7 @@ module.exports = {
                     self.model().link(article, function () {
                         console.log('sending data');
                         rs.send(j)
-                    });
+                    }, true);
 
                 })
         }
@@ -175,23 +175,43 @@ module.exports = {
         }
     },
 
-    /* ****** DELETE ****** *
+    /* ****** DELETE ****** */
 
-     on_delete_validate:function (rs) {
-     var self = this;
-     self.on_delete_input(rs)
-     },
+    on_delete_validate:function (rs) {
+        var self = this;
 
-     on_delete_input:function (rs) {
-     var self = this;
-     var input = rs.req_props;
-     self.on_delete_process(rs, input)
-     },
+        this.models.member.can(rs, ['delete any article'], function (err, can) {
+            if (err) {
+                self.emit('validate_error', rs, err);
+            } else if (can) {
+                self.on_delete_input(rs)
+            } else {
+                self.emit('validate_error', rs, 'you are not authorized to delete articles')
+            }
+        })
 
-     on_delete_process:function (rs, input) {
-     var self = this;
-     rs.send(input)
-     },
-     */
+    },
+
+    on_delete_input:function (rs) {
+        var self = this;
+        var input = rs.req_props;
+        this.model().article(input.scope, input.name, function(err, art){
+            if (err){
+                rs.emit('delete_input', rs, err);
+            } else if (art){
+                self.on_delete_process(rs, art)
+            } else {
+                rs.emit('input_error', rs, 'cannot get article ' + input.name)
+            }
+        });
+    },
+
+    on_delete_process:function (rs, art) {
+        var self = this;
+        this.model().delete(art, function(){
+            rs.send(art)
+        }, true)
+    },
+
     _on_error_go:true
 }

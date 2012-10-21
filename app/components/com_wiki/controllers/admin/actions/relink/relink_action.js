@@ -19,7 +19,7 @@ module.exports = {
         var self = this;
 
         this.model().active().stream().on('data',function (doc) {
-            self.model().link(doc);
+            self.model().link(doc, _.identity, true);
         }).on('error',function (err) {
                 rs.send(err);
             }).on('close', function () {

@@ -48,6 +48,11 @@ module.exports = {
                             link:'/admin/wiki/articles',
                             type:'link',
                             label:'Articles'
+                        },
+                        {
+                            link:'/admin/wiki/orphan_links',
+                            type:'link',
+                            label:'Orphan Links'
                         }
                     ];
 
@@ -70,13 +75,6 @@ module.exports = {
                     }
 
                     if (menus.article && rs.req_props.article) {
-                        var in_links = _.map(rs.req_props.article.linked_from, function (link) {
-                            return {
-                                type:'link',
-                                label:link.title,
-                                link:'/wiki/a/' + link.scope + '/' + link.name
-                            }
-                        });
 
                         self.add_menu_items(menus, 'article', {
                             label:'Links to this article',

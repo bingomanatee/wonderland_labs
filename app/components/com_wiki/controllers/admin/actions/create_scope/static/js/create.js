@@ -188,7 +188,7 @@ function ScopesCtrl($scope, Scopes) {
                 $scope.summary_error = '';
             }
         }
-        wiki(summary, function (err, h) {
+        wiki(summary, $scope.new_scope, function (err, h) {
             if (err) {
                 return // console.log('error in wiki: ', err);
             } else {

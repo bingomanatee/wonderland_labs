@@ -6,7 +6,7 @@ var mm = NE.deps.support.mongoose_model;
 var Gate = NE.deps.support.nakamura_gate;
 
 var wiki_links = require('./../../node_modules/parsers/wiki_links');
-var link_parts = require('./../../node_modules/parsers/link_parts');
+var links_in_text = require('./../../node_modules/parsers/links_in_text');
 var _DEBUG = false;
 
 var _model;
@@ -30,15 +30,14 @@ module.exports = function (mongoose_inject) {
 
         var arch_fields = _.keys(arch_schema_def);
 
-        var linked_from_schema_def = {
+        var link_schema_def = {
             name:'string',
             scope:'string',
             title:'string'
         }
 
         var full_schema_def = _.extend({
-            linked_from:[linked_from_schema_def],
-            link_to:[linked_from_schema_def],
+            link_to:[link_schema_def],
             _id:{type:'string', unique:true}, // == scope + ':' + name
             name:{type:'string', index:true},
             versions:[arch_schema_def],
@@ -51,19 +50,68 @@ module.exports = function (mongoose_inject) {
         var schema = new mongoose_inject.Schema(full_schema_def);
         schema.index({title:true, scope:true});
         schema.index({name:true, scope:true});
-        schema.pre('save', function(next){
-            if (this.scope_root){
-                this._id = this.scope;
-            } else {
-                this._id = this.scope + ':' + this.name;
-            }
-            next();
-        })
 
         _model = mm.create(
             schema,
             {
                 name:"wiki_article",
+
+                article_map:function (cb, scope) {
+                    function _map(err, arts) {
+                        cb(null, _.reduce(arts, function (map, art) {
+                            if (!map[art.scope]){
+                                map[art.scope] = {};
+                            }
+
+                            map[art.scope][art.name] = art.title
+                            return map;
+                        }, {}));
+                    }
+
+                    if (scope) {
+                        _model.active().where('scope').equals(scope).select({name:1, scope:1}).exec(_map)
+                    } else {
+                        _model.active().select({name:1, scope:1, title: 1}).exec(_map)
+                    }
+                },
+
+                links_to: function(scope, name, cb){
+
+                  _model.find({'link_to.name': name, 'link_to.scope': scope, deleted: false}).select({
+                      name: 1,
+                      scope: 1,
+                      title: 1
+                  }).exec(cb);
+                },
+
+                orphan_links:function (cb) {
+                    _model.active().select({link_to:1, name:1, scope:1, content:1}).exec(function (err, arts) {
+                        var linked_arts = [];
+                        var gate = Gate.create();
+
+                        _.each(arts, function (art) {
+                            var l = gate.latch();
+                            _model.link(art, function(err, linked_art){
+                                console.log('from link: %s, %s', util.inspect(err), util.inspect(linked_art));
+                                linked_arts.push(linked_art);
+                                l();
+                            });
+                        })
+                        gate.await(function () {
+
+                            var map_articles = _.map(linked_arts, function(a){
+                                a = a.toJSON();
+                                console.log('map articles item: %s', util.inspect(a));
+                                delete a.content;
+                                return a;
+                            });
+
+                            console.log('MAP ARTICLES: %s', util.inspect(map_articles));
+                            cb(null, map_articles);
+                        })
+                    })
+                },
+
                 get_title:function (title, cb, scope) {
                     if (scope) {
                         this.find_one({title:title, scope:scope}, cb);
@@ -74,10 +122,6 @@ module.exports = function (mongoose_inject) {
 
                 text_links:function (text, cb) {
                     return wiki_links(text, cb);
-                },
-
-                text_link_parts:function (text) {
-                    return link_parts(wiki_links(text));
                 },
 
                 promote_basis:function (article) {
@@ -96,6 +140,14 @@ module.exports = function (mongoose_inject) {
                         q.select('-versions');
                     }
                     q.populate('author').populate('creator').exec(cb);
+                },
+
+                set_id:function (article) {
+                    if (!(article.scope && (article.name || article.scope_root))) {
+                        throw new Error('attempt to create id for article with missing name/scope: ' + util.inspect(article));
+                    }
+                    article._id = article.scope + (article.scope_root ? '' : (':' + article.name));
+                    return article;
                 },
 
                 article:function (scope, name, cb, full) {
@@ -200,8 +252,6 @@ module.exports = function (mongoose_inject) {
             ,
             mongoose_inject
         );
-
-        _model
 
         _model.link = require('model/wiki_article/link')(_model);
     }
