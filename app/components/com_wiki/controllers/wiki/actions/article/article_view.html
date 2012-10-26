@@ -33,12 +33,14 @@
     </button>
 </h1>
 <% } %>
-<article style="display: none">
+<article class="wiki_body" style="display: none">
     <div class="summary">
-        <%- article.summary %>
+
     </div>
     <hr/>
-    <div class="content"><%- article.content %></div>
+    <div class="content">
+
+    </div>
     <% if (links_to && links_to.length){ %>
     <nav  class="well">
         <h2>Links to this article</h2>
@@ -56,27 +58,26 @@
 <script type="text/javascript" language="javascript">
     $(function () {
 
-        var hs = $('article .summary').html();
+        $.get('/wiki/article_rest/' + page_article.scope + '/' + page_article.name, function(article_data){
 
-        var hcount = 0;
+            var hcount = 0;
 
-        wiki(hs, page_article, function (err, txt) {
-            $('article .summary').html(txt);
-            show_article();
-        })
+            wiki(article_data.summary, article_data, function (err, txt) {
+                $('article .summary').html(txt);
+                show_article();
+            })
 
-        var hc = $('article .content').html();
+            wiki(article_data.content, article_data,  function (err, txt) {
+                $('article .content').html(txt);
+                show_article();
+            })
 
-        wiki(hc, page_article,  function (err, txt) {
-            $('article .content').html(txt);
-            show_article();
-        })
-
-        function show_article() {
-            if (++hcount > 1) {
-                $('article').show();
+            function show_article() {
+                if (++hcount > 1) {
+                    $('article').show();
+                }
             }
-        }
+        })
 
     })
 

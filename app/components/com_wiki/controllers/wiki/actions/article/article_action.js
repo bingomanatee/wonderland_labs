@@ -2,12 +2,16 @@ var util = require('util');
 var _ = require('underscore');
 _.str = require('underscore.string');
 
+function _ue(txt){
+    return txt.replace(/&amp;lt;/g, '&lt;').replace(/&amp;gt;/g, '&gt;')
+}
+
 function _clean(article){
 
     var out = _.clone(article);
 
-    out.content = _.str.escapeHTML(out.content);
-    out.summary = _.str.escapeHTML(out.summary);
+   delete  out.content;
+   delete  out.summary;
     return out;
 }
 
