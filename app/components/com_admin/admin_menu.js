@@ -24,7 +24,7 @@ module.exports = {
                     link: '/admin/home'
                 },
                 {
-                    label: '/Options',
+                    label: 'Options',
                     type: 'link',
                     link: '/admin/options'
                 }
