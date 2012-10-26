@@ -2,7 +2,6 @@ var NE = require('nuby-express');
 var mm = NE.deps.support.mongoose_model;
 var util = require('util');
 var _ = require('underscore');
-var Gate = NE.deps.support.Gate;
 var _DEBUG = false;
 
 var _model;
@@ -41,13 +40,16 @@ var _model_def = {
         }
     },
 
-    reload_cache: function(){
+    reload_cache: function(cb){
         _model.cache = {};
-        _model.all(function (err, records) {
+        _model.active(function (err, records) {
                     if (records) {
                         _.each(records, function (r) {
                             _model.cache[r.name] = r.value;
                         })
+                    }
+                    if (cb){
+                        cb(null, _model.cache);
                     }
                 });
     },
@@ -78,19 +80,9 @@ var _model_def = {
 
     get_cache:function (cb) {
         if (cb) {
-            _model.active(function (err, options) {
-                if (err) {
-                    return cb(err);
-                }
-                _model.cache = {}; // wipe out any leftover / legacy
-                options.forEach(function (option) {
-                    _model.cache[option.name] = option.value;
-                });
-
-                cb(null, _model.cache);
-            })
+            this.reload_cache(cb);
         } else {
-            return _model.cache;
+            return _.clone(_model.cache);
         }
     },
 
