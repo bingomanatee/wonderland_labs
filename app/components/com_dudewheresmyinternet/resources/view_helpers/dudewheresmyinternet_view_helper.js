@@ -7,7 +7,9 @@ var map = {
     jqueryui:PREFIX + 'jquery-ui-1.8.23.custom.min.js',
     underscore:PREFIX + 'underscore-min.js',
     less:PREFIX + 'less-1.1.3.min.js',
-    bootstrap: PREFIX + 'bootstrap.min.js'
+    bootstrap: PREFIX + 'bootstrap.min.js',
+    angular: PREFIX + 'angular-1.0.2/angular.min.js',
+    angular_resource: PREFIX + 'angular-1.0.2/angular-resource.js'
 };
 
 function _js_finder(js_file) {
@@ -23,6 +25,10 @@ function _js_finder(js_file) {
         alias = map.jqueryui
     } else if (/bootstrap[^\/]*js/i.test(js_file)) {
         alias = map.bootstrap;
+    } else if (/angular[^\/]*resource[^\/]*js/i.test(js_file)) {
+        alias = map.angular_resource;
+    }else if (/angular[^\/]*js/i.test(js_file)) {
+        alias = map.angular;
     }
 
     if (alias) {
