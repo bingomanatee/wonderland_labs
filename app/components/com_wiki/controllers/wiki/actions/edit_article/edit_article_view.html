@@ -1,10 +1,14 @@
 <script type="text/javascript" language="javascript">
-    var article = <%- JSON.stringify(article) %>;
-    <% if (promoted){ %>
-    var promoted = <%- JSON.stringify(promoted) %>;
-    <% } else { %>
-    var promoted = false;
-    <% } %>
+    var article = <%-JSON.stringify(article) %>;
+    <%
+    if (promoted) { %>
+        var promoted = <%-JSON.stringify(promoted) %>;
+    <%
+    } else { %>
+        var promoted = false;
+    <%
+    }
+    %>
 
 </script>
 <script type="text/javascript" language="javascript"
@@ -17,7 +21,8 @@
     <h1>
         <button class="btn pull-right" ng-click="show_history()"><i class="icon-search"></i> Show History
         </button>
-        Edit Article <a href="/wiki/s/<%- article.scope %>"><%= article.scope %></a>:&quot;<%=article.title %>&quot; <span style="color: #808080">(<%= article.name %>)</span>
+        Edit Article <a href="/wiki/s/<%- article.scope %>"><%= article.scope %></a>:&quot;<%=article.title %>&quot;
+        <span style="color: #808080">(<%= article.name %>)</span>
     </h1>
 
     <div class="row-fluid">
@@ -28,24 +33,40 @@
                     <li><a href="#tab_title" data-toggle="tab">Title</a></li>
                     <li><a href="#tab_summary" data-toggle="tab">Summary</a></li>
                     <li class="active"><a href="#tab_content" class="active content" data-toggle="tab">Content</a></li>
+                    <li><a href="#tab_tags" data-toggle="tab">Tags</a></li>
                     <li><a href="#tab_promotion" data-toggle="tab">Promotion</a></li>
                     <li><a href="#tab_debug" data-toggle="tab">Debug</a></li>
                 </ul>
 
                 <div id="wiki_tab_content" class="tab-content" style="padding-left: 2em">
+                    <div class="tab-pane clearfix" id="tab_tags">
+                        <ul>
+                            <li ng-repeat="tag in edit_article.tags">
+                                <b>{{ tag }}</b>
+                                <span style="color: red" ng-click="remove_tag(tag)" >&times;</span>
+                            </li>
+                        </ul>
+                        <p>New Tag: <input type="text" ng-model="new_tag" /><button class="btn" ng-click="add_tag()">Add Tag</button></p>
+                        <h3>Tags in scope &quot;{{edit_article.scope }}&quot;</h3>
+                        <span ng-repeat="tag in scope_tags">
+                                <button class="btn" ng-click="add_tag(tag)">{{tag}}</button>
+                            </span>
+                    </div>
                     <div class="tab-pane clearfix" id="tab_debug">
                         <pre>
                             {{ article_json() }}
                         </pre>
-                     </div>
-                        <div class="tab-pane clearfix" id="tab_title">
+                    </div>
+                    <div class="tab-pane clearfix" id="tab_title">
                         <h3>Title</h3>
+
                         <div class="row-fluid {{title_row_class}}">
-                            <div class="span2">  <label class="control-label" for="inputTitle">
+                            <div class="span2"><label class="control-label" for="inputTitle">
                                 Title
                             </label></div>
-                            <div class="span6">  <input id="inputTitle" type="text" class="input-xlarge" ng-model="edit_article.title"
-                                                        name="title"/></div>
+                            <div class="span6"><input id="inputTitle" type="text" class="input-xlarge"
+                                                      ng-model="edit_article.title"
+                                                      name="title"/></div>
                             <div class="span4">
                                 <span class="help-inline" ng-visibile="title_error">{{title_error}}</span>
                             </div>
@@ -55,9 +76,10 @@
                     <div class="tab-pane" id="tab_summary">
                         <div style="width:95%">
                             <label style="float: right"><input type="checkbox" ng-model="summary_preview"/>
-                            Preview</label>
-                        <h3>Summary</h3>
-                            </div>
+                                Preview</label>
+
+                            <h3>Summary</h3>
+                        </div>
                         <textarea style="padding: 0px" id="inputSummary" name="summary"
                                   class="mono text_region"
                                   ng-model="edit_article.summary" ng-show="!summary_preview"
@@ -78,12 +100,13 @@
                                 <div style="width: 95%">
                                     <label style="float: right"><input type="checkbox" ng-model="content_preview"/>
                                         Preview</label>
+
                                     <h3>Content</h3>
                                 </div>
                                 <textarea style="padding: 0px" id="inputContent" name="content"
-                                               class="mono content_region"
-                                               ng-model="edit_article.content" ng-show="!content_preview"
-                                               rows="5"></textarea>
+                                          class="mono content_region"
+                                          ng-model="edit_article.content" ng-show="!content_preview"
+                                          rows="5"></textarea>
 
                                 <div id="content_md" class="content_region" ng-show="content_preview">
                                 </div>
@@ -119,7 +142,7 @@
                     </div>
                 </div>
                 <!-- end tab -->
-                <hr />
+                <hr/>
                 <div>
                     <button name="cancel" class="btn cancel" ng_click="cancel_edit()" type="submit">Cancel
                     </button>
@@ -148,12 +171,13 @@
                     </tr>
                 </table>
             </div>
-        </div><!-- end history span -->
-        </div><!-- end main row span -->
+        </div>
+        <!-- end history span -->
+    </div><!-- end main row span -->
         </span><!-- end controller span -->
-        </div><!-- end ng-app scopes -->
-        <script language="javascript" type="text/javascript">
-            $(function () {
+</div><!-- end ng-app scopes -->
+<script language="javascript" type="text/javascript">
+    $(function () {
                 $('.datepicker').datepicker();
 
                 $('#wiki_tab a').click(function (e) {
@@ -164,8 +188,8 @@
 
                 $('#wiki_tab a:first').tab('show');
             }
-        )
-        </script>
+    )
+</script>
 
 <script>
     $(function () {

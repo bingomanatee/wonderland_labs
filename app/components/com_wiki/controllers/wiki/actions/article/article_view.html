@@ -41,17 +41,17 @@
     <div class="content">
 
     </div>
-    <% if (links_to && links_to.length){ %>
-    <nav  class="well">
-        <h2>Links to this article</h2>
-        <ul>
-            <% links_to.forEach(function(a){ %>
-            <li><a href="/wiki/a/<%- a.scope %>/<%- a.name %>"><%- a.title %></a></li>
-             <% }) %>
-        </ul>
-    </nav>
-    <% } %>
 </article>
+<% if (links_to && links_to.length){ %>
+<nav  class="well wiki_link_footer">
+    <h2>Links to this article</h2>
+    <ul>
+        <% links_to.forEach(function(a){ %>
+        <li><a href="/wiki/a/<%- a.scope %>/<%- a.name %>"><%- a.title %></a></li>
+        <% }) %>
+    </ul>
+</nav>
+<% } %>
 <script type="text/javascript" language="javascript"
         src="/js/wiki/wiki.js?scope=<%= article.scope %>">
 </script>

@@ -134,7 +134,8 @@ module.exports = {
         var self = this;
         var promote = input.promoted;
         delete article.promoted;
-        if (_DEBUG) console.log('put article %s', util.inspect(article));
+        if (_DEBUG) console.log('put article %s', util.inspect(article))
+        if (_DEBUG) console.log('put article input: %s', util.inspect(input));
 
         function _promote(err, new_art) {
             if (err) {
@@ -167,7 +168,15 @@ module.exports = {
                 (article.content == input.content)
             ) {
             // this article hasn't ben changed - possibly the metadata about promotion has.
-            _promote(null, article);
+            if (article.tags.join(',') == input.tags.join(',')){
+                _promote(null, article);
+            } else {
+                console.log('tags for article %s set to %s', article.name, input.tags.join(','));
+                article.tags = input.tags;
+                article.save(function(err, art_saved){
+                    _promote(null, art_saved);
+                })
+            }
         } else {
             if (_DEBUG) console.log('put: new data %s', util.inspect(input));
             this.model().revise(article, input, rs.session('member'));
@@ -195,10 +204,10 @@ module.exports = {
     on_delete_input:function (rs) {
         var self = this;
         var input = rs.req_props;
-        this.model().article(input.scope, input.name, function(err, art){
-            if (err){
+        this.model().article(input.scope, input.name, function (err, art) {
+            if (err) {
                 rs.emit('delete_input', rs, err);
-            } else if (art){
+            } else if (art) {
                 self.on_delete_process(rs, art)
             } else {
                 rs.emit('input_error', rs, 'cannot get article ' + input.name)
@@ -208,7 +217,7 @@ module.exports = {
 
     on_delete_process:function (rs, art) {
         var self = this;
-        this.model().delete(art, function(){
+        this.model().delete(art, function () {
             rs.send(art)
         }, true)
     },

@@ -8,6 +8,7 @@ var Gate = NE.deps.support.nakamura_gate;
 var wiki_links = require('./../../node_modules/parsers/wiki_links');
 var links_in_text = require('./../../node_modules/parsers/links_in_text');
 var _DEBUG = false;
+var _DEBUG_SET = true;
 
 var _model;
 
@@ -44,7 +45,8 @@ module.exports = function (mongoose_inject) {
             deleted:{type:'boolean', default:false},
             scope:{type:'string', index:true},
             creator:{ type:mongoose_inject.Schema.Types.ObjectId, ref:'member' },
-            scope_root:{type:'boolean', default:false}
+            scope_root:{type:'boolean', default:false},
+            tags: ['string']
         }, arch_schema_def);
 
         var schema = new mongoose_inject.Schema(full_schema_def);
@@ -191,6 +193,10 @@ module.exports = function (mongoose_inject) {
                 },
 
                 preserve:function (doc, new_data) { // call this method BEFORE you start saving updated data to the record
+                    if (_DEBUG_SET){
+                        console.log('************************ preserving doc %s with new data: %s', doc.name,  util.inspect(new_data));
+                    }
+
                     if (!doc.versions) {
                         doc.versions = [];
                     }
@@ -223,7 +229,7 @@ module.exports = function (mongoose_inject) {
                                     }
                                     break;
                             }
-                            if (_DEBUG) console.log('wiki article: setting %s to %s', key, value);
+                            if (_DEBUG || _DEBUG_SET) console.log('wiki article: setting %s to %s', key, value);
                             doc[key] = value;
                         })
                     }
