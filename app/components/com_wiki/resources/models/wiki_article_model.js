@@ -25,7 +25,7 @@ module.exports = function (mongoose_inject) {
             author:{ type:mongoose_inject.Schema.Types.ObjectId, ref:'member' },
             write_date:'date',
             summary:'string',
-            content_type:{type:'string', enum:['text', 'html', 'json']},
+            content_type:{type:'string', enum:['text', 'html', 'json', 'marked'], default: 'marked'}, // currently not used
             content:'string'
         }
 

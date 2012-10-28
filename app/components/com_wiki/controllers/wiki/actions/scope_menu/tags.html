@@ -1,0 +1,11 @@
+<% _.each(tags, function(tag){ %>
+<div class="well well-small tag_items">
+    <h3><%= tag.tag %></h3>
+    <dl>
+        <% tag.items.forEach(function(si){ %>
+        <dt><a href="/wiki/a/<%= si.scope %>/<%- si.name %>"><%= si.title %></a></dt>
+        <dd><%- si.summary %></dd>
+        <% }) %>
+    </dl>
+</div>
+<% }) %>

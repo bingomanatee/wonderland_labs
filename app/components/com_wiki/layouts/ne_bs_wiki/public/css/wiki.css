@@ -34,24 +34,16 @@
     font-style: normal;
 }
 
-.tag_items {
-    width: 25%;
-    float: left;
-    margin: 1em;
-    background-color: white;
-    padding: 0em;
-    border: none;
-
-    background-color: white;
-
-    -webkit-box-shadow: inset -10px -20px 60px -20px #CCC;
-
-    box-shadow: inset -10px -20px 60px -20px #CCC;
+.wiki_body, .wiki_link_footer {
+    font-size: 115%;
+}
+.wiki_body p, .wiki_body li {
+    margin-right: 2em;
 }
 
-.wiki_body, .wiki_link_footer {
-    margin-right: 2em;
-    font-size: 115%;
+.wiki_body li p {
+    margin: 0em;
+    padding: 0em;
 }
 
 .wiki_body b {
@@ -67,12 +59,40 @@
 h1 {
     font-family: Populaire, "Helvetica Narrow", "Arial Narrow", Arial, sans-serif;
     font-weight: normal;
-    font-size: 300%
+    font-size: 300%;
+    padding: 0.25em;
+    margin: 0em;
+    margin-bottom: 0.125em;
+
+    -webkit-border-radius: 0px 0px 0px 10px;
+    border-radius: 0px 0px 0px 10px;
+
+    color: white;
+
+    background: rgb(125,126,125); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,126,125,1)), color-stop(100%,rgba(14,14,14,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+
 }
+
+h1 a {
+    color: yellow;
+}
+
+h1 a:hover {
+    color: yellow;
+    text-decoration: underline;
+}
+
 .wiki_body h2, .wiki_body h3, .wiki_body h4 {
-    font-family: Populaire, Helvetica, Geneva, Arial, sans-serif;
+    font-family: NexaHeavy, Helvetica, Geneva, Arial, sans-serif;
     font-weight: normal;
-    font-size: 250%;
+    font-size: 150%;
     line-height: 110%;
 }
 
@@ -84,7 +104,6 @@ h1 {
     display: block;
     line-height: 100%;
 
-    text-align: center;
     text-shadow: 2px 2px 2px #FFF;
     filter: dropshadow(color=#FFF, offx=2, offy=2);
 
@@ -100,16 +119,27 @@ h1 {
 
 }
 
-code, pre {
-    font-size: 100%;
+.wiki_body h3 {
+    color: black;
+    margin:0.25em 0em;
+    padding-top: 0.25em;
 }
 
-.wiki_body h3 {
-    font-family: PopulaireLight
+.graybar {
+
+    background: rgb(229,232,215); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(229,232,215,1) 0%, rgba(243,247,227,1) 26%, rgba(214,219,191,1) 90%, rgba(183,191,145,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(229,232,215,1)), color-stop(26%,rgba(243,247,227,1)), color-stop(90%,rgba(214,219,191,1)), color-stop(100%,rgba(183,191,145,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(229,232,215,1) 0%,rgba(243,247,227,1) 26%,rgba(214,219,191,1) 90%,rgba(183,191,145,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(229,232,215,1) 0%,rgba(243,247,227,1) 26%,rgba(214,219,191,1) 90%,rgba(183,191,145,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(229,232,215,1) 0%,rgba(243,247,227,1) 26%,rgba(214,219,191,1) 90%,rgba(183,191,145,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(229,232,215,1) 0%,rgba(243,247,227,1) 26%,rgba(214,219,191,1) 90%,rgba(183,191,145,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e8d7', endColorstr='#b7bf91',GradientType=0 ); /* IE6-9 */
+
+
 }
 
 .wiki_body h4 {
-    font-family: PopulaireLight;
     color: grey;
 }
 
@@ -119,14 +149,23 @@ code, pre {
     border-bottom: 1px dotted rgb(0,150,255)
 }
 
+.content-row {
+    margin-right: 2em;
+}
+
 .wiki_body a.wikilink:hover {
     text-decoration: none;
     color: rgb(255, 0,100);
 }
 
+code, pre {
+    font-size: 100%;
+}
+
 .wiki_body pre code {
     color: black;
-
+    font-family: Monaco, "Courier New", monospace;
+    font-size: 100%;
 }
 .wiki_body code {
     border: none;
@@ -138,6 +177,20 @@ code, pre {
     font-size: 100%;
 }
 
+.wiki_body hr {
+    margin: 0.5em 0px;
+}
+
+.summary {
+    margin-right: 2em;
+    font-family: PopulaireLight;
+    font-size: 200%;
+}
+
+.wiki_body .summary p {
+    font-family: PopulaireLight;
+    margin: 0px;
+}
 
 .wiki_body pre {
     background-color: white;
@@ -208,7 +261,7 @@ article nav.well h2 {
 .scope_menu li {
     list-style-type: none;
     padding: 0px;
-    margin: 0em 0.125em;
+    margin: 0.1em 0.125em;
 }
 .scope_menu a {
     display: inline-block;
@@ -218,24 +271,47 @@ article nav.well h2 {
     display: inline-block;
 }
 
+.tag_items {
+    margin: 1em;
+    background-color: white;
+    padding: 0em;
+    border: none;
+    font-size: 90%;
+
+    background-color: white;
+
+    -webkit-box-shadow: inset -10px -20px 60px -20px #CCC;
+
+    box-shadow: inset -10px -20px 60px -20px #CCC;
+}
+
 .tag_items dt {
-    margin: 0.5em 0em;
-    padding: 0em 1em;
+   margin: 0em 1em;
+    margin-bottom: 0.1em;
+    margin-top: 0.4em;
+    padding: 0em;
     line-height: 110%
 
 }
 .tag_items dd {
-    margin: 0.2em 0em;
-    padding: 0em 1em;
+    margin: 0em 1em;
+    padding: 0em;
     font-size: 90%;
     line-height: 115%;
     color: rgb(100,100,100);
     margin-bottom: 0.5%
 }
 
+.tag_items p {
+    padding: 0em;
+    margin: 0em;
+}
+
 .tag_items h3 {
     margin: 0em;
     background-color: rgb(50, 80, 100);
+
+    font-family: NexaBold, Geneva, Helvetica, Arial, sans-serif;
     background: rgb(59,103,158); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(59,103,158,1) 0%, rgba(43,136,217,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(59,103,158,1)), color-stop(50%,rgba(43,136,217,1)), color-stop(51%,rgba(32,124,202,1)), color-stop(100%,rgba(125,185,232,1))); /* Chrome,Safari4+ */
@@ -254,7 +330,7 @@ article nav.well h2 {
 }
 
 .tag_items a, .scope_menu a{
-    color: rgb(50, 80, 255);
+    color: black;
     font-weight: bold;
 }
 
@@ -264,6 +340,24 @@ article nav.well h2 {
 
 .sidebar-nav .nav-header {
     color: rgb(92, 92, 92);
+}
+
+.sidebar-nav .nav-list {
+    padding: 0px;
+}
+
+.sidebar-nav .nav-list > li > a,
+.sidebar-nav .nav-list .nav-header {
+    margin: 0px;
+    padding: 0px;
+    font-family: NexaRegular, Helvetica, Geneva, Arial, sans-serif;
+}
+
+
+.sidebar-nav .nav-list .nav-header {
+    margin: 0.5em 0em;
+    margin-left: 0.5em;
+    font-weight: normal;
 }
 
 .container-fluid {
@@ -276,8 +370,10 @@ footer {
 }
 
 .sidebar-nav {
+    padding: 0.5em;
     background-color: rgba(227, 227, 227, 0.67);
     border: none;
+    font-family: NexaRegular, Helvetica, Geneva, Arial, sans-serif;
     font-size: 90%;
 }
 
@@ -292,6 +388,8 @@ footer {
 
 .sidebar-nav li {
     line-height: 150%;
+    padding: 0.25em 0em;
+    margin-left: 0.5em;
 }
 
 

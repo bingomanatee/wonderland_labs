@@ -4,9 +4,27 @@ var _ = require('underscore');
 
 var NE = require('nuby-express');
 
+var wiki_links = [
+    {
+        link:'/admin/wiki/scopes',
+        type:'link',
+        label:'Scopes'
+    },
+    {
+        link:'/admin/wiki/articles',
+        type:'link',
+        label:'Articles'
+    },
+    {
+        link:'/admin/wiki/orphan_links',
+        type:'link',
+        label:'Orphan Links'
+    }
+];
+
 module.exports = {
     name:'admin_menu',
-    exec:function (rs, menus, cb) {
+    exec:function (rs, menus, cb, input) {
 
         var self = this;
 
@@ -36,25 +54,7 @@ module.exports = {
 
 
                 rs.action.models.member.can(rs, [
-                    "edit any scope"], function (err, can) {
-
-                    var wiki_links = [
-                        {
-                            link:'/admin/wiki/scopes',
-                            type:'link',
-                            label:'Scopes'
-                        },
-                        {
-                            link:'/admin/wiki/articles',
-                            type:'link',
-                            label:'Articles'
-                        },
-                        {
-                            link:'/admin/wiki/orphan_links',
-                            type:'link',
-                            label:'Orphan Links'
-                        }
-                    ];
+                    "edit any scope"], function (err, edit_scope) {
 
                     if (can_create){
                         wiki_links.push({
@@ -64,7 +64,7 @@ module.exports = {
                         })
                     }
 
-                    if (can) {
+                    if (edit_scope) {
                         self.add_menu_items(menus, 'admin',
                             {
                                 label:'Wiki',
@@ -74,17 +74,7 @@ module.exports = {
                             })
                     }
 
-                    if (menus.article && rs.req_props.article) {
-
-                        self.add_menu_items(menus, 'article', {
-                            label:'Links to this article',
-                            items:in_links
-                        });
-                        cb();
-
-                    } else {
-                        cb();
-                    }
+                    cb();
                 })
 
             })

@@ -1,20 +1,44 @@
+<%
+var ths = Math.floor(tag_items.tags.length/3);
+var first_third = tag_items.tags.slice(0, ths);
+var second_third = tag_items.tags.slice(ths, ths * 2);
+var third_third = tag_items.tags.slice(ths * 3);
+   if (tag_items.untagged.length){
+first_third.unshift({tag: 'contents', items: tag_items.untagged});
+        }
 
-<% _.each(tag_items.tags, function(tag){ %>
-<div class="well well-small tag_items">
-    <h3><%= tag.tag %></h3>
-    <dl>
-        <% tag.items.forEach(function(si){ %>
-        <dt><a href="/wiki/a/<%= si.scope %>/<%- si.name %>"><%= si.title %></a></dt>
-        <dd><%- si.summary %></dd>
+// put the biggest article group first
+        first_third.unshift(third_third.pop());
+        third_third.push(first_third.pop());
+%>
+<div class="row content-row">
+    <div class="span4">
+        <%- partial('tags.html', {tags: first_third}) %>
+    </div>
+    <div class="span4">
+        <% _.each(second_third, function(tag){ %>
+        <div class="well well-small tag_items">
+            <h3><%= tag.tag %></h3>
+            <dl>
+                <% tag.items.forEach(function(si){ %>
+                <dt><a href="/wiki/a/<%= si.scope %>/<%- si.name %>"><%= si.title %></a></dt>
+                <dd><%- si.summary %></dd>
+                <% }) %>
+            </dl>
+        </div>
         <% }) %>
-    </dl>
-</div>
+    </div>
+    <div class="span4">
+        <% _.each(third_third, function(tag){ %>
+        <div class="well well-small tag_items">
+            <h3><%= tag.tag %></h3>
+            <dl>
+                <% tag.items.forEach(function(si){ %>
+                <dt><a href="/wiki/a/<%= si.scope %>/<%- si.name %>"><%= si.title %></a></dt>
+                <dd><%- si.summary %></dd>
+                <% }) %>
+            </dl>
+        </div>
         <% }) %>
-<br clear="both" />
-<div class="scope_menu">
-    <ul>
-        <% tag_items.untagged.forEach(function(si){ %>
-        <li><a href="/wiki/a/<%= si.scope %>/<%= si.name %>"><%= si.title %></a><summary><%- si.summary %></summary></li>
-        <% }) %>
-    </ul>
+    </div>
 </div>
