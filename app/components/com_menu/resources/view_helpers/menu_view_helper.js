@@ -107,7 +107,7 @@ var menu_view_helper = new NE.helpers.View({
         }
 
         _.each(_menus, function (menu_resource) {
-            menu_resource.exec(rs, menus, gate.latch());
+            menu_resource.exec(rs, menus, gate.latch(), input);
         });
 
         gate.await(function () {
