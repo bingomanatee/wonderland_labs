@@ -1,3 +1,40 @@
+.PopulaireLight {
+    font-family: PopulaireLight;
+    font-weight: normal;
+    font-style: normal;
+}
+.Populaire {
+    font-family: Populaire;
+    font-weight: normal;
+    font-style: normal;
+}
+.NexaHeavy {
+    font-family: NexaHeavy;
+    font-weight: normal;
+    font-style: normal;
+}
+.Nexa-Bold-Italic {
+    font-family: Nexa-Bold-Italic;
+    font-weight: normal;
+    font-style: normal;
+}
+.NexaRegular {
+    font-family: NexaRegular;
+    font-weight: normal;
+    font-style: normal;
+}
+.Nexa-Bold {
+    font-family: Nexa-Bold;
+    font-weight: normal;
+    font-style: normal;
+}
+.Nexa-Regular-Italic {
+    font-family: Nexa-Regular-Italic;
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 .sidebar-nav {
     -webkit-box-shadow:  0px 0px 10px 0px rgba(51, 153, 204, .25),inset -10px -4px 30px 0px rgba(51, 153, 204, .25);
 

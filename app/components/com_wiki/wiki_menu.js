@@ -4,23 +4,6 @@ var _ = require('underscore');
 
 var NE = require('nuby-express');
 
-var wiki_links = [
-    {
-        link:'/admin/wiki/scopes',
-        type:'link',
-        label:'Scopes'
-    },
-    {
-        link:'/admin/wiki/articles',
-        type:'link',
-        label:'Articles'
-    },
-    {
-        link:'/admin/wiki/orphan_links',
-        type:'link',
-        label:'Orphan Links'
-    }
-];
 
 module.exports = {
     name:'admin_menu',
@@ -56,6 +39,24 @@ module.exports = {
                 rs.action.models.member.can(rs, [
                     "edit any scope"], function (err, edit_scope) {
 
+                    var wiki_links = [
+                        {
+                            link:'/admin/wiki/scopes',
+                            type:'link',
+                            label:'Scopes'
+                        },
+                        {
+                            link:'/admin/wiki/articles',
+                            type:'link',
+                            label:'Articles'
+                        },
+                        {
+                            link:'/admin/wiki/orphan_links',
+                            type:'link',
+                            label:'Orphan Links'
+                        }
+                    ];
+                    
                     if (can_create){
                         wiki_links.push({
                             link: '/admin/wiki/import',
@@ -65,6 +66,7 @@ module.exports = {
                     }
 
                     if (edit_scope) {
+
                         self.add_menu_items(menus, 'admin',
                             {
                                 label:'Wiki',

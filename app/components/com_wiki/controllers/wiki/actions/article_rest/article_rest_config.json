@@ -1,6 +1,6 @@
 {
     "method":"*",
-    "get_route":["*/article_rest/:scope/:article", "*/article_rest/:scope"],
+    "get_route":["*/article_rest/:scope/:article", "*/article_rest/:scope", "*/article_rest"],
     "put_route":["*/article_rest/:scope/:article", "*/article_rest/:scope"],
     "post_route":["*/article_rest/:scope/:article", "*/article_rest/:scope"],
     "delete_route":["*/article_rest/:scope/:article", "*/article_rest/:scope"]

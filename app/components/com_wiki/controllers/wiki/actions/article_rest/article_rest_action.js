@@ -44,7 +44,7 @@ module.exports = {
                 this.model().scope(input.scope, _on_article);
             }
         } else {
-            this.emit('input_error', rs, 'Cannot find article without scope');
+            this.model().active().select({name: 1, scope: 1, title: 1, scope_root: 1 }).exec(_on_article)
         }
     },
 
