@@ -19,43 +19,29 @@
 
 /**** Base styles ****/
 
-#container {
 
   article, aside, details, figcaption, figure,
   footer, header, hgroup, menu, nav, section {
     display: block;
   }
 
-  body {
-    padding: 20px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
-    font-size: 13px;
-    line-height: 1.7em;
-    background: #1F1E1D;
-    color: #FFF;
-  }
-
-  h1, h2, h3, p, ul, ol, pre, dl {
-    margin-bottom: 1.0em;
+  p, ul, ol, pre, dl {
+    margin-bottom: 0.5em;
+    line-height: 110%;
   }
 
   h1, h2, #super-list, .element, .tagline, #index-list,
   .super-list .link {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-  }
-
-  h1, h2, h3 {
-    font-weight: bold;
   }
 
   h1 {
-    font-size: 32px;
-    line-height: 1.1em;
+    font-size: 400%;
+    font-family: Populaire, 'Helvetica Neue', Arial, sans-serif;
+    padding: 0.25em 0em;
   }
 
   h2 {
-    font-size: 24px;
-    line-height: 1.1em;
+    font-size: 250%;
   }
 
   ul, ol {
@@ -64,19 +50,15 @@
 
   a,
   a code {
-    color: #FB4;
     text-decoration: none;
   }
 
-  a:hover,
-  a:hover code {
-    color: #4BF;
+  a:hover {
+    color: red;
   }
 
-  a:active,
-  a:active code {
-    color: #1FB;
-    background: black;
+  a:active {
+    color: black;
   }
 
   a img {
@@ -97,43 +79,30 @@
     font-style: italic;
   }
 
-/**** Isotope styles ****/
-
-/* required for containers to inherit vertical size from window */
-  html,
-  body {
-    height: 100%;
-  }
-
   #container {
-    border: 1px solid #666;
     padding: 5px;
     margin-bottom: 20px;
 
   }
     .tweet {
-      width: 150px;
+      width: 30px;
       margin: 0px;
       float: left;
       background-color: white;
       color: black;
-      -webkit-box-shadow: inset -2px -2px 10px 0px rgba(0, 200, 200, 0.25);
-      box-shadow: inset -2px -2px 10px 0px rgba(0, 200, 200, 0.25);
-      padding: 5px;
-      height: 50px;
+      padding: 0px;
+      height: 30px;
       vertical-align: center;
 
-      p {
-        font-size: 250%;
-        line-height: 120%;
+        font-size: 200%;
+        line-height: 100%;
         padding: 0em;
         margin: 0em;
-        font-family: PopulaireLight;
+        font-family: Populaire;
         font-weight: normal;
         a {
           color: rgb(50, 0, 150);
         }
-      }
     }
   /*
   .tweet:nth-child(odd){
@@ -141,34 +110,60 @@
     color: white;
   } */
 
-    .tweet.med {
-      width: 200px;
-      p {
-        font-family: PopulaireLight;
-      }
+    .tweet.col2 {
+      width: 60px;
     }
-    .tweet.long {
-      width: 300px;
-      p {
-        font-family: PopulaireLight;
-      }
+    .tweet.col3 {
+      width: 90px;
     }
-
-    .tweet.xxlong {
-      width: 450px;
-      p {
-        font-family: PopulaireLight;
-      }
+    .tweet.col4 {
+      width: 120px;
     }
-    .tweet.xlong {
-      width: 400px;
-      p {
-        font-family: PopulaireLight;
-      }
-    }
+  .tweet.col5 {
+    width: 150px;
+  }
+  .tweet.col6 {
+    width: 180px;
+  }
+  .tweet.col7 {
+    width: 210px;
+  }
+  .tweet.col8 {
+    width: 240px;
+  }
+  .tweet.col9{
+    width: 270px;
+  }
+  .tweet.col10 {
+    width: 300px;
+  }
+  .tweet.col11 {
+    width: 330px;
+  }
+  .tweet.col12 {
+    width: 360px;
+  }
+  .tweet.col13 {
+    width: 390px;
+  }
+  .tweet.col14 {
+    width: 420px;
+  }
+  .tweet.col15 {
+    width: 450px;
+  }
+  .tweet.col16 {
+    width: 480px;
+  }
+  .tweet.col17 {
+    width: 510px;
+  }
+  .tweet.col18 {
+    width: 540px;
+  }
 
     .tweet.sm {
-      width: 50px;
+      width: 40px;
     }
 
 /* The Magnificent Clearfix: nicolasgallagher.com/micro-clearfix-hack/ */
@@ -183,4 +178,3 @@
     zoom: 1;
   }
 
-}

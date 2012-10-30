@@ -223,7 +223,7 @@ function ScopesCtrl($scope, Scopes) {
             }
         }
 
-         wiki(content, function (err, h) {
+         wiki(content, $scope.new_scope, function (err, h) {
             if (err) {
                 return // console.log('error in wiki: ', err);
             } else {

@@ -41,26 +41,6 @@
     box-shadow:  0px 0px 10px 0px rgba(51, 153, 204, .25), inset -10px -4px 30px 0px rgba(51, 153, 204, .25)
 }
 
-h1, h2, h3 {
-    line-height: 100%;
-    font-family: Oswald, 'Helvetic Narrow', 'Arial Narrow', sans-serif;
-}
-
-h1 {
-    font-size: 400%;
-    font-weight: bold;
-}
-
-h2 {
-    font-size: 300%;
-    font-weight: bold;
-}
-
-h3 {
-    font-size: 250%;
-    font-weight: normal;
-}
-
 /* **************** FIXES TO BUTTON PRIMARY HOVER ********************* */
 
 .btn {

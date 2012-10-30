@@ -1,26 +1,10 @@
 <%
 var l = title.length;
-var style = '';
-if (l > 40) {
-  style = 'xxlong'
-} else if (l > 30) {
-  style = ' xlong ';
-} else if(l > 15) {
-  style ='long';
-} else if (l > 10) {
-  style = 'med';
-} else if (l > 5) {
-  style = '';
-} else {
-  style = 'sm';
-}
+var style = 'col' + (Math.floor(l / 4) + 1);
 %>
-
-<div class="tweet <%= style %>"><p><a title="style: <%-style %>,l: <%= l %>" href="/wiki/a/<%- scope %>/<%-name %>"><%- title %></a></p>
+<div class="tweet <%= style %>"><a title="style: <%-style %>,l: <%= l %>" href="/wiki/a/<%- scope %>/<%-name %>"><%- title %></a>
 </div>
-<% if (Math.random() > 0.33 ){ %>
-<div class="tweet sm"><p>&nbsp;</p></div>
-<%  } %>
-<% if (Math.random() > 0.33 ){ %>
-<div class="tweet sm"><p>&nbsp;</p></div>
+<div class="tweet"><p>&nbsp;</p></div>
+<% if (l > 10 ){ %>
+<div class="tweet"><p>&nbsp;</p></div>
 <%  } %>
