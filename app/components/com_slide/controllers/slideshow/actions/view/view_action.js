@@ -19,7 +19,7 @@ function _slide_children(slide, slides, y){
 
     }, [])
 
-    console.log('slide: %s, children: %s', slide.title, c.length);
+    // console.log('slide: %s, children: %s', slide.title, c.length);
     return c;
 }
 
@@ -28,7 +28,7 @@ function _slide_series(slides){
         return s.parent;
     })
 
-    console.log('slides: %s, root slides: %s', slides.length, root_slides.length);
+  //  console.log('slides: %s, root slides: %s', slides.length, root_slides.length);
     var y = -2000;
     return _.reduce(root_slides, function(series, slide){
         y += 2000;
@@ -73,7 +73,7 @@ module.exports = {
                  _.each(slides, function(s){
                     if (s.markdown){
                         var m = marked(s.content);
-                        console.log('marking %s to %s', s.content, m)
+                       // console.log('marking %s to %s', s.content, m)
                         s.content = m;
                     }
                 })

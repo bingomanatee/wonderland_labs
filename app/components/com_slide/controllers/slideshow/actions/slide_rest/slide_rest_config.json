@@ -1,0 +1,1 @@
+{"get_route":"*/slide_rest","method":"*","put_route":"*/slide_rest","post_route":"*/slide_rest/:_id","delete_route":"*/slide_rest"}

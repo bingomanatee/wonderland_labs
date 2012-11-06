@@ -4,7 +4,10 @@
 		"create slideshow",
 		"create slide",
 		"delete slideshow",
-		"delete slide"
+		"delete slide",
+		"edit slideshow",
+		"edit slide",
+		"edit own slide"
 	]
 
 }

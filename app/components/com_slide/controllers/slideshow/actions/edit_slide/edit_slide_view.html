@@ -1,0 +1,110 @@
+<div class="md">
+<textarea id="markdown" rows="10">
+
+</textarea><h2>Markdown Code <button style="float: right" onClick="apply_markdown(); return false">Apply</button></h2>
+</div>
+<br/>
+<br/>
+<div class="step slide"
+     data-x="0" data-y="0" data-scale="1">
+
+    <article>
+        <% if (slide.title && !(slide.hide_title)){ %>
+        <h1><%= slide.title %></h1>
+        <% } %>
+        <section>
+            <%- slide.content %>
+        </section>
+    </article>
+    <header>
+        <div>
+            <a href="/">Home</a>
+        </div>
+        <div>
+            <a href="/slideshows">Slideshows</a>
+        </div>
+        <div class="slide_menu">
+            <a href="/slideshow/view/<%- slideshow._id %>" class="menu_top"><%- slideshow.title %></a>
+        </div>
+        <div>
+            <a onClick="save_markdown(); return false;">Save Changes</a>
+        </div>
+    </header>
+</div>
+
+<script language="javascript">
+    function html_to_markdown(content) {
+        var html = content.split("\n").map($.trim).filter(function (line) {
+            return line != "";
+        }).join("\n");
+        return toMarkdown(html);
+    }
+
+    function save_markdown() {
+        var html = $('section').html();
+        var content = html_to_markdown(html);
+        $.post('/slideshow/slide_rest/<%- slide._id %>', {content:content}, function () {
+            document.location = '/slideshow/view/<%- slideshow._id %>';
+        })
+    }
+
+    function update_markdown(){
+        var html = $('section').html();
+        console.log('html:', html);
+        var md = html_to_markdown(html);
+        console.log('md: ', md);
+        $('#markdown').val(md);
+    }
+
+    function _resize_md(){
+        var th = jQuery('#markdown');
+        if (th.outerWidth()!= th.data('x') || th.outerHeight() != th.data('y'))
+        //       alert( th.outerWidth()  + ' - ' + th.data('x') + '\n'   + th.outerHeight() + ' - ' + th.data('y'));
+
+        // set new height/width
+            th.data('x', th.outerWidth());
+        th.data('y', th.outerHeight());
+
+        $('.md h2').width(th.data('x') - 6);
+        $('.md').width(th.data('x'));
+        $('.md').height(th.data('y'));
+    }
+
+    function apply_markdown(){
+        var md = $('#markdown').val();
+        $('section').html(marked(md));
+    }
+
+    $(function () {
+        update_markdown(); $('.md').draggable({handle: 'h2'});
+
+        var t = jQuery('#markdown');
+
+        t.data('x', t.outerWidth());
+        t.data('y', t.outerHeight());
+
+
+        t.mouseup(_resize_md);
+
+        $('section').hallo({
+            plugins: {
+                'halloformat': {},
+                'halloblock': {},
+                'hallolists': {},
+                'halloreundo': {}
+            }
+        });
+
+        // Method that converts the HTML contents to Markdown
+        var showSource = function(content) {
+            var markdown = html_to_markdown(content);
+            if (jQuery('#markdown').val() == markdown) {
+                return;
+            }
+            jQuery('#markdown').val(markdown);
+        };
+
+    })
+
+
+</script>

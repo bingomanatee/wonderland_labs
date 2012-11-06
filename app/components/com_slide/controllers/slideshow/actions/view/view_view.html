@@ -35,6 +35,9 @@ var slide = data.slide;
                 <% }) %>
             </nav>
         </div>
+        <div>
+            <a href="/slideshow/edit_slide/<%- slide._id %>">Edit</a>
+        </div>
     </header>
 </div>
 <%}) %>
@@ -73,6 +76,8 @@ var slide = data.slide;
                 return true;
             });
         });
+
+        impress().init();
 
     })
 </script>
