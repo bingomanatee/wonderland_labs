@@ -93,7 +93,8 @@ function ScopesCtrl($scope, $filter, $compile, Scopes, Scope_tags) {
 
     $scope.update_article = function () {
         $scope.edit_article.promoted = $scope.promoted;
-        console.log('updating article...', $scope.edit_article);
+       //  console.log('updating article...', $scope.edit_article);
+
         Scopes.update($scope.edit_article, function (art) {
             console.log('update article result: ', art);
             if (art.error) {

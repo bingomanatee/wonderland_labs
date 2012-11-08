@@ -1,0 +1,7 @@
+{
+	"name": "export",
+
+	"method": "get",
+
+	"route": "*/export/:id"
+}

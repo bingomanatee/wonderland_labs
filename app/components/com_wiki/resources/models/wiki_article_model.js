@@ -186,7 +186,7 @@ module.exports = function (mongoose_inject) {
                     q.sort('name').populate('author').populate('creator').exec(cb);
                 },
 
-                revise:function (article, new_data, author) {
+                revise_article:function (article, new_data, author) {
                     this.preserve(article, new_data);
                     this.sign(article, author);
                     return article;

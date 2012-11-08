@@ -38,8 +38,8 @@ module.exports = {
 
         var input = rs.req_props;
         if (input.scope) {
-            if (input.article) {
-                this.model().article(input.scope, input.article, _on_article);
+            if (input.name) {
+                this.model().article(input.scope, input.name, _on_article);
             } else { // scope root
                 this.model().scope(input.scope, _on_article);
             }
@@ -94,15 +94,15 @@ module.exports = {
     /* ****** PUT ****** */
 
     on_put_validate:function (rs) {
-        //@TODO: granluarity for updating own scope
+        //@TODO: granluarity for updating own article
         var self = this;
-        this.models.member.can(rs, ['edit any scope'], function (err, can) {
+        this.models.member.can(rs, ['edit any article'], function (err, can) {
             if (err) {
                 self.emit('validate_error', rs, err);
             } else if (can) {
                 self.on_put_input(rs);
             } else {
-                self.emit('validate_error', rs, 'you are not authorized to update scopes')
+                self.emit('validate_error', rs, 'you are not authorized to update articles')
             }
         })
     },
@@ -110,21 +110,21 @@ module.exports = {
     on_put_input:function (rs) {
         var self = this;
         var input = rs.req_props;
-        if (_DEBUG) console.log('article rest put getting scope %s, article %s', input.scope, input.article);
+        if (_DEBUG) console.log('article rest PUT getting scope %s, name %s', input.scope, input.name);
 
         function _article(err, article) {
-            if (_DEBUG) console.log('retrieved article %s', util.inspect(article));
             if (err) {
                 self.emit('input_error', rs, err);
             } else if (article) {
+                if (_DEBUG || true) console.log('PUT retrieved article %s', util.inspect(article));
                 self.on_put_process(rs, article, input);
             } else {
                 self.emit('cannot find article ' + input.article);
             }
         }
 
-        if (input.article) {
-            this.model().article(input.scope, input.article, _article);
+        if (input.name) {
+            this.model().article(input.scope, input.name, _article);
         } else {
             this.model().scope(input.scope, _article);
         }
@@ -167,7 +167,7 @@ module.exports = {
                 (article.summary == input.summary) &&
                 (article.content == input.content)
             ) {
-            // this article hasn't ben changed - possibly the metadata about promotion has.
+            console.log("PUT -- article content unchanged");
             if (article.tags.join(',') == input.tags.join(',')){
                 _promote(null, article);
             } else {
@@ -179,7 +179,7 @@ module.exports = {
             }
         } else {
             if (_DEBUG) console.log('put: new data %s', util.inspect(input));
-            this.model().revise(article, input, rs.session('member'));
+            this.model().revise_article(article, input, rs.session('member'));
             article.save(_promote);
         }
     },

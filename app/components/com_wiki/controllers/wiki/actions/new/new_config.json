@@ -1,5 +1,5 @@
 {
-    "route":"*/:scope/:article/new",
+    "route":"*/:scope/:name/new",
     "method":"get",
 
     "javascript":[

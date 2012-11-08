@@ -20,8 +20,8 @@ function ArticleCtrl($scope, $filter, $compile, Articles) {
     var _def_summary = 'New summary...';
     var _def_content = "New content...";
 
-    $scope.new_article = {name:article.article,
-        title:article.article.replace(/_/i, ' '),
+    $scope.new_article = {name:article.name,
+        title:article.name.replace(/_/i, ' '),
         scope:article.scope,
         summary:_def_summary,
         content:_def_content};

@@ -173,6 +173,12 @@ function SlideCtrl($scope, $filter, $compile, Slideshows, Slides) {
         }
     }
 
+    $scope.export_slideshow = function(ss){
+        $.get('/slideshow/admin/export/' + ss._id, function(){
+            alert('Slideshow ' + ss.title + ' exported');
+        })
+    }
+
     $scope.new_slideshow = function(){
         document.location="/admin/slideshow/new"
     }

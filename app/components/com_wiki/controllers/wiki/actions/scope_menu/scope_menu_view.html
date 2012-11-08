@@ -1,16 +1,4 @@
-<%
-var ths = Math.floor(tag_items.tags.length/3);
-var first_third = tag_items.tags.slice(0, ths);
-var second_third = tag_items.tags.slice(ths, ths * 2);
-var third_third = tag_items.tags.slice(ths * 3);
-   if (tag_items.untagged.length){
-first_third.unshift({tag: 'contents', items: tag_items.untagged});
-        }
 
-// put the biggest article group first
-        first_third.unshift(third_third.pop());
-        third_third.push(first_third.pop());
-%>
 <div class="row content-row">
     <div class="span4">
         <%- partial('tags.html', {tags: first_third}) %>
