@@ -13,7 +13,7 @@ module.exports = {
 
         var self = this;
 
-        this.models.member.can(rs,  "edit slide", function(err, can){
+        this.models.member.can(rs,  ["edit slide"], function(err, can){
             if (can){
 
                 self.on_input(rs)
