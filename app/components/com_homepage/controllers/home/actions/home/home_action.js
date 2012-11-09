@@ -1,6 +1,6 @@
 var util = require('util');
 var _DEBUG = true;
-var Twit = require('Twit');
+var Twit = require('twit');
 var _ = require('underscore');
 var fs = require('fs');
 
