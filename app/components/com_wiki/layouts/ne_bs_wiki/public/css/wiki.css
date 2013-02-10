@@ -336,22 +336,23 @@ article nav.well h2 {
     box-shadow: inset -10px -20px 60px -20px #CCC;
 }
 
-.tag_items dt {
-   margin: 0em 1em;
-    margin-bottom: 0.1em;
-    margin-top: 0.4em;
+.tag_items dt, dd {
+    margin-bottom: 0.2em;
+    margin-top: 0.3em;
     padding: 0em;
-    line-height: 110%
+    line-height: 110%;
+    float: left;
 
 }
-.tag_items dd {
-    margin: 0em 1em;
-    padding: 0em;
-    font-size: 90%;
-    line-height: 115%;
-    color: rgb(100,100,100);
-    margin-bottom: 0.5%
+.tag_items dt {
+    clear: left;
+    font-weight: bold;
+    margin-left: 1em
 }
+.tag_items dd {
+    color: rgb(100,100,100);
+}
+
 
 .tag_items p {
     padding: 0em;

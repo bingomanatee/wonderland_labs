@@ -50,6 +50,7 @@ module.exports = {
     },
 
     on_process:function (rs, scope, items) {
+        console.log('count of scope menu items: %s', items.length);
         items = _.map(items, function (item) {
             var item = item.toJSON();
             item.summary = marked(item.summary);
@@ -83,36 +84,8 @@ module.exports = {
 
         console.log('tag_items: %s, ', util.inspect(tag_items));
 
-        var ths = Math.floor(tag_items.tags.length / 3);
-        var first_third = tag_items.tags.slice(0, ths);
-        var second_third = tag_items.tags.slice(ths, ths * 2);
-        var third_third = tag_items.tags.slice(ths * 3);
-        console.log('tag_items.untagged %s', JSON.stringify(tag_items.untagged))
-        if (tag_items.untagged.length) {
-            first_third.unshift({tag:'contents', items:tag_items.untagged});
-        }
-
-// put the biggest article group first
-        first_third.unshift(third_third.pop());
-        third_third.push(first_third.pop());
-
-        console.log(
-            "first_third: %s'", JSON.stringify(first_third, true, 4)
-        )
-
-        console.log(
-            "second_third: %s'", JSON.stringify(second_third, true, 4)
-        )
-
-        console.log(
-            "third_third: %s'", JSON.stringify(third_third, true, 4)
-        )
-
-
         self.on_output(rs, {scope:scope, _:_,
-            first_third:_.compact(first_third),
-            second_third:     _.compact(    second_third),
-            third_third:      _.compact(    third_third)
+            tag_items: tag_items
         })
     }
 }
