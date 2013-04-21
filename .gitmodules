@@ -1,6 +1,3 @@
-[submodule "app/components/com_layout"]
-	path = app/components/com_layout
-	url = git@github.com:bingomanatee/com_layout.git
-[submodule "node_modules/nuby-express"]
-	path = node_modules/nuby-express
-	url = git@github.com:bingomanatee/nuby-express.git
+[submodule "node_modules/hive-queen"]
+	path = node_modules/hive-queen
+	url = git@github.com:bingomanatee/hive-queen.git

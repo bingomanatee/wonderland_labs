@@ -1,5 +1,0 @@
-{
-    "route_prefix":"/init_site",
-    "css":[ "/ne_bs_admin/css/less/wizard.less"],
-    "layout_name": "ne_bs_admin"
-}

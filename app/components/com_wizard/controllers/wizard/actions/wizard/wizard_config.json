@@ -1,7 +1,0 @@
-{
-    "method": "get",
-
-    "get_route": "*/:name.:format?",
-
-    "layout_name": "empty"
-}

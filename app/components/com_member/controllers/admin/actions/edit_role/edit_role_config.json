@@ -1,6 +1,0 @@
-{
-    "method":"*",
-    "get_route":"/admin/member_role/:name/edit",
-    "post_route":"/admin/member_role/:name/edit",
-    "layout_name": "empty"
-}

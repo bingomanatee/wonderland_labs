@@ -1,0 +1,25 @@
+{
+  "name": "wll",
+  "description": "the home site of Wonderland Labs",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "ejs": "~0.8.3",
+    "express": "~3.2.0",
+    "hive-model-mongoose": "0.0.1",
+    "gate": "~0.3.0",
+    "underscore": "~1.4.4",
+    "hive-loader": "0.0.1"
+  },
+  "devDependencies": {
+    "tap": ">=0.3"
+  },
+  "main": "lib/index.js",
+  "keyworkds": [
+    "hive",
+    "spawn"
+  ]
+}

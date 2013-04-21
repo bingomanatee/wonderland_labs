@@ -1,7 +1,0 @@
-{
-    "get_route":"*/scope_rest",
-    "method":"*",
-    "put_route":"*/scope_rest/:_id",
-    "post_route":"*/scope_rest",
-    "delete_route":"*/scope_rest/:_id"
-}

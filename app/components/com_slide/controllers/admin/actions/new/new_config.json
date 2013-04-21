@@ -1,5 +1,0 @@
-{
-	"method":"get",
-	"route":"*/new",
-	"javascript":["/js/slide_support/underscore-min.js"]
-}

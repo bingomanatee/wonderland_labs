@@ -1,8 +1,0 @@
-{
-    "route_prefix": "/admin",
-    "layout_name": "ne_bs_admin",
-
-    "tasks": [
-    "admin site"
-    ]
-}

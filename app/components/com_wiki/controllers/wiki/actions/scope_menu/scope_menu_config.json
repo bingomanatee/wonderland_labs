@@ -1,5 +1,0 @@
-{
-    "route":"*/scope_menu/:scope",
-    "method":"get",
-    "layout_name": "empty"
-}

@@ -1,9 +1,0 @@
-{
-	"route":"*/edit_slide/:_id",
-	"method":"get",
-	"layout_name":"impress",
-
-	"javascript":[
-		"/impress/js/to-markdown.js"
-	]
-}
