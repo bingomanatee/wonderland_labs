@@ -9,6 +9,15 @@ function shuffle_images(){
 	return false;
 }
 
+function flyout(src){
+	console.log('flying out ', src);
+	$.post('/experiments/tuftevision/google_image_view/image_data', {
+		src: src
+	}, function(data){
+		console.log('image data');
+	});
+}
+
 $(function () {
 
 	(function($){
@@ -43,7 +52,8 @@ $(function () {
 		'<a href="http://www.google.com<%= href %>" ' +
 		' title="<%= text %>" data-search="<%= encodeSearchTerm(query) %>" ' +
 		' target="imageDetail"	 >' +
-		'&nbsp;</a><i class="icon-info-sign"></i></div>');
+		'&nbsp;</a><button type="button" class="btn btn-small btn-primary" ' +
+		'onClick="flyout(\'<%= href %>\')"><i class="icon-info-sign icon-white"></i></button></div>');
 
 	var iset = false;
 
@@ -102,7 +112,7 @@ $(function () {
 			}).length
 		};
 
-		$.post("/experiments/tuftevision.json",
+		$.post("/experiments/tuftevision/google_image_view.json",
 			post_data, function (data) {
 
 				if (!post_data.offset) {

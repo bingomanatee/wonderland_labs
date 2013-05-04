@@ -31,8 +31,10 @@
 				"main": {
 
 				},
-				"google": {
-					"actions": ["tuftevision"]
+				"tuftevision": {
+					"actions": ["google_image_view", {
+						"name": "image_data"
+					}]
 				}
 			}
 		},

@@ -1,0 +1,11 @@
+{
+    "name": "image_data",
+    "routes": {
+        "get": [
+            "*/image_data"
+        ],
+        "post": [
+            "*/image_data"
+        ]
+    }
+}

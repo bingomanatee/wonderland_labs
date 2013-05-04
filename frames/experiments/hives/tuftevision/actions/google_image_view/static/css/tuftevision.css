@@ -62,11 +62,11 @@ a.back {
 }
 
 .form-search.zoomed  button.zoom span{
-    background-image: url(/experiments/tuftevision/img/zoom_in.png);
+    background-image: url(../img/zoom_in.png);
 }
 
 .form-search button.zoom span {
-    background-image: url(/experiments/tuftevision/img/zoom_out.png);
+    background-image: url(../img/zoom_out.png);
     width:40px;
     height: 20px;
     background-repeat: no-repeat;
@@ -273,17 +273,16 @@ body {
     margin-top: 2em;
 }
 
-#content div i {
+#content div button {
+    z-index: 1000;
     display: none;
+    position: absolute;
+    right: 3px;
+    top: 3px;
 }
 
-#content div:hover i {
+#content div:hover button {
     display: inline-block;
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    left: 3px;
-    top: 3px;
 }
 
 #content div {
@@ -300,7 +299,7 @@ body {
 }
 
 #content div a {
-    position: absolute;
+    display: block;
     width: 100%;
     height: 100%;
 }

@@ -1,0 +1,24 @@
+{
+	"name":   "google_image_view",
+	"routes": {
+		"get":    [
+			"*/google_image_view"
+		],
+		"put":    [
+			"*/google_image_view"
+		],
+		"post":   [
+			"*/google_image_view",
+		    "*/google_image_view.json"
+		],
+		"delete": [
+			"*/google_image_view"
+		]
+	},
+
+	"static": {
+		"/css": "*/google_image_view/css",
+		"/js":  "*/google_image_view/js",
+		"/img": "*/google_image_view/img"
+	}
+}
