@@ -6,21 +6,30 @@ var jsdom = require('jsdom');
 var async = require('async');
 
 var s = 5;
-var nn = 8;
 
-function imageData(src, href, w, h, s){
-	console.log('s: %s', s);
+var target_height = 80;
+
+function imageData(src, href, w, h, text,  s, scale){
+	w *= target_height/h;
+	h = target_height;
+	if (scale){
+		w *= scale;
+		h *= scale;
+	}
+
+	if (!s) s = 5;
 	w = Math.round(w);
 	h = Math.round(h);
 	var out = {
 		href: href,
+		text: text,
 		w:    w,
 		ws:  w - (w % s),
 		h:    h,
 		hs:  h - (h % s),
 		src:  src,
 		wn: Math.floor(w/s),
-		hn:  Math.floor(h/s)
+		hn: Math.floor(h/s)
 	}
 	
 	return out;
@@ -102,7 +111,7 @@ module.exports = {
 		var pages = context.pages || 1;
 		var offset = context.offset || 0;
 		var s = context.s || 5;
-
+		context.$out.set('s', s);
 		context.functions = _.map(_.range(0, pages), function (n) {
 
 			var images = context.$out.get('images');
@@ -121,10 +130,16 @@ module.exports = {
 					["http://code.jquery.com/jquery.js"],
 					function (errors, window) {
 
-						window.$('table.images_table').find('a').each(function (i, link) {
+						window.$('table.images_table').find('td').each(function (i, td) {
+							var link = window.$(td).find('a');
+							var text = '';
+							window.$(td).find('b').each(function(i, e){
+								text += ' ' + window.$(e).text();
+							});
+
 							var l = window.$(link);
 							var href = l.attr('href')
-							//	
+							//console.log('inner content: %s', util.inspect(link));
 
 							var img = window.$(window.$(l).find('img'));
 
@@ -132,23 +147,23 @@ module.exports = {
 							var h = img.attr('height');
 							var w = img.attr('width');
 
-							images.push(imageData(src, href, w, h, s));
+							images.push(imageData(src, href, w, h, text, s));
 
-							switch(i % nn){
+							switch(i % 10){
 								case 0:
-									images.push(imageData(src, href, w/2, h/2, s));
+									images.push(imageData(src, href, w, h, text, s, 0.5));
 									break;
 
 								case 1:
-									images.push(imageData(src, href, w/3, h/3, s));
+									images.push(imageData(src, href, w, h,text,  s, 0.25));
 									break;
 
-								case nn -2:
-									images.push(imageData(src, href, w/2, h/2, s));
+								case 8:
+									images.push(imageData(src, href, w, h,text,  s, 0.25));
 									break;
 
-								case nn - 1:
-									images.push(imageData(src, href, w/3, h/3, s));
+								case 9:
+									images.push(imageData(src, href, w, h, text, s, 0.5));
 									break;
 
 							}

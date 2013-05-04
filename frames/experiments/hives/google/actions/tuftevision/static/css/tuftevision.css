@@ -12,29 +12,53 @@ a.back {
     top: 1em;
     background-image: url(../img/back.png)
 }
-a.back:hover {
-    background-image: url(../img/h/back.png)
+
+.form-search.zoomed:hover {
+    opacity: 1;
 }
 
-a.next {
-    right: 1em;
-    bottom: 1em;
-    background-image: url(../img/next.png)
+.form-search.well {
+    background-color: rgba(0,0,0,0.2);
+    border: none;
 }
-
-a.next:hover {
-    background-image: url(../img/h/next.png)
-}
-
 .form-search {
     width: 500px;
     position: fixed;
     z-index: 1000;
     right: 0;
-    text-align: center;
+    text-align: left;
 }
 .form-search  button.zoom:hover span{
     background-position: 0px 0px;
+}
+
+.form-search.zoomed {
+    opacity: 0.5;
+}
+
+.img-badge {
+    max-width: 200px;
+    display: inline-block;
+    margin-top: 1em;
+    border: 1px solid rgb(128, 128, 128);
+    padding: 4px;
+    background-color: rgb(220,220,220);
+    margin-right: 2em;
+    min-height: 60px;
+}
+.img-badge h4 {
+    white-space: nowrap;
+    font-size: 80%;
+    margin: 0px;
+    margin-top: 0.5em;
+    padding: 0;
+}
+
+.img-badge h4 .title {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
 }
 
 .form-search.zoomed  button.zoom span{
@@ -54,6 +78,14 @@ a.next:hover {
     float: right
 }
 
+#searches {
+    display: none;
+    margin-top: 1em;
+}
+
+.form-search:hover #searches {
+    display: block;
+}
 
 .search-form:hover {
 }
@@ -231,15 +263,30 @@ blockquote {
 html,
 body {
     height: 100%;
+    padding-right: -20px;
 }
 
 #content {
     border: none;
     padding: 0;
     margin-bottom: 0;
+    margin-top: 2em;
 }
 
-#content a {
+#content div i {
+    display: none;
+}
+
+#content div:hover i {
+    display: inline-block;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: 3px;
+    top: 3px;
+}
+
+#content div {
     margin: 0;
     float: left;
     overflow: hidden;
@@ -248,6 +295,14 @@ body {
     background-position: center center;
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    text-align: right;
+    vertical-align: bottom;
+}
+
+#content div a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .element * {
