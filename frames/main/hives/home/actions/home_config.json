@@ -1,0 +1,22 @@
+{
+    "name": "home",
+    "routes": {
+        "get": [
+            "*/home"
+        ],
+        "put": [
+            "*/home"
+        ],
+        "post": [
+            "*/home"
+        ],
+        "delete": [
+            "*/home"
+        ]
+    },
+    "static": {
+        "/js": "*/js",
+        "/css": "*/css",
+        "/img": "*/img"
+    }
+}

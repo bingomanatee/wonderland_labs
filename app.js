@@ -10,7 +10,7 @@ var express = require('express')
 	, queen = require('hive-queen');
 
 var app = express();
-var PORT = 3031;
+var PORT = 3033;
 
 app.configure(function () {
 	app.set('port', PORT);
@@ -38,22 +38,11 @@ server.on('close', function () {
 });
 
 queen.spawn(
-	__dirname, {
-		frames: {
-			main: {
-				hives: {
-					home: {
-						actions: ['home']
-					}
-				}
-			}
-		}
-	},
+	__dirname, require('./structure.json')
+,
 	function () {
 		console.log('spawned');
 	});
-
-return;
 
 server.listen(app.get('port'), function () {
 	var apiary = mvc.Apiary({}, __dirname + '/frames');

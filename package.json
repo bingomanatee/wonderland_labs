@@ -12,7 +12,14 @@
     "hive-model-mongoose": "0.0.1",
     "gate": "~0.3.0",
     "underscore": "~1.4.4",
-    "hive-loader": "0.0.1"
+    "hive-loader": "0.0.1",
+    "hive-mvc": "0.0.1f",
+    "hive-model": "0.0.1e",
+    "mongoose": "~3.6.7",
+    "hive-queen": ">=0.0.1a",
+    "request": "~2.21.0",
+    "jsdom": "~0.6.0",
+    "async": "~0.2.8"
   },
   "devDependencies": {
     "tap": ">=0.3"

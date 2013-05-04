@@ -1,0 +1,82 @@
+<html>
+<head>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.0.8/d3.min.js" language="javascript">
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js" language="javascript">
+    </script>
+</head>
+<body>
+<h1>Template File</h1>
+
+<form  method="POST" action="/experiments/tuftevision">
+    <p><label>Term</label>
+        <input type="search" name="query" />
+        <button type="submit">Search</button></p>
+</form>
+<section id="content">
+    <% images.forEach(function(img){%>
+    <a href="<%= img.href %>"><img src="<%= img.src %>" width="<%= img.w %>" height="<%= img.h %>"></a>
+    <% }) %>
+</section>
+<section id="reflect"></section>
+<script language="javascript">
+   var links = [];
+   var src = [];
+   var height = [];
+   var width = [];
+   d3.selectAll('#content').selectAll('a').each(function(){
+       links.push(this.href);
+   });
+   d3.selectAll('#content').selectAll('img').each(function(){
+       src.push(this.src);
+       height.push(this.height);
+       width.push(this.width);
+   }).each(function(){d3.select(this).style('display', 'none');});
+
+  //  console.log('hrefs:', links);
+  // console.log('src:', src);
+//    console.log('height: ', height);
+  //  console.log('width:', width);
+
+    var data = _.map(_.zip(links, src, height, width), function(item){
+        var obj = _.object(['link', 'src', 'height', 'width'], item);
+         obj.ratio = (obj.height + 1) / (obj.width + 1);
+        return obj;
+    });
+    console.log('data:', data);
+
+   var bgt = _.template('url(\'<' + '%= src %' + '>\')');
+
+   var section =  d3.select('body').selectAll('#reflect');
+
+   function update(data){
+        var target = section.data(data, function(d){
+            return d ? d.src : ''
+        });
+                target.enter().append('div').sort(function(a, b){
+        return a.height > b.height ? 1 : a.height == b.height ? -1 : 0
+    })
+            .style('background-image', bgt)
+            .style('display', 'inline-block')
+            .style('width', function(d){
+                return d.width;
+            })
+            .style('height', function(d){
+                return d.height;
+            });
+
+       target.exit().remove();
+   }
+   update(data);
+
+    setTimeout(function(){
+        update(_.map(data, function(item){
+            var c = _.clone(item);
+            item.width = c.height;
+            item.height = c.width;
+            return item;
+        }));
+    }, 8000);
+</script>
+</body>
+</html>
