@@ -1,8 +1,9 @@
 {
 	"frames": {
-		"main":    {
+		"main": {
 			"hives": {
 				"home": {
+					"name":    "home",
 					"actions": ["home"]
 				}
 			}
@@ -14,21 +15,21 @@
 					"admin_layout"
 				]
 			},
-			"hives": {
+			"hives":     {
 				"main": {
 
 				}
 			}
 		},
 
-		"experiments": {
+		"experiments":  {
 			"resources": {
 				"layout": [
 					"admin_layout"
 				]
 			},
-			"hives": {
-				"main": {
+			"hives":     {
+				"main":        {
 
 				},
 				"tuftevision": {
@@ -39,9 +40,9 @@
 			}
 		},
 		"site_manager": {
-		    "config": {
-		              "base_route": "/site"
-		    },
+			"config": {
+				"base_route": "/site"
+			},
 
 			"hives": {
 				"queen": {

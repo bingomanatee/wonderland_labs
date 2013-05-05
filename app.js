@@ -10,7 +10,7 @@ var express = require('express')
 	, queen = require('hive-queen');
 
 var app = express();
-var PORT = 3033;
+var PORT = 80;
 
 app.configure(function () {
 	app.set('port', PORT);
