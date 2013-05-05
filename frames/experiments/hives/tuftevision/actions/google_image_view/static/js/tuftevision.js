@@ -15,13 +15,13 @@ var popover_content = _.template('<img src="<%= img_url %>" width="<%= data.widt
 
 var popover_target;
 
-function close_popover(){
+function close_popover() {
 	$(popover_target).popover('hide');
 }
 
 function flyout(src, target) {
 
-	if (popover_target){
+	if (popover_target) {
 		$(popover_target).popover('hide');
 	}
 	popover_target = target;
@@ -31,16 +31,17 @@ function flyout(src, target) {
 	}, function (data) {
 		console.log('image data', data, 'target', target);
 		$(target).popover({
-			title: img_link(data),
-			html: true,
-			content: popover_content(data),
+			title:     img_link(data),
+			html:      true,
+			content:   popover_content(data),
 			container: $('#popover'),
-			width:'50%'
+			width:     '50%'
 		}).popover('show');
 	});
 }
 
 $(function () {
+
 
 	(function ($) {
 
@@ -66,23 +67,23 @@ $(function () {
 		};
 
 	})(jQuery);
-	var searches = [];
 
 	var $container = $('#content');
 	var image_template = _.template('<div style="background-image: url(\'<%= src %>\')" ' +
+		' data-search="<%= encodeSearchTerm(query) %>" ' +
 		' class="variable-size width<%= wn %> height<%= hn %>">' +
 		'<a href="http://www.google.com<%= href %>" ' +
-		' title="<%= text %>" data-search="<%= encodeSearchTerm(query) %>" ' +
+		' title="<%= text %>" ' +
 		' target="imageDetail"	 >' +
 		'&nbsp;</a><button type="button" class="btn btn-small btn-primary" ' +
 		'onClick="flyout(\'<%= href %>\', this)"><i class="icon-info-sign icon-white"></i></button></div>');
 
 	var iset = false;
 
-	var bage_template = _.template('<span class="img-badge" title="get more <%= q %>s" data-search="<%= encodeSearchTerm(q) %>">' +
+	var badge_template = _.template('<span class="img-badge" title="get more <%= q %>s" data-search="<%= encodeSearchTerm(q) %>">' +
 		'<img onClick="do_search(\'<%= q %>\')"  src="<%= src %>" width="<%= Math.round( w * height/h )%>" height="<%= height %>"/>' +
 		'<br /><h4> <span class="close" onClick="kill_images(\'<%= encodeSearchTerm(q) %>\')">&times;</span>' +
-		' <span class="title" onClick="do_search(\'<%= encodeSearchTerm(q) %>\')" ><%= q %></span>' +
+		' <span class="title" onClick="do_search(\'<%= encodeSearchTerm(q) %>\')" ><%= q.replace(/\-/g, " ") %></span>' +
 		' </h4></span>')
 
 	var style_template = _.template('#content div.width<%= i %> { width: <%= i * s  %>px; }#content div.height<%= i %> { height: <%= i * s %>px; }');
@@ -124,13 +125,20 @@ $(function () {
 		var q = $('.form-search input.query').val();
 		console.log('searching for ', q);
 
+		window.search_for_term(q);
+		return false;
+	});
+
+
+	window.search_for_term = function (q) {
+
 		var qs = encodeSearchTerm(q).toLowerCase();
 
 		var post_data = {
 			query:  q,
 			s:      10,
 			pages:  2,
-			offset: _.filter(searches,function (term) {
+			offset: _.filter(ws.searches,function (term) {
 				return term.toLowerCase() == qs;
 			}).length
 		};
@@ -141,7 +149,7 @@ $(function () {
 				if (!post_data.offset) {
 					var badge_info = _.extend({q: q, height: 40}, data.images[0]);
 
-					$('#searches').append(bage_template(badge_info));
+					$('#searches').append(badge_template(badge_info));
 					console.log('badge: ', badge_info);
 				}
 
@@ -179,19 +187,69 @@ $(function () {
 					$('#content').prepend($newItems).isotope('addItems', $newItems).isotope('reloadItems').isotope({ sortBy: 'original-order' });
 				}
 			});
-		searches.push(encodeSearchTerm(q));
-		return false;
+
+		ws.searches.push(encodeSearchTerm(q));
+		ws.set_url();
+	};
+
+	var Workspace = Backbone.Router.extend({
+		searches: [],
+
+		routes: {
+			":terms": "query"    // #help
+		},
+		set_url: function(){
+
+				ws.navigate(_.uniq(ws.searches).join(','), {trigger: false});
+		},
+
+		remove_searches: function(term){
+			term = encodeSearchTerm(term);
+			this.searches = _.difference(this.searches, [term]);
+		}
+
 	});
 
+	window.ws = new Workspace();
+
+	window.ws.on('route:query',
+		function (terms) {
+			console.log("querying", terms);
+			if (!terms) {
+				return;
+			}
+
+			terms = _.map(terms.split(','), encodeSearchTerm);
+
+			function popTerm() {
+				var term = terms.shift();
+				if (term && (!_.contains(ws.searches, term))) {
+					window.search_for_term(term);
+				}
+				if (terms.length) {
+					setTimeout(popTerm, 1500);
+				}
+			}
+
+			popTerm();
+		}
+	)
+
+	Backbone.history.start();
 });
 
 function do_search(search) {
-	$('.form-search input.query').val(search);
+	$('.form-search input.query').val(search.replace(/-/g, ' '));
 	$('.form-search').submit();
 }
 
 function kill_images(tag) {
+	console.log('killing images with ', tag);
+
 	$('#content').isotope('remove', $('#content').find('[data-search=' + encodeSearchTerm(tag) + ']'));
 	$('#searches span[data-search=' + encodeSearchTerm(tag) + ']').remove();
+
+	ws.remove_searches(tag);
+	ws.set_url();
 	return false;
 }
