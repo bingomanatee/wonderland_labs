@@ -5,7 +5,7 @@
             "*/image_data"
         ],
         "post": [
-            "*/image_data"
+            "*/image_data.json"
         ]
     }
 }

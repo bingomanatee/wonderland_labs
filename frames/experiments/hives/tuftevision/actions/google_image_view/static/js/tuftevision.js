@@ -1,41 +1,63 @@
-
-
-function encodeSearchTerm(term){
+function encodeSearchTerm(term) {
 	return term.toLowerCase().replace(/[^\w]+/g, '-');
 }
 
-function shuffle_images(){
+function shuffle_images() {
 	$('#content').isotope('shuffle');
 	return false;
 }
 
-function flyout(src){
+var img_link = _.template('<span class="close" onClick="close_popover()">&times;</span> ' +
+	'<a class="img_url_title" href="<%= img_url %>" target="__new">' +
+	'<%= img_url %></a> ');
+
+var popover_content = _.template('<img src="<%= img_url %>" width="<%= data.width %>" height="<%= data.height %>" />');
+
+var popover_target;
+
+function close_popover(){
+	$(popover_target).popover('hide');
+}
+
+function flyout(src, target) {
+
+	if (popover_target){
+		$(popover_target).popover('hide');
+	}
+	popover_target = target;
 	console.log('flying out ', src);
-	$.post('/experiments/tuftevision/google_image_view/image_data', {
+	$.post('/experiments/tuftevision/image_data.json', {
 		src: src
-	}, function(data){
-		console.log('image data');
+	}, function (data) {
+		console.log('image data', data, 'target', target);
+		$(target).popover({
+			title: img_link(data),
+			html: true,
+			content: popover_content(data),
+			container: $('#popover'),
+			width:'50%'
+		}).popover('show');
 	});
 }
 
 $(function () {
 
-	(function($){
+	(function ($) {
 
-		$.fn.shuffle = function() {
+		$.fn.shuffle = function () {
 
 			var allElems = this.get(),
-				getRandom = function(max) {
+				getRandom = function (max) {
 					return Math.floor(Math.random() * max);
 				},
-				shuffled = $.map(allElems, function(){
+				shuffled = $.map(allElems, function () {
 					var random = getRandom(allElems.length),
 						randEl = $(allElems[random]).clone(true)[0];
 					allElems.splice(random, 1);
 					return randEl;
 				});
 
-			this.each(function(i){
+			this.each(function (i) {
 				$(this).replaceWith($(shuffled[i]));
 			});
 
@@ -53,7 +75,7 @@ $(function () {
 		' title="<%= text %>" data-search="<%= encodeSearchTerm(query) %>" ' +
 		' target="imageDetail"	 >' +
 		'&nbsp;</a><button type="button" class="btn btn-small btn-primary" ' +
-		'onClick="flyout(\'<%= href %>\')"><i class="icon-info-sign icon-white"></i></button></div>');
+		'onClick="flyout(\'<%= href %>\', this)"><i class="icon-info-sign icon-white"></i></button></div>');
 
 	var iset = false;
 
@@ -68,23 +90,24 @@ $(function () {
 	var last_s = 0;
 	var firstSearch = true;
 
-	function zoomOutSearch(t){
+	function zoomOutSearch(t) {
 		$('#content').animate({'margin-top': 0}, t | 500);
 		$('.form-search').addClass('zoomed').animate({
-			width: '50%',
-			'right': $(window).width()/4,
-			'top': $(window).height()/2
+			width:   '50%',
+			'right': $(window).width() / 4,
+			'top':   $(window).height() / 2
 		}, t | 500);
 		$('.form-search button.zoom').off('click').click(zoomInSearch);
 	}
+
 	zoomOutSearch(1500);
-	function zoomInSearch(t){
+	function zoomInSearch(t) {
 		$('#content').animate({'margin-top': '2em'}, t | 500);
 		$('.form-search').removeClass('zoomed').animate({
-			width: '40%',
-			'right': 0,
-			'width': '60%',
-			'top': 0,
+			width:       '40%',
+			'right':     0,
+			'width':     '60%',
+			'top':       0,
 			'text-size': '50%'
 		}, t | 500);
 		$('.form-search button.zoom').off('click').click(zoomOutSearch);
@@ -94,7 +117,7 @@ $(function () {
 	$('.form-search button.zoom').click(zoomInSearch);
 
 	$('.form-search').submit(function () {
-		if (firstSearch){
+		if (firstSearch) {
 			zoomInSearch();
 			firstSearch = false;
 		}
@@ -104,10 +127,10 @@ $(function () {
 		var qs = encodeSearchTerm(q).toLowerCase();
 
 		var post_data = {
-			query: q,
-			s: 10,
-			pages: 2,
-			offset: _.filter(searches, function(term){
+			query:  q,
+			s:      10,
+			pages:  2,
+			offset: _.filter(searches,function (term) {
 				return term.toLowerCase() == qs;
 			}).length
 		};
@@ -149,7 +172,6 @@ $(function () {
 					do_search(q);
 				} else {
 
-
 					var t = _.reduce(data.images, function (o, img) {
 						return o + image_template(_.extend({query: q}, img));
 					}, '');
@@ -163,13 +185,13 @@ $(function () {
 
 });
 
-function do_search(search){
+function do_search(search) {
 	$('.form-search input.query').val(search);
 	$('.form-search').submit();
 }
 
-function kill_images(tag){
-	$('#content').isotope( 'remove', $('#content').find('[data-search=' + encodeSearchTerm(tag) + ']') );
+function kill_images(tag) {
+	$('#content').isotope('remove', $('#content').find('[data-search=' + encodeSearchTerm(tag) + ']'));
 	$('#searches span[data-search=' + encodeSearchTerm(tag) + ']').remove();
 	return false;
 }

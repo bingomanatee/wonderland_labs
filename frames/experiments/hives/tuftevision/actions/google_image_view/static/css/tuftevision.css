@@ -54,6 +54,16 @@ a.back {
     padding: 0;
 }
 
+#popover .popover{
+    max-width: 50%;
+}
+
+.img_url_title {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .img-badge h4 .title {
     max-width: 150px;
     overflow: hidden;

@@ -64,32 +64,6 @@ module.exports = {
 		cb();
 	},
 
-	/* *********** PUT RESPONSES ************** */
-
-	on_put_validate: function (context, cb) {
-		var self = this;
-
-		cb();
-	},
-
-	on_put_input: function (context, cb) {
-		var self = this;
-
-		cb();
-	},
-
-	on_put_process: function (context, cb) {
-		var self = this;
-
-		cb();
-	},
-
-	on_put_output: function (context, cb) {
-		var self = this;
-
-		cb();
-	},
-
 	/* *********** POST RESPONSES ************** */
 
 	on_post_validate: function (context, cb) {
