@@ -1,5 +1,6 @@
 {
     "name": "home",
+	"layout_name": "hiveblog",
     "routes": {
         "get": [
             "/"

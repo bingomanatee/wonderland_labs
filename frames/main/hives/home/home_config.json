@@ -1,3 +1,4 @@
 {
-	"base_route": "main_home"
+	"base_route": "main_home",
+	"layout": "layout_name"
 }

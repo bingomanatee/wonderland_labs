@@ -22,6 +22,26 @@
 			}
 		},
 
+		"blog": {
+			"resources": {
+				"layout": [
+					"blog_layout"
+				],
+				"model":  [
+					{
+						"model_type": "hive_mongoose_model",
+						"name": "article"
+
+					}
+				]
+			},
+			"hives":     {
+				"main": {
+
+				}
+			}
+		},
+
 		"experiments":  {
 			"resources": {
 				"layout": [

@@ -19,7 +19,8 @@
     "hive-queen": ">=0.0.1a",
     "request": "~2.21.0",
     "jsdom": "~0.6.0",
-    "async": "~0.2.8"
+    "async": "~0.2.8",
+    "hive-component": "0.0.1a"
   },
   "devDependencies": {
     "tap": ">=0.3"

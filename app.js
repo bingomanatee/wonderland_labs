@@ -7,6 +7,7 @@ var express = require('express')
 	, path = require('path')
 	, util = require('util')
 	, mvc = require('hive-mvc')
+	, mongoose = require('mongoose')
 	, queen = require('hive-queen');
 
 var app = express();
@@ -28,6 +29,7 @@ app.configure(function () {
 
 });
 
+
 app.configure('development', function () {
 	//app.use(express.errorHandler());
 });
@@ -37,15 +39,19 @@ server.on('close', function () {
 	console.log('======== closing server');
 });
 
-queen.spawn(
-	__dirname, require('./structure.json')
-,
-	function () {
+/**
+ * Spawn in transition - dont use
+ queen.spawn(
+ __dirname, require('./structure.json')
+ ,
+ function () {
 		console.log('spawned');
 	});
+ */
 
 server.listen(app.get('port'), function () {
-	var apiary = mvc.Apiary({}, __dirname + '/frames');
+	mongoose.connect('mongodb://localhost/wll');
+	var apiary = mvc.Apiary({mongoose: mongoose}, __dirname + '/frames');
 	console.log('initializing apiary for port %s', PORT);
 	apiary.init(function () {
 		console.log('serving');
