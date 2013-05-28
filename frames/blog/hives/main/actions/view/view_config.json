@@ -1,0 +1,7 @@
+{
+	"routes": {
+	          "get": "/story/:filename"
+	},
+
+	"layout_name" : "hiveblog"
+}

@@ -1,0 +1,41 @@
+<h1>Add an Article</h1>
+
+<form class="form" action="/admin/blog/create" method="post">
+    <p class="row">
+        <span class="span2">
+            <label>Name</label>
+        </span>
+
+        <input type="text" class="span10" name="filename" placeholder="File name for article">
+    </p>
+    <p class="row">
+        <span class="span2">
+            <label>Title</label>
+        </span>
+
+        <input type="text" class="span10" name="title" placeholder="Displayed title">
+    </p>
+
+    <p class="row">
+        <span class="span2">
+            <label>Content</label>
+        </span>
+
+        <textarea cols="150" rows="20" class="span10" name="content" placeholder="Markdown content"></textarea>
+    </p>
+
+
+    <p class="row">
+        <span class="span5">
+
+        </span>
+
+        <span class="span7">
+           <button class="btn btn-primary" type="submit">Add Article</button>
+        </span>
+    </p>
+
+
+
+
+</form>

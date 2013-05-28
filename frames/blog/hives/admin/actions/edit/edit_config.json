@@ -1,0 +1,16 @@
+{
+	"routes": {
+		"get":  [
+			"*/edit/:filename"
+		],
+		"post": [
+			"*/edit/:filename"
+		]
+	},
+
+	"static": {
+		"/js": "/js/blog/admin/edit"
+	},
+
+	"layout_name": "admin"
+}

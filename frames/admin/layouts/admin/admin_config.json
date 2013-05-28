@@ -1,0 +1,8 @@
+{
+	"name":   "admin",
+	"static": {
+		"/img": "/img/admin",
+		"/css": "/css/admin",
+		"/js":  "/js/admin"
+	}
+}

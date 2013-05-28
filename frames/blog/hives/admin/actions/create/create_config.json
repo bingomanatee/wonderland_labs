@@ -1,0 +1,16 @@
+{
+	"routes": {
+		"get":  [
+			"*/create"
+		],
+		"post": [
+			"*/create"
+		]
+	},
+
+	"static": {
+		"/js": "/js/blog/admin"
+	},
+
+	"layout_name": "admin"
+}

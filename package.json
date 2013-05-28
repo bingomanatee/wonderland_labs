@@ -16,7 +16,7 @@
     "hive-mvc": "0.0.1f",
     "hive-model": "0.0.1e",
     "mongoose": "~3.6.7",
-    "hive-queen": ">=0.0.1a",
+    "hive-queen": ">=0.0.1b",
     "request": "~2.21.0",
     "jsdom": "~0.6.0",
     "async": "~0.2.8",

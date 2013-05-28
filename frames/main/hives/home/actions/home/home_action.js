@@ -14,7 +14,7 @@ module.exports = {
 
 	on_get_input: function(context, cb){
 		var self = this;
-
+		context.$out.set('list_blog_articles', true);
 		cb(null, context);
 	},
 
