@@ -1,13 +1,13 @@
-<h1>Add an Article</h1>
+<h1>Edit Article &quot;<%= article.title %>&quot;</h1>
 
-<form class="form" action="/admin/blog/edit" method="post">
+<form class="form" action="/admin/blog/edit/<%= article.filename %>" method="post">
     <p class="row">
         <span class="span2">
             <label>Name</label>
         </span>
 
         <input type="text" class="span10" name="filename" value="<%= article.filename %>"
-               placeholder="File name for article">
+               placeholder="File name for article" readonly="readonly">
     </p>
 
     <p class="row">
@@ -15,7 +15,17 @@
             <label>Title</label>
         </span>
 
-        <input type="text" class="span10" name="title" placeholder="Displayed title">
+        <input type="text" class="span10" name="title" value="<%= article.title || '' %>"
+               placeholder="Displayed title">
+    </p>
+
+    <p class="row">
+        <span class="span2">
+            <label>Introduction</label>
+        </span>
+
+        <textarea cols="150" rows="3" class="span10" name="intro" placeholder="Introduction/blurb"><%=
+            article.intro || '' %></textarea>
     </p>
 
     <p class="row">
@@ -25,7 +35,7 @@
 
         <textarea cols="150" rows="20" class="span10" name="content" placeholder="Markdown content" id="text"
                   onchange="preview_text()"><%-
-            article.content %></textarea>
+            article.content.replace(/<time class="revised">[^<]+<\/time>/g, '') %></textarea>
     </p>
 
 

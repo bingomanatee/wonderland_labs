@@ -8,14 +8,18 @@
 
 <h2>Articles</h2>
 <article>
-    <% blog_articles.forEach(function(article){ %>
-    <h3><a href="/story/<%= article.filename.replace(/\.md$/, '') %>"><%= article.title %></a></h3>
-
+    <% _.sortBy(blog_articles, function(article){ return moment(article.revised,
+    'YYYY-MM-DD hh:mm').unix() * -1; }).forEach(function(article){
+    %>
+    <h3><a href="/blog/<%= article.filename.replace(/\.md$/, '') %>"><%= article.title %></a></h3>
+ <p style="margin-left: 2em"><%= article.intro %> <time class="revised"><%= article.revised || '' %></time> </p>
     <% }) %>
 </article>
+<% if (false){ %>
 <pre>
 
     <%- JSON.stringify(blog_articles) %>
 </pre>
+<% } %>
 </body>
 </html>

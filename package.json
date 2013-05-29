@@ -20,10 +20,11 @@
     "request": "~2.21.0",
     "jsdom": "~0.6.0",
     "async": "~0.2.8",
-    "hive-component": "0.0.1a"
+    "hive-component": "0.0.1a",
+    "moment": "~2.0.0"
   },
   "devDependencies": {
-    "tap": ">=0.3"
+    "tap": "~0.4.3"
   },
   "main": "lib/index.js",
   "keyworkds": [

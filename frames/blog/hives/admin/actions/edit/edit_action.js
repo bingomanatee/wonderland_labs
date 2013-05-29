@@ -10,34 +10,23 @@ var _DEBUG = false;
 
 /* ******* CLOSURE ********* */
 
-function addError(context, error){
-	var errors = context.$out.get('errors', []) || [];
 
-	errors.push(error);
-	context.$out.set('errors', errors);
-}
-
-function hasErrors(context){
-	var errors = context.$out.get('errors');
-	if (!errors){
-		return false;
-	} else {
-		return errors.length;
-	}
-}
 
 /* ********* EXPORTS ******** */
 
 module.exports = {
 
 	on_get_validate: function (context, callback) {
-		if (!context.filename){
-			return callback(new Error('no filename'));
-		}
 		var model= this.model('blog_article');
+		if (!context.filename){
+			 model.addError('no filename');
+			return callback(model.error(context));
+
+		}
 		model.exists(context.filename, function(ex){
 			if (!ex){
-				callback(new Error('cannot find article ' + context.filename));
+				model.addError('cannot find article ' + context.filename);
+				callback(model.error(context));
 			} else {
 				callback();
 			}
@@ -61,45 +50,48 @@ module.exports = {
 		callback();
 	},
 
-	on_post_validate: function (context, callback) {
-
-		if (!context.filename){
-			addError(context, 'Filename missing');
-		}
-
-		if (!context.title){
-			addError(context, 'Title missing');
-		}
-
-		if (!context.content){
-			addError(context, 'Content missing');
-		}
+	on_post_validate: function (context, done) {
 
 		var model = this.model('blog_article');
 
+		if (!context.filename){
+			model.addError(context, 'Filename missing');
+		}
+
+		if (!context.title){
+			model.addError(context, 'Title missing');
+		}
+
+		if (!context.content){
+			model.addError(context, 'Content missing');
+		}
+
+		if (model.hasErrors(context)) {
+			return done(model.error(context));
+		}
+
+
 		model.exists(context.filename, function(ex){
-			if (ex){
-				addError(context, 'Article exists');
+			if (!ex){
+				done(new Error(context.$out.get('errors')[0]));
+			} else {
+				done();
 			}
-			callback();
 		})
 	},
 
-	on_post_input: function (context, callback) {
-		if (hasErrors(context)){
 
-		} else {
-
-			var model = this.model('blog_article');
-
-			model.put(context.filename, '#' + context.title + "\n\n" + context.content);
-
-			callback();
-		}
+	on_post_input: function (context, done) {
+		var model = this.model('blog_article');
+		context._content = model.make_content(context);
+		done();
 	},
 
-	on_post_process: function (context, callback) {
-		callback();
+	on_post_process: function (context, done) {
+		var model = this.model('blog_article');
+		model.put(context.filename, context._content, function(){
+			context.$go('/blog/' + context.filename, done);
+		});
 	}
 
-} // end action
+}; // end action

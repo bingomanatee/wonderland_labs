@@ -1,31 +1,28 @@
 var _ = require('underscore');
 var util = require('util');
 var gate = require('gate');
+var moment = require("moment");
 
 module.exports = {
 
 	/* *********** GET RESPONSES ************** */
 
 	on_get_validate: function(context, cb){
-		var self = this;
-
 		cb(null, context);
 	},
 
 	on_get_input: function(context, cb){
-		var self = this;
 		context.$out.set('list_blog_articles', true);
 		cb(null, context);
 	},
 
 	on_get_process: function(context, cb){
-		var self = this;
-
 		cb(null, context);
 	},
 
 	on_get_output: function(context, cb){
-		var self = this;
+		context.$out.set('moment', moment);
+		context.$out.set('_', _);
 
 		cb(null, context);
 	}
