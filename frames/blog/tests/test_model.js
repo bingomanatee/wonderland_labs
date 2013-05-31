@@ -25,7 +25,7 @@ model_factory({}, function (err, article_model) {
 				content;
 
 			var data = {
-				filename: 'mice',
+				file_name: 'mice',
 				content:  text
 			};
 

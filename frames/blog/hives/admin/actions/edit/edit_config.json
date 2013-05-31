@@ -1,10 +1,10 @@
 {
 	"routes": {
 		"get":  [
-			"*/edit/:filename"
+			"*/edit/:file_name"
 		],
 		"post": [
-			"*/edit/:filename"
+			"*/edit/:file_name"
 		]
 	},
 

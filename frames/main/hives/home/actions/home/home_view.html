@@ -11,14 +11,14 @@
     <% _.sortBy(blog_articles, function(article){ return moment(article.revised,
     'YYYY-MM-DD hh:mm').unix() * -1; }).forEach(function(article){
     %>
-    <h3><a href="/blog/<%= article.filename.replace(/\.md$/, '') %>"><%= article.title %></a></h3>
+    <h3><a href="/blog/<%= article.file_name.replace(/\.md$/, '') %>"><%= article.title %></a></h3>
  <p style="margin-left: 2em"><%= article.intro %> <time class="revised"><%= article.revised || '' %></time> </p>
     <% }) %>
 </article>
-<% if (false){ %>
+<% if (true){ %>
 <pre>
 
-    <%- JSON.stringify(blog_articles) %>
+    <%- JSON.stringify(blog_articles, true, 5) %>
 </pre>
 <% } %>
 </body>

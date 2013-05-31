@@ -12,7 +12,7 @@ module.exports = {
 	},
 
 	on_get_input: function(context, cb){
-		context.$out.set('list_blog_articles', true);
+		context.$out.set('list_blog_articles', function(art){ return art.on_homepage });
 		cb(null, context);
 	},
 

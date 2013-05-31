@@ -6,14 +6,15 @@
             <label>Name</label>
         </span>
 
-        <input type="text" class="span10" name="filename" placeholder="File name for article">
+        <input type="text" class="span10" name="file_name" value="<%= file_name %>"
+               placeholder="File name for article">
     </p>
     <p class="row">
         <span class="span2">
             <label>Title</label>
         </span>
 
-        <input type="text" class="span10" name="title" placeholder="Displayed title">
+        <input type="text" class="span10" name="title" value="<%= title %>"  placeholder="Displayed title">
     </p>
 
     <p class="row">
@@ -21,7 +22,8 @@
             <label>Introduction</label>
         </span>
 
-        <textarea cols="150" rows="3" class="span10" name="intro" placeholder="Introduction/blurb"></textarea>
+        <textarea cols="150" rows="3" class="span10" name="intro" placeholder="Introduction/blurb"><%-
+            intro %></textarea>
     </p>
 
 
@@ -30,9 +32,38 @@
             <label>Content</label>
         </span>
 
-        <textarea cols="150" rows="20" class="span10" name="content" placeholder="Markdown content"></textarea>
+        <textarea cols="150" rows="20" class="span10" name="content" id="text"
+                  placeholder="Markdown content"><%- content %></textarea>
     </p>
 
+    <h2>Metadata</h2>
+
+    <p class="row">
+        <span class="span2"><label>Tags</label></span>
+
+        <input type="text" class="span10" name="tags" placeholder="Tags -- seperate with commas" />
+    </p>
+
+    <p class="row">
+        <span class="span2"><label>Settings</label></span>
+
+       <span class="span3">
+           <label class="checkbox">
+               <input type="checkbox" value="1" name="on_homepage"/> Show on home page
+           </label>
+       </span>
+
+        <span class="span3">
+
+           <label class="checkbox">
+               <input type="checkbox" value="1" name="hide"/> Hide article (work in progress)
+           </label>
+
+        </span>
+
+        <span class="span2 help-block">
+        </span>
+    </p>
 
     <p class="row">
         <span class="span5">
@@ -43,8 +74,16 @@
            <button class="btn btn-primary" type="submit">Add Article</button>
         </span>
     </p>
-
-
-
-
 </form>
+
+<h1>Preview</h1>
+<div class="well">
+
+    <div id="preview">
+
+    </div>
+</div>
+
+<script language="javascript" src="/js/blog/admin/create/marked.js"></script>
+<script language="javascript" defer="defer" src="/js/blog/admin/create/create.js">
+</script>

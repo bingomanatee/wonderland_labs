@@ -1,6 +1,22 @@
 <h1><%= article.title %></h1>
 
 <%- html %>
-        <hr />
+<div class="well">
+    <dl>
+        <dt>Revised</dt>
+        <dd><%= article.revised %></dd>
+        <% if (article.on_homepage){ %>
+        <dt>Flagged</dt>
+        <dd>for home page</dd>
+        <% } %>
+        <% if (article.hide) { %>
+        <dt>Hidden</dt>
+        <dd>true</dd>
+        <% } %>
+        <dt>Tags</dt>
+        <dd><% article.tags.forEach(function(tag){ %><%= tag %> <% }) %></dd>
+    </dl>
 
-        <p><small><a href="/admin/blog/edit/<%= article.filename %>" class="btn btn-small">Edit</a></small></p>
+</div>
+
+        <p><small><a href="/admin/blog/edit/<%= article.file_name %>" class="btn btn-small">Edit</a></small></p>

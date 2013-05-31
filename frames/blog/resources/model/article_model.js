@@ -47,6 +47,7 @@ module.exports = function (apiary, cb) {
 
 	var model = {
 		name: "blog_article",
+		ARTICLE_DIR: ARTICLE_DIR,
 
 		error: function (context) {
 			if (!model.hasErrors(context)) {
@@ -71,8 +72,8 @@ module.exports = function (apiary, cb) {
 			context.$out.set('errors', errors);
 		},
 
-		exists: function (filename, cb) {
-			var full_path = path.resolve(ARTICLE_DIR, filename + '.md');
+		exists: function (file_name, cb) {
+			var full_path = path.resolve(ARTICLE_DIR, file_name + '.md');
 			fs.exists(full_path, cb)
 		},
 
@@ -81,47 +82,39 @@ module.exports = function (apiary, cb) {
 			return callback ? callback(null, al) : al;
 		},
 
-		parse_data: function (data) {
-
-			var title_test = /^#(.*)[\n]*/m;
-			if (title_test.test(data.content)) {
-				var m = title_test.exec(data.content);
-				data.title = m[1];
-				data.content = data.content.replace(title_test, '');
-			}
-
-			var intro_test = /<!--\(([^>]*)\)-->[\n]*/m;
-			if (intro_test.test(data.content)) {
-				var m2 = intro_test.exec(data.content);
-			//	console.log('m2: ', util.inspect(m2));
-				data.intro = m2[1];
-				data.content = data.content.replace(intro_test, '');
-			}
-
-
-			var rs_re = /<time class="revised">([^<]+)<\/time>/;
-
-			if (rs_re.test(data.content)){
-				var m3 = rs_re.exec(data.content);
-				data.revised = m3[1];
-			}
-
-			return data;
-		},
-
-		get: function (filename, cb) {
-			var full_path = path.resolve(ARTICLE_DIR, filename + '.md');
+		get: function (file_name, cb) {
+			var full_path = path.resolve(ARTICLE_DIR, file_name + '.md');
 			fs.exists(full_path, function (ex) {
 				if (!ex) {
-					cb(new Error('cannot find file ' + filename));
+					cb(new Error('cannot find file ' + file_name));
 				} else {
+					//@TODO: stream;
 					fs.readFile(full_path, 'utf8', function (err, content) {
 						var data = {
-							filename: filename,
-							content:  content
+							file_name: file_name,
+							content:   content
 						};
 
-						cb(null, model.parse_data(data));
+						var meta_path = path.resolve(ARTICLE_DIR, file_name + '.json');
+						fs.exists(meta_path, function (e2) {
+							if (e2) {
+								fs.readFile(meta_path, 'utf8', function (err, content) {
+									if (err) {
+										cb(err);
+									} else {
+										try {
+											var meta = JSON.parse(content);
+											_.extend(meta, data);
+											cb(null, meta);
+										} catch (jerr) {
+											cb(jerr);
+										}
+									}
+								})
+							} else {
+								cb(new Error('cannot read meta ' + meta_path));
+							}
+						})
 					});
 				}
 			});
@@ -130,15 +123,16 @@ module.exports = function (apiary, cb) {
 		init: function (done) {
 			fs.readdir(ARTICLE_DIR, function (err, files) {
 				files = _.filter(files, function (file) {
-					return /\.md$/.test(file);
-				})
+					return /\.json$/i.test(file);
+				});
 
 				cache = _.reduce(files, function (out, file) {
-					filename = file.replace(/\.md$/, '');
+					var file_name = file.replace(/\.json$/, '');
 
-					out[filename] = {
-						filename: filename,
-						filepath: path.resolve(ARTICLE_DIR, file)
+					out[file_name] = {
+						file_name: file_name,
+						file_path: path.resolve(ARTICLE_DIR, file_name + '.md'),
+						meta_path: path.resolve(ARTICLE_DIR, file_name + '.json')
 					};
 					return out;
 				}, {});
@@ -148,10 +142,12 @@ module.exports = function (apiary, cb) {
 				_.each(cache, function (file_data) {
 
 					var l = gate.latch();
-					fs.readFile(file_data.filepath, 'utf8', function (err, content) {
-						file_data.content = content;
-						model.parse_data(file_data);
-						delete file_data.content;
+					fs.readFile(file_data.meta_path, 'utf8', function (err, meta) {
+						try {
+							meta = JSON.parse(meta);
+							_.extend(file_data, meta);
+						} catch (err) {
+						}
 						l();
 					})
 
@@ -161,44 +157,21 @@ module.exports = function (apiary, cb) {
 			});
 		},
 
-		update_cache: function (filename, done) {
-			filename = filename.replace(/\.md$/, '');
-			var full_path = path.resolve(ARTICLE_DIR, filename + '.md');
-			var file_data = {
-				filename: filename,
-				filepath: full_path
-			};
-			fs.readFile(full_path, 'utf8', function (err, content) {
-				file_data.content = content;
-				model.parse_data(file_data);
-				delete file_data.content;
-				cache[filename] = file_data;
-				done();
-			})
-		},
+		put: function (data, done) {
+			var file_name = data.file_name.replace(/\.md$/, '');
+			var full_path = path.resolve(ARTICLE_DIR, file_name + '.md');
 
-		make_content: function (context) {
-			return context.filename, '#' + context.title + "\n\n"
-				+ '<!--(' + context.intro + ')-->' + "\n\n"
-				+ context.content;
-		},
+			if (!data.revised) {
+				data.revised = new Date();
+			}
 
-		revise_stamp: function(content){
-			var rs_re = /<time class="revised">[^<]+<\/time>/g;
+			data.revised = moment(data.revised).format('YYYY-MM-DD hh:mm');
 
-		 content =	content.replace(rs_re, '');
-			content += "\n<time class=\"revised\">" + moment().format('YYYY-MM-DD hh:mm') + '</time>';
-			return content;
-
-		},
-
-		put: function (filename, content, done) {
-			content = model.revise_stamp(content);
-
-			filename = filename.replace(/\.md$/, '');
-			var full_path = path.resolve(ARTICLE_DIR, filename + '.md');
-			fs.writeFile(full_path, content, 'utf8', function () {
-				model.update_cache(filename, done);
+			fs.writeFile(full_path, data.content, 'utf8', function () {
+				delete(data.content);
+				var meta_path = path.resolve(ARTICLE_DIR, file_name + '.json');
+				fs.writeFile(meta_path, JSON.stringify(data, true, 4), done);
+				cache[file_name] = data;
 			});
 		}
 	};

@@ -9,7 +9,7 @@
 	},
 
 	"static": {
-		"/js": "/js/blog/admin"
+		"/js": "/js/blog/admin/create"
 	},
 
 	"layout_name": "admin"

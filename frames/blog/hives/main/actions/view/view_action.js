@@ -16,13 +16,13 @@ var marked = require('marked');
 module.exports = {
 
 	on_validate: function (context, callback) {
-		if (!context.filename) {
-			callback(new Error('No filename'))
+		if (!context.file_name) {
+			callback(new Error('No file_name'))
 		} else {
 			var model = this.model('blog_article');
-			model.exists(context.filename, function (has_article) {
+			model.exists(context.file_name, function (has_article) {
 				if (!has_article) {
-					callback(new Error("cannot find article" + context.filename));
+					callback(new Error("cannot find article" + context.file_name));
 				} else {
 					callback();
 				}
@@ -32,7 +32,7 @@ module.exports = {
 
 	on_input: function (context, callback) {
 		var model = this.model('blog_article');
-		model.get(context.filename, function(err, article){
+		model.get(context.file_name, function(err, article){
 			if (err){
 				return callback(err);
 			}
