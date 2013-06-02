@@ -12,9 +12,9 @@ var Gate = require('gate');
 
 // @TODO: add selected option
 
-var dir_select_template = _.template('<select name="<%= name %>"><option value="">(root)</option> <% dirs.forEach(function(dir){ %> ' +
+var dir_select_template = _.template('<select name="<%= name %>" ><option value="">(root)</option> <% dirs.forEach(function(dir){ %> ' +
 	'<option value="<%= dir.name %>"><%= dir.name %></option> ' +
-	'<% }) %></select> ');
+	'<% }) %></select>');
 
 /* ********* EXPORTS ******** */
 
@@ -51,12 +51,12 @@ module.exports = function (apiary, cb) {
 				})
 
 				gate.await(function(){
-
 					output.article_folders = dirs;
 					output.article_folder_select = function(name, current){
-						return dir_select_template({dirs: dirs, name: name, current: current})
+						console.log('making folder with name ', name);
+						return dir_select_template({dirs: dirs, name : name , current: current})
 					}
-
+					done();
 				})
 			})
 		}

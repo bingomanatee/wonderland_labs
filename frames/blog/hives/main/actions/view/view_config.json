@@ -1,6 +1,6 @@
 {
 	"routes": {
-	          "get": "/blog/:file_name"
+	          "get": ["/blog/:file_name", "/blog/:folder/:file_name"]
 	},
 
 	"layout_name" : "hiveblog"

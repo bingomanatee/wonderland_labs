@@ -1,79 +1,120 @@
 <h1>Add an Article</h1>
 
-<form class="form" action="/admin/blog/create" method="post">
-    <p class="row">
-        <span class="span2">
-            <label>Name</label>
-        </span>
+<% if (errors){ %>
+<div class="alert alert-block alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4>Errors in form submisstion</h4>
 
-        <input type="text" class="span10" name="file_name" value="<%= file_name %>"
-               placeholder="File name for article">
-    </p>
-    <p class="row">
-        <span class="span2">
-            <label>Title</label>
-        </span>
+    <dl>
+        <% _.each(errors, function(error, field){ %>
+        <dt><%= field %></dt>
+        <dd><%= error %></dd>
+        <% }) %>
+    </dl>
+</div>
+<% } %>
+<form class="form form-horizontal" action="/admin/blog/create" method="post">
 
-        <input type="text" class="span10" name="title" value="<%= title %>"  placeholder="Displayed title">
-    </p>
+    <div class="control-group <%= errors && errors.file_name ? ' error ' : '' %> row">
+        <label class="control-label span2" for="file_name" style="">Name</label>
 
-    <p class="row">
-        <span class="span2">
-            <label>Introduction</label>
-        </span>
+        <div class="span7">
+            <input type="text" name="file_name" style="width: 100%" id="file_name" value="<%= title %>"
+                   placeholder="Displayed title">
+        </div>
 
-        <textarea cols="150" rows="3" class="span10" name="intro" placeholder="Introduction/blurb"><%-
-            intro %></textarea>
-    </p>
+        <div class="span3">
+            <span class="help-inline"><%=  errors.file_name || '' %></span>
+        </div>
+    </div>
 
+    <div class="control-group <%= errors && errors.title ? ' error ' : '' %> row">
+        <label class="control-label span2" for="title" style="">Title</label>
 
-    <p class="row">
-        <span class="span2">
-            <label>Content</label>
-        </span>
+        <div class="span7">
+            <input type="text" name="title" style="width: 100%"  id="title" value="<%= title %>"
+                   placeholder="Displayed title">
+        </div>
+        <div class="span3">
+            <span class="help-inline"><%=  errors.title || '' %></span>
+        </div>
+    </div>
 
-        <textarea cols="150" rows="20" class="span10" name="content" id="text"
-                  placeholder="Markdown content"><%- content %></textarea>
-    </p>
+    <div class="control-group <%= errors && errors.intro ? ' error ' : '' %> row">
+        <label class="control-label span2" for="intro" style="">Introduction</label>
+
+        <div class="span7">
+            <textarea style="width: 100%" rows="3" class="span10" id="intro" name="intro"
+                      placeholder="Introduction for menus/table of contents"><%-
+                intro %></textarea>
+        </div>
+        <div class="span3">
+            <span class="help-inline"><%=  errors.intro || '' %></span>
+        </div>
+    </div>
+
+    <div class="control-group <%= errors && errors.content ? ' error ' : '' %> row">
+        <label class="control-label span2" for="content" style="">Content</label>
+
+        <div class="span7">
+            <textarea style="width: 100%" rows="20" class="span10" id="content" name="content"
+                      placeholder="article - parsed by github markdown"><%-
+                content %></textarea>
+        </div>
+        <div class="span3">
+            <span class="help-inline"><%=  errors.content || '' %></span>
+        </div>
+    </div>
 
     <h2>Metadata</h2>
 
-    <p class="row">
-        <span class="span2"><label>Tags</label></span>
+    <div class="control-group <%= errors && errors.tags ? ' error ' : '' %> row">
+        <label class="control-label span2" for="tags" style="">Tags</label>
 
-        <input type="text" class="span10" name="tags" placeholder="Tags -- seperate with commas" />
-    </p>
+        <div class="span7">
+            <input type="text" name="tags"  style="width: 100%"  id="tags" value="<%= title %>"
+                   placeholder="Displayed title">
+        </div>
 
-    <p class="row">
-        <span class="span2"><label>Settings</label></span>
+        <div class="span3">
+            <span class="help-inline"><%=  errors.tags || '' %></span>
+        </div>
+    </div>
 
-       <span class="span3">
-           <label class="checkbox">
-               <input type="checkbox" value="1" name="on_homepage"/> Show on home page
-           </label>
-       </span>
 
-        <span class="span3">
+    <div class="control-group row">
+        <label class="control-label span2" for="tags" style="">Settings</label>
 
-           <label class="checkbox">
-               <input type="checkbox" value="1" name="hide"/> Hide article (work in progress)
-           </label>
 
-        </span>
+        <div class="span3">
+            <label class="checkbox">
+                <input type="checkbox" value="1" name="on_homepage"/> Show on home page
+            </label>
+        </div>
 
-        <span class="span2 help-block">
-        </span>
-    </p>
+        <div class="span3">
 
-    <p class="row">
-        <span class="span5">
+            <label class="checkbox">
+                <input type="checkbox" value="1" name="hide"/> Hide article (work in progress)
+            </label>
 
-        </span>
+        </div>
 
-        <span class="span7">
-           <button class="btn btn-primary" type="submit">Add Article</button>
-        </span>
-    </p>
+        <div class="span4">
+            <label>In Folder
+                <%- article_folder_select('folder') %></label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span5">
+
+        </div>
+
+        <div class="span7">
+            <button class="btn btn-primary" type="submit">Add Article</button>
+        </div>
+    </div>
 </form>
 
 <h1>Preview</h1>

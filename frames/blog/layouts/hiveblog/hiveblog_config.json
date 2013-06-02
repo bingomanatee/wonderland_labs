@@ -1,8 +1,8 @@
 {
 	"name":   "hiveblog",
 	"static": {
-		"/img": "/hiveblog/img",
-		"/css": "/hiveblog/css",
-		"/js":  "/hiveblog/js"
+		"/img": "/img/hiveblogç",
+		"/css": "/css/hiveblog",
+		"/js":  "/js/hiveblog"
 	}
 }

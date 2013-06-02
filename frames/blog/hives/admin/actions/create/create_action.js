@@ -10,26 +10,20 @@ var _DEBUG = false;
 
 /* ******* CLOSURE ********* */
 
-function clean_file_name(name){
+function clean_file_name(name) {
 	return name.toLowerCase().replace(/[^\w]+/g, '_');
 }
 
 var _default_output = {
-	file_name: ''
-	, title: ''
-	, content: ''
-	, tags: ''
-	, intro: ''
-	, hide: false
-	, on_homepage: false};
+	file_name: '', title: '', content: '', tags: '', intro: '', hide: false, on_homepage: false};
 
-function ensure_default_output(context){
-	_.each(_default_output, function(value, name){
+function ensure_default_output(context) {
+	_.each(_default_output, function (value, name) {
 		if (context.$out.has(name)) {
 			// ok
-		}else if (context.hasOwnProperty(name)){
+		} else if (context.hasOwnProperty(name)) {
 			context.$out.set(name, context[name]);
-		}  else {
+		} else {
 			context.$out.set(name, value);
 		}
 	});
@@ -42,7 +36,7 @@ module.exports = {
 
 	on_get_process: function (context, done) {
 		ensure_default_output(context);
-		contexxt.$out.set('_article_folders', true);
+		context.$out.set('_article_folders', true);
 		done();
 	},
 
@@ -50,15 +44,15 @@ module.exports = {
 		var model = this.model('blog_article');
 		context.file_name = clean_file_name(context.file_name);
 		if (!context.file_name) {
-			model.addError(context, 'file_name missing');
+			model.addError(context, 'File name missing', 'file_name');
 		}
 
 		if (!context.title) {
-			model.addError(context, 'Title missing');
+			model.addError(context, 'Title missing', 'title');
 		}
 
 		if (!context.content) {
-			model.addError(context, 'Content missing');
+			model.addError(context, 'Content missing', 'content');
 		}
 
 		if (model.hasErrors(context)) {
@@ -82,14 +76,15 @@ module.exports = {
 		}
 
 		context._data = {
-			file_name: context.file_name,
-			title: context.title,
-			intro: context.intro,
-			content:  context.content,
-			revised: new Date(),
-			tags: context.tags ? context.tags.split(',') : [],
+			file_name:   context.file_name,
+			title:       context.title,
+			intro:       context.intro,
+			content:     context.content,
+			revised:     new Date(),
+			tags:        context.tags ? context.tags.split(',') : [],
 			on_homepage: context.on_homepage || false,
-			hide: context.hide || false
+			hide:        context.hide || false,
+			folder:      context.folder || ''
 		};
 
 		done();
@@ -97,13 +92,23 @@ module.exports = {
 
 	on_post_process: function (context, done) {
 		var model = this.model('blog_article');
+		context.$out.set('_article_folders', true);
 		if (model.hasErrors(context)) {
 			ensure_default_output(context);
 			return done();
 		}
-		model.put(context._data, function(){
-				context.$go('/blog/' + context.file_name, done);
+		model.put(context._data, function () {
+			context.$go(path.resolve('/blog/', context.folder, context.file_name), done);
 		});
+	},
+
+	on_output: function (context, done) {
+
+		var model = this.model('blog_article');
+		if (!model.hasErrors(context)) {
+			context.$out.set('errors', false);
+		}
+		done();
 	}
 
 }; // end action

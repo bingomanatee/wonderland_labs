@@ -8,3 +8,6 @@ function preview_text(){
 }
 
 setInterval(preview_text, 3000);
+
+setTimeout(function(){
+}, 100);
