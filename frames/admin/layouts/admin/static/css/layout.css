@@ -1,12 +1,12 @@
 
 .navbar-inverse .navbar-inner {
     background-color: transparent;
-    background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(0,0,0,0.53) 80%, rgba(0,0,0,0.25) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(80%,rgba(0,0,0,0.53)), color-stop(100%,rgba(0,0,0,0.25))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(0,0,0,0.53) 80%,rgba(0,0,0,0.25) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(0,0,0,0.53) 80%,rgba(0,0,0,0.25) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(0,0,0,0.53) 80%,rgba(0,0,0,0.25) 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  rgba(0,0,0,1) 0%,rgba(0,0,0,0.53) 80%,rgba(0,0,0,0.25) 100%); /* W3C */
+    background: -moz-linear-gradient(top,  rgba(50,0,25,1) 0%, rgba(0,0,0,0.53) 80%, rgba(0,0,0,0.25) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(50,0,25,1)), color-stop(80%,rgba(0,0,0,0.53)), color-stop(100%,rgba(0,0,0,0.25))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(50,0,25,1) 0%,rgba(0,0,0,0.53) 80%,rgba(0,0,0,0.25) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(50,0,25,1) 0%,rgba(0,0,0,0.53) 80%,rgba(0,0,0,0.25) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(50,0,25,1) 0%,rgba(0,0,0,0.53) 80%,rgba(0,0,0,0.25) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(50,0,25,1) 0%,rgba(0,0,0,0.53) 80%,rgba(0,0,0,0.25) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#40000000',GradientType=0 ); /* IE6-9 */
 
 }
@@ -18,4 +18,19 @@ h1 {
 h2, h3, h4 {
     font-family: Rokkit, Helvetica Neue;
     font-weight: 700;
+}
+
+body {
+    background-color: transparent;
+}
+
+html{
+    background-color: rgb(250,230,240);
+    background-image: url(/img/admin/monkeywrench400.png);
+    background-repeat: no-repeat;
+    background-position: right top;
+}
+
+.well {
+    background-color: rgb(240,220,230);
 }
