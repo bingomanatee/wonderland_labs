@@ -38,6 +38,11 @@
     <script src="/hiveblog/js/html5shiv.js"></script>
     <![endif]-->
 
+    <!-- JAVASCRIPT HEAD --->
+    <% js_model.get_context('head').forEach(function(js_item){%>
+    <script src="<%= js_item.url %>"></script>
+    <% }) %>
+
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/hiveblog/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/hiveblog/ico/apple-touch-icon-114-precomposed.png">
@@ -80,20 +85,8 @@
                 <ul class="nav nav-list">
                     <li class="nav-header">Site</li>
                     <li class="active"><a href="/">Home</a></li>
-                    <!--li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-header">Sidebar</li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-header">Sidebar</li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li -->
+                    <li class="nav-header">Articles</li>
+                    <li><a href="/admin/blog/create">Add Article</a></li>
                 </ul>
             </div>
             <!--/.well -->

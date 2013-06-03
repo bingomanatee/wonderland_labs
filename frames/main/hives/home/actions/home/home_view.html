@@ -1,25 +1,26 @@
-<html xmlns="http://www.w3.org/1999/html">
-<body>
-
 <h1>Wonderland Labs</h1>
 
 <p> enjoy my image search proxy for Google Images, inspired by a discourse by Edward Tufte
     given at PayPal on May 3, 2013: <a href="/experiments/tuftevision/google_image_view">Tuftevision</a></p>
 
-<h2>Articles</h2>
-<article>
+<section class="homepage-articles">
     <% _.sortBy(blog_articles, function(article){ return moment(article.revised,
     'YYYY-MM-DD hh:mm').unix() * -1; }).forEach(function(article){
     %>
-    <h3><a href="/blog/<%= article.file_name.replace(/\.md$/, '') %>"><%= article.title %></a></h3>
- <p style="margin-left: 2em"><%= article.intro %> <time class="revised"><%= article.revised || '' %></time> </p>
+    <article <%- helpers.article.link_click(article) %> >
+        <h3><%- helpers.article.link(article) %></h3>
+
+        <p><%= article.intro %></p>
+
+        <p class="footer">
+            <time class="revised"><%= article.revised || '' %></time>
+        </p>
+    </article>
     <% }) %>
-</article>
+</section>
 <% if (true){ %>
 <pre>
 
     <%- JSON.stringify(blog_articles, true, 5) %>
 </pre>
 <% } %>
-</body>
-</html>

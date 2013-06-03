@@ -5,5 +5,11 @@
         "get": [
             "/"
         ]
-    }
+    },
+	"javascript": [
+		{
+			"url": "/js/vendors/angular.min.js",
+			"context": "head"
+		}
+	]
 }

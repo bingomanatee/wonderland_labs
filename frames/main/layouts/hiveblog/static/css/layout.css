@@ -1,0 +1,102 @@
+.navbar-inverse .navbar-inner  {
+    border: none;
+    background-color: transparent;
+    background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 63%, rgba(0,0,0,0.25) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(63%,rgba(0,0,0,0.5)), color-stop(100%,rgba(0,0,0,0.25))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(0,0,0,0.5) 63%,rgba(0,0,0,0.25) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(0,0,0,0.5) 63%,rgba(0,0,0,0.25) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(0,0,0,0.5) 63%,rgba(0,0,0,0.25) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(0,0,0,1) 0%,rgba(0,0,0,0.5) 63%,rgba(0,0,0,0.25) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#40000000',GradientType=0 ); /* IE6-9 */
+
+}
+
+.navbar-inverse .navbar-inner .brand {
+    color: rgb(100,240, 255);
+}
+h1 {
+    font-family: Rokkitt, Helvetica Neue, Arial, sans-serifa;
+    font-weight: 700;
+}
+h2, h3, h4 {
+    font-family: Rokkitt, Helvetica Neue, Arial, sans-serif;
+    color: red;
+    font-weight: 700;
+}
+
+h1 a, h2 a, h3 a, h4 a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+h1 a:hover, h2 a, h3 a:hover, h4 a:hover {
+    color: rgb(204, 0, 102);
+    text-decoration: underline;
+}
+
+section.homepage-articles {
+    clear: both;
+    overflow: auto;
+    padding-top: 4em;
+}
+
+section.homepage-articles article:hover {
+    border-color: red;
+}
+
+section.homepage-articles article {
+    float: left;
+    background-color: white;
+    width: 200px;
+    min-height: 100px;
+    padding: 0.75em;
+    margin: 0.5em;
+    margin-top: -1em;
+    margin-right: -0.5em;
+    border: 1px solid rgb(200,200,200);
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+
+    transform:rotate(2deg);
+    -ms-transform:rotate(2deg); /* IE 9 */
+    -webkit-transform:rotate(2deg); /* Safari and Chrome */
+}
+
+
+section.homepage-articles article p {
+    padding: 0;
+    margin: 0;
+    font-family: Rokkitt, Helvetica Neue, Arial, sans-serif;
+    color: black;
+    font-weight: 400;
+    font-size: 125%;
+}
+
+
+section.homepage-articles article p.footer {
+    font-size: 80%;
+}
+
+section.homepage-articles article h3 {
+    margin: 0;
+    margin-bottom: 0.125em;
+    line-height: 110%;
+    font-size: 125%;
+}
+
+section.homepage-articles article:nth-child(4n){
+    transform:rotate(3deg);
+    -ms-transform:rotate(3deg); /* IE 9 */
+    -webkit-transform:rotate(3deg); /* Safari and Chrome */
+}
+
+section.homepage-articles article:nth-child(3n){
+    transform:rotate(1deg);
+    -ms-transform:rotate(1deg); /* IE 9 */
+    -webkit-transform:rotate(1deg); /* Safari and Chrome */
+}
+section.homepage-articles article:nth-child(2n){
+    transform:rotate(-2deg);
+    -ms-transform:rotate(-2deg); /* IE 9 */
+    -webkit-transform:rotate(-2deg); /* Safari and Chrome */
+}

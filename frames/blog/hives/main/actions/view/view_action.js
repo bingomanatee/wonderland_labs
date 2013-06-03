@@ -20,7 +20,9 @@ module.exports = {
 			callback(new Error('No file_name'))
 		} else {
 			var model = this.model('blog_article');
-			model.exists(context.file_name, function (has_article) {
+			context.id = _.compact([context.folder, context.file_name]).join('/');
+
+			model.exists(context.id, function (has_article) {
 				if (!has_article) {
 					callback(new Error("cannot find article" + context.file_name));
 				} else {
@@ -32,7 +34,8 @@ module.exports = {
 
 	on_input: function (context, callback) {
 		var model = this.model('blog_article');
-		model.get(context.file_name, function(err, article){
+		console.log('getting article %s', util.inspect(context, false, 0));
+		model.get(context.id, function(err, article){
 			if (err){
 				return callback(err);
 			}

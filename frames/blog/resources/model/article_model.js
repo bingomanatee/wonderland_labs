@@ -126,12 +126,12 @@ module.exports = function (apiary, cb) {
 
 					cache = _.reduce(json_files, function (out, file) {
 						var root_name = file.replace(/\.json$/, '');
-						var file_root = path.resolve(folder, root_name + '.md');
+						var file_root = path.resolve(folder, root_name);
 
-						out[root_name] = {
+						out[file_root] = {
 							file_name: root_name,
 							file_root: file_root,
-							file_path: path.resolve(folder, root_name + '.md'),
+							file_path: file_root + '.md',
 							meta_path: path.resolve(folder, file)
 						};
 						return out;

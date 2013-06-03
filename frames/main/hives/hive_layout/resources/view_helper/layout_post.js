@@ -10,10 +10,11 @@ module.exports = function (apiary, callback) {
 		respond: function (ctx, output, html, cb) {
 			if (output.layout) {
 				output.body = html;
-				var engine = path.extname(output.layout);
+				var template = output.layout.get_config('template');
+				var engine = path.extname(template);
 
 				if (apiary.app.engines[engine]) {
-					return apiary.app.engines[engine](output.layout, output, function (layout_err, layout_html) {
+					return apiary.app.engines[engine](template, output, function (layout_err, layout_html) {
 						cb(layout_err, ctx, output, layout_html);
 					})
 				}

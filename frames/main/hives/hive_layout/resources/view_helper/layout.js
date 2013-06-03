@@ -18,10 +18,7 @@ module.exports = function (apiary, cb) {
 			var lm = apiary.model('$layouts');
 			lm.get(output.layout_name, function (err, layout) {
 				if (layout) {
-					var template = layout.get_config('template');
-					if (template) {
-						output.layout = template;
-					}
+					output.layout = layout;
 				} else {
 					console.log('cannot find layout %s', output.layout_name);
 				}
