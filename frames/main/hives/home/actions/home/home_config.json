@@ -1,15 +1,25 @@
 {
-    "name": "home",
+	"name":        "home",
 	"layout_name": "hiveblog",
-    "routes": {
-        "get": [
-            "/"
-        ]
-    },
+	"routes":      {
+		"get": [
+			"/"
+		]
+	},
+
+	"static": {
+		"js": "/js/home"
+	},
+
 	"javascript": [
 		{
-			"url": "/js/vendors/angular.min.js",
+			"url":     "/js/vendors/angular.min.js",
 			"context": "head"
+		},
+		{
+			"url":     "/js/home/controller.js",
+			"context": "head",
+			"requires": ["/js/vendor/angular.min.js"]
 		}
 	]
 }

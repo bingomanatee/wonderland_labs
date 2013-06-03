@@ -4,5 +4,11 @@
 		"/img": "/img/hiveblogç",
 		"/css": "/css/hiveblog",
 		"/js":  "/js/hiveblog"
-	}
+	},
+	"javascript": [
+		{"url": "/js/hiveblog/vendor/jquery-1.10.1.min.js", "context": "foot" },
+		{"url": "/js/hiveblog/vendor/bootstrap.js", "context": "foot" },
+		{"url": "/js/hiveblog/vendor/bootstrap-combobox/js/bootstrap-combobox.js", "context": "foot",
+		"require": ["bootstrap"]}
+	]
 }

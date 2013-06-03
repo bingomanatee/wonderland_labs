@@ -27,7 +27,7 @@ module.exports = function (apiary, cb) {
 			console.log('javascripts: %s', util.inspect(
 				hive_js.concat(action_js.concat(layout_js.concat(output_js)))));
 
-			var js_data = js_model();
+			var js_data = js_model(apiary);
 			js_data.add_items(hive_js);
 			js_data.add_items(action_js);
 			js_data.add_items(layout_js);

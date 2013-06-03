@@ -38,10 +38,7 @@
     <script src="/hiveblog/js/html5shiv.js"></script>
     <![endif]-->
 
-    <!-- JAVASCRIPT HEAD --->
-    <% js_model.get_context('head').forEach(function(js_item){%>
-    <script src="<%= js_item.url %>"></script>
-    <% }) %>
+    <%- js_model.render('head') %>
 
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/hiveblog/ico/apple-touch-icon-144-precomposed.png">
@@ -111,9 +108,7 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="/js/hiveblog/vendor/jquery-1.10.1.min.js"></script>
-<script src="/js/hiveblog/vendor/bootstrap.js"></script>
-<script src="/js/hiveblog/vendor/require.js"></script>
-<script src="/js/hiveblog/vendor/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+
+<%- js_model.render('foot') %>
 </body>
 </html>
