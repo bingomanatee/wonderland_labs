@@ -1,26 +1,64 @@
-<h1>Wonderland Labs</h1>
 
-<p> enjoy my image search proxy for Google Images, inspired by a discourse by Edward Tufte
-    given at PayPal on May 3, 2013: <a href="/experiments/tuftevision/google_image_view">Tuftevision</a></p>
+<link rel="stylesheet" type="text/css" href="/js/vendor/angular/ng-grid.css" />
+<link rel="stylesheet" type="text/css" href="/css/home/list.css" />
 
-<section class="homepage-articles">
-    <% _.sortBy(blog_articles, function(article){ return moment(article.revised,
-    'YYYY-MM-DD hh:mm').unix() * -1; }).forEach(function(article){
-    %>
-    <article <%- helpers.article.link_click(article) %> >
-        <h3><%- helpers.article.link(article) %></h3>
+<div ng-app="home">
 
-        <p><%= article.intro %></p>
+    <div ng-controller="ArticleCtrl">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <a class="brand" href="#">View</a>
+                <ul class="nav">
+                    <li ng-class="nav_class('cards')"><a ng-click="set_nav_mode('cards')">Cards</a></li>
+                    <li ng-class="nav_class('list')"><a ng-click="set_nav_mode('list')">List</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tag
+                            ({{ tag_filter || 'all' }}) <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-header">Tags</li>
+                            <li><a ng-click="clear_tag_filter()">(all)</a></li>
+                            <li ng-repeat="tag in tags()">
+                                <a ng-click="set_tag_filter(tag)">{{ tag }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Folder
+                        ({{ folder_filter || 'any' }}) <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-header">Folders</li>
+                        <li><a ng-click="clear_folder_filter()">(any)</a></li>
+                        <li ng-repeat="folder in folders()">
+                            <a ng-click="set_folder_filter(folder)">{{ folder }}</a></li>
+                    </ul>
+                </li>
+                <li><button class="btn" ng-click="clear_filters()">View All</button></li>
+                </ul>
+            </div>
+        </div>
+        <h1>Wonderland Labs</h1>
+        <div ng-switch="view">
+        <section class="homepage-articles" ng-switch-when="cards">
+            <article ng-repeat="article in get_articles()" ng-click="articleClick(article)">
+                <h3>{{article.title}}</h3>
 
-        <p class="footer">
-            <time class="revised"><%= article.revised || '' %></time>
-        </p>
-    </article>
-    <% }) %>
-</section>
-<% if (true){ %>
-<pre>
+                <p>{{ article.intro }}</p>
 
-    <%- JSON.stringify(blog_articles, true, 5) %>
-</pre>
-<% } %>
+                <p class="footer">
+                 <span class="label" style="margin-right: 0.5em" ng-repeat="tag in article.tags"
+                       ng-click="set_tag_filter(tag)">{{tag}} </span>   <time
+                        class="revised">{{
+                    article.revised
+                    }}</time>
+                </p>
+            </article>
+        </section>
+
+        <section class="homepage-articles-grid" ng-switch-when="list">
+            <div ng-grid="gridOptions"></div>
+        </section>
+
+         <section ng-hide="get_articles().length">
+             No articles to display. <button class="btn" ng-click="clear_filters()">Clear your filters</button>
+         </section>
+    </div>
+</div>

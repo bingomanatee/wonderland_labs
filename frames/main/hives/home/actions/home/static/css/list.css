@@ -1,0 +1,96 @@
+section.homepage-articles article p {
+    padding: 0;
+    margin: 0;
+    font-family: Rokkitt, Helvetica Neue, Arial, sans-serif;
+    color: black;
+    font-weight: 400;
+    font-size: 125%;
+}
+
+section.homepage-articles article p.footer {
+    font-size: 80%;
+    margin-top: 0.5em;
+}
+
+section.homepage-articles article h3 {
+    margin: 0;
+    margin-bottom: 0.125em;
+    line-height: 110%;
+    font-size: 125%;
+}
+
+section.homepage-articles article:nth-child(4n) {
+    transform: rotate(3deg);
+    -ms-transform: rotate(3deg); /* IE 9 */
+    -webkit-transform: rotate(3deg); /* Safari and Chrome */
+}
+
+section.homepage-articles article:nth-child(3n) {
+    transform: rotate(1deg);
+    -ms-transform: rotate(1deg); /* IE 9 */
+    -webkit-transform: rotate(1deg); /* Safari and Chrome */
+}
+
+section.homepage-articles article:nth-child(2n) {
+    transform: rotate(-2deg);
+    -ms-transform: rotate(-2deg); /* IE 9 */
+    -webkit-transform: rotate(-2deg); /* Safari and Chrome */
+}
+
+section.homepage-articles-grid .ngGrid {
+    font-family: Rokkitt, Helvetica Neue, Arial, sans-serif;
+    font-size: 120%;
+}
+
+section.homepage-articles-grid .ngGrid .ngCell.col3 {
+    font-family: Helvetica, sans-serif;
+    font-size: 80%;
+}
+
+section.homepage-articles-grid .ngGrid .ngCell {
+    border: none;
+}
+
+section.homepage-articles-grid .ngGrid .ngGroupPanel {
+    border: none;
+    -webkit-box-shadow: inset 2px 1px 4px 1px rgba(0, 0, 0, .15);
+
+    box-shadow: inset 2px 1px 4px 1px rgba(0, 0, 0, .15);
+    -webkit-border-radius: 4px 4px 0px 0px;
+    border-radius: 4px 4px 0px 0px;
+    background: rgb(255, 255, 255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(191, 191, 191, 1) 0%, rgba(241, 241, 241, 1) 27%, rgba(246, 246, 246, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(191, 191, 191, 1)), color-stop(27%, rgba(241, 241, 241, 1)), color-stop(100%, rgba(246, 246, 246, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(191, 191, 191, 1) 0%, rgba(241, 241, 241, 1) 27%, rgba(246, 246, 246, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(191, 191, 191, 1) 0%, rgba(241, 241, 241, 1) 27%, rgba(246, 246, 246, 1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(191, 191, 191, 1) 0%, rgba(241, 241, 241, 1) 27%, rgba(246, 246, 246, 1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(191, 191, 191, 1) 0%, rgba(241, 241, 241, 1) 27%, rgba(246, 246, 246, 1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bfbfbf', endColorstr='#f6f6f6', GradientType=0); /* IE6-9 */
+
+}
+
+section.homepage-articles-grid .ngGrid .ngHeaderCell {
+    border: none;
+    background: rgb(255, 255, 255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 29%, rgba(246, 246, 246, 1) 62%, rgba(241, 241, 241, 1) 73%, rgba(225, 225, 225, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(29%, rgba(255, 255, 255, 1)), color-stop(62%, rgba(246, 246, 246, 1)), color-stop(73%, rgba(241, 241, 241, 1)), color-stop(100%, rgba(225, 225, 225, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 29%, rgba(246, 246, 246, 1) 62%, rgba(241, 241, 241, 1) 73%, rgba(225, 225, 225, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255, 255, 255, 1) 29%, rgba(246, 246, 246, 1) 62%, rgba(241, 241, 241, 1) 73%, rgba(225, 225, 225, 1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(255, 255, 255, 1) 29%, rgba(246, 246, 246, 1) 62%, rgba(241, 241, 241, 1) 73%, rgba(225, 225, 225, 1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 29%, rgba(246, 246, 246, 1) 62%, rgba(241, 241, 241, 1) 73%, rgba(225, 225, 225, 1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e1e1e1', GradientType=0); /* IE6-9 */
+
+}
+
+section.homepage-articles-grid .ngGrid .ngRow,
+section.homepage-articles-grid .ngGrid .ngRow.even {
+    background-color: white;
+}
+
+section.homepage-articles-grid .ngGrid .ngTopPanel {
+    background-color: transparent;
+}
+
+section.homepage-articles-grid .ngGrid {
+    height: 30em;
+}
