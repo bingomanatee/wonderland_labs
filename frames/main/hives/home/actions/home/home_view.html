@@ -38,7 +38,7 @@
         <h1>Wonderland Labs</h1>
         <div ng-switch="view">
         <section class="homepage-articles" ng-switch-when="cards">
-            <article ng-repeat="article in get_articles()" ng-click="articleClick(article)">
+            <article ng-repeat="article in get_articles()" ng-click="go(article)">
                 <h3>{{article.title}}</h3>
 
                 <p>{{ article.intro }}</p>

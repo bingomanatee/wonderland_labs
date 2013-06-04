@@ -53,7 +53,11 @@ module.exports = function (apiary, cb) {
 			if (!model.hasErrors(context)) {
 				return null;
 			}
-			return new Error(_.first(_.values(context.$out.get('errors')[0])));
+
+			var errors = context.$out.get('errors');
+			console.log('errors: %s', util.inspect(errors));
+			var errs = _.flatten(_.values(errors));
+			return new Error(errs[0]);
 		},
 
 		hasErrors: function (context) {
@@ -62,14 +66,15 @@ module.exports = function (apiary, cb) {
 		},
 
 		addError: function (context, error, field) {
+			console.log('adding error to %s', util.inspect(context, false, 0));
 			var errors = context.$out.get('errors') || {};
 			errors[field] = error;
 			context.$out.set('errors', errors);
 			// note - because $out is a hive-config it will merge errors
 		},
 
-		exists: function (file_name, cb) {
-			var full_path = path.resolve(ARTICLE_DIR, file_name + '.md');
+		exists: function (query, cb) {
+			var full_path = this.query_file_path(query);
 			fs.exists(full_path, cb)
 		},
 
@@ -78,20 +83,38 @@ module.exports = function (apiary, cb) {
 			return callback ? callback(null, al) : al;
 		},
 
-		get: function (file_name, cb) {
-			var full_path = path.resolve(ARTICLE_DIR, file_name + '.md');
+		query_file_path: function(query){
+			if (query.folder){
+				return path.resolve(ARTICLE_DIR, query.folder,  query.file_name + '.md');
+			} else {
+				return path.resolve(ARTICLE_DIR,  query.file_name + '.md');
+			}
+		},
+
+		query_json_path: function(query){
+			if (query.folder){
+				return path.resolve(ARTICLE_DIR, query.folder,  query.file_name + '.json');
+			} else {
+				return path.resolve(ARTICLE_DIR,  query.file_name + '.json');
+			}
+		},
+
+		get: function (query, cb) {
+			var full_path = this.query_file_path(query);
+			console.log('looking for file %s', full_path);
+			var self = this;
 			fs.exists(full_path, function (ex) {
 				if (!ex) {
-					cb(new Error('cannot find file ' + file_name));
+					cb(new Error('cannot find file ' + query.file_name));
 				} else {
 					//@TODO: stream;
 					fs.readFile(full_path, 'utf8', function (err, content) {
 						var data = {
-							file_name: file_name,
+							file_name: query.file_name,
 							content:   content
 						};
 
-						var meta_path = path.resolve(ARTICLE_DIR, file_name + '.json');
+						var meta_path = self.query_json_path(query);
 						fs.exists(meta_path, function (e2) {
 							if (e2) {
 								fs.readFile(meta_path, 'utf8', function (err, content) {

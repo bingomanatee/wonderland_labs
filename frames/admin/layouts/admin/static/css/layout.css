@@ -34,3 +34,8 @@ html{
 .well {
     background-color: rgb(240,220,230);
 }
+
+.fixed {
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+}

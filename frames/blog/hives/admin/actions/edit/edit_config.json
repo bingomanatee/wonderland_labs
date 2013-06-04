@@ -1,7 +1,8 @@
 {
 	"routes": {
 		"get":  [
-			"*/edit/:file_name"
+			"/admin/blog_edit/:file_name",
+			"/admin/blog_edit/:folder/:file_name"
 		],
 		"post": [
 			"*/edit/:file_name"

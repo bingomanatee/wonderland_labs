@@ -43,9 +43,9 @@ module.exports = {
 			return callback(model.error(context));
 
 		}
-		model.exists(context.file_name, function(ex){
+		model.exists(context, function(ex){
 			if (!ex){
-				model.addError('cannot find article ' + context.file_name);
+				model.addError(context, 'cannot find article ' + context.file_name);
 				callback(model.error(context));
 			} else {
 				callback();
@@ -56,7 +56,7 @@ module.exports = {
 	on_get_input: function (context, callback) {
 
 		var model= this.model('blog_article');
-		model.get(context.file_name, function(err, article){
+		model.get(context, function(err, article){
 			if (err){
 				callback(err);
 			} else {

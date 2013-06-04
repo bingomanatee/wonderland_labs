@@ -42,6 +42,17 @@ console.log('controller loaded');
 			$scope.tag_filter = '';
 		};
 
+		var _folder_path = _.template('/blog/<%= folder %>/<%= file_name %>');
+		var _file_path = _.template('/blog/<%= file_name %>');
+
+		$scope.go = function(article){
+			if (article.folder){
+				document.location = _folder_path(article);
+			} else {
+				document.location = _file_path(article);
+			}
+		};
+
 		$scope.set_tag_filter = function (tag) {
 			$scope.tag_filter = tag;
 		};
