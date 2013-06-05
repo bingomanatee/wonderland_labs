@@ -1,6 +1,36 @@
 <link type="text/css" rel="stylesheet" href="/js/blog/vendor/bootstrap-fileupload/bootstrap-fileupload.css"/>
 <div ng-app="article">
     <div ng-controller="ArticleEditor">
+        <div modal="show_image_dialog" close="close_image_dialog()" options="image_dialog_options">
+            <div class="modal-header">
+                <h4>Image &quot;{{active_image.name}}&quot;</h4>
+            </div>
+            <div class="modal-body" style="max-height: 400px">
+                <div style="margin-left: 5em; max-width: 300px; max-height: 300px; overflow:  scroll">
+                    <img src="{{active_image_source()}}" />
+                </div>
+                <table>
+                    <tr>
+                        <td><label>url path</label> </td>
+                        <td><input  class="input-xlarge" type="text" value="{{active_image_source()}}" readonly="readonly" /> </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><label>markdown</label></td>
+                        <td><input class="input-xlarge" type="text" value="{{active_image_markdown()}}" readonly="readonly"
+                                /></td>
+                        <td id="image_clippy">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" ng-click="add_to_markdown()">Add to Markdown</button>
+                <button class="btn btn-warning cancel" ng-click="close_image_dialog()">Cancel</button>
+            </div>
+        </div>
+
+
         <div class="alert alert-block alert-error">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <h4>Errors in form submission</h4>
@@ -58,17 +88,24 @@
                         <tab heading="Markdown">
                             <textarea class="content-editor fixed" id="content" name="content"
                                       placeholder="article - parsed by github markdown"
-                                      ng-bind-html-unsafe="article.content"></textarea>
+                                      ng-change="change_content(markdown)"
+                                      ng-model="article.content"
+                                     ></textarea>
                         </tab>
                         <tab heading="HTML">
                             <textarea placeholder="HTML content" class="content-editor" id="content_html">
 
                             </textarea>
+                            <div>
+                                <button class="btn">reload from Markdown</button>
+                                <button class="btn btn-primary" ng-click="html_to_markdown()">Copy to Markdown</button>
+                            </div>
                         </tab>
                         <tab heading="Images">
-                            <div class="row">
-                                <div class="span3">
-                                    <form action="/blog_image" method="post" enctype="multipart/form-data">
+                                <div class="span4">
+                                    <form action="/blog_image" style="margin: 0px" method="post"
+                                          id="upload_form"
+                                          enctype="multipart/form-data">
                                         <div class="fileupload fileupload-new" data-provides="fileupload">
                                             <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
                                                 <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image"/>
@@ -78,20 +115,23 @@
                                             <div>
                                     <span class="btn btn-file">
                                         <span class="fileupload-new">Select image</span>
-                                        <span class="fileupload-exists">Change</span><input type="file"/></span>
+                                        <span class="fileupload-exists">Change</span>
+                                        <input type="file" name="file_input"/></span>
                                                 <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
                                             </div>
                                         </div>
                                         <div>
-                                            <button class="btn btn-primary" ng-click="upload_image()">Upload
+                                            <button type="button" class="btn btn-primary"
+                                                    ng-click="upload_image()">Upload
                                                 Image</button>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="span6">
-                                    image gallery
+                                <div class="span5">
+                                   <img ng-repeat="image in images" src="{{ thumb_path(image) }}"
+                                        hspace="2" vspace="2" ng-click="show_image(image)"
+                                        width="50" height="50"  />
                                 </div>
-                            </div>
                         </tab>
                     </tabset>
                     <span class="help-block">{{article_edit_form.content.$errors }}</span>

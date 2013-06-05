@@ -13,7 +13,7 @@
     "gate": "~0.3.0",
     "underscore": "~1.4.4",
     "hive-loader": "0.0.1",
-    "hive-mvc": "0.0.1f",
+    "hive-mvc": "0.0.1g",
     "hive-model": "0.0.1e",
     "mongoose": "~3.6.7",
     "hive-queen": ">=0.0.1b",

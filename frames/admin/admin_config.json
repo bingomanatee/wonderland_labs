@@ -1,6 +1,9 @@
 {
     "name": "admin",
-    "route_root": "/admin"
-
+    "route_root": "/admin",
+	"layout_name": "admin",
+	"static": {
+		"js": "/js/admin"
+	}
 
 }

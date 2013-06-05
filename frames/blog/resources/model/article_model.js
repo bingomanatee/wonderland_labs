@@ -20,34 +20,43 @@ function getTitle(filepath, callback) {
 			}
 		})
 	});
+}
 
+function articles_folders(cb) {
+	fs.readdir(ARTICLE_DIR, function (err, files) {
+		var gate = Gate.create();
+		var folders = [];
+
+		files.forEach(function (file) {
+			var full_path = path.resolve(ARTICLE_DIR, file);
+			var l = gate.latch();
+
+			fs.stat(full_path, function (err, stat) {
+				if (stat.isDirectory()) {
+					folders.push(file);
+				}
+				l();
+			})
+		})
+
+		gate.await(function () {
+			console.log('done scanning %s, found %s', ARTICLE_DIR, folders.join(', '));
+
+			cb(null, folders);
+		})
+	})
 }
 //var Mongoose_Model = require('hive-model-mongoose');
 
 module.exports = function (apiary, cb) {
-	/*
-	 Mongoose_Model(
-	 {
-	 name: 'article'
-	 }
-	 , {
-	 mongoose:   apiary.get_config('mongoose'),
-	 schema_def: {
-	 title: 'string',
-	 content: 'string',
-	 blurb: 'string',
-	 _articles: 'mixed'
-	 }
-	 },
-	 apiary.dataspace,
-	 cb);
-	 */
 
 	var cache = {};
 
 	var model = {
 		name:        "blog_article",
 		ARTICLE_DIR: ARTICLE_DIR,
+
+		articles_folders: articles_folders,
 
 		error: function (context) {
 			if (!model.hasErrors(context)) {
@@ -83,19 +92,19 @@ module.exports = function (apiary, cb) {
 			return callback ? callback(null, al) : al;
 		},
 
-		query_file_path: function(query){
-			if (query.folder){
-				return path.resolve(ARTICLE_DIR, query.folder,  query.file_name + '.md');
+		query_file_path: function (query) {
+			if (query.folder) {
+				return path.resolve(ARTICLE_DIR, query.folder, query.file_name + '.md');
 			} else {
-				return path.resolve(ARTICLE_DIR,  query.file_name + '.md');
+				return path.resolve(ARTICLE_DIR, query.file_name + '.md');
 			}
 		},
 
-		query_json_path: function(query){
-			if (query.folder){
-				return path.resolve(ARTICLE_DIR, query.folder,  query.file_name + '.json');
+		query_json_path: function (query) {
+			if (query.folder) {
+				return path.resolve(ARTICLE_DIR, query.folder, query.file_name + '.json');
 			} else {
-				return path.resolve(ARTICLE_DIR,  query.file_name + '.json');
+				return path.resolve(ARTICLE_DIR, query.file_name + '.json');
 			}
 		},
 
