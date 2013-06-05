@@ -15,7 +15,6 @@ var _DEBUG = false;
 module.exports = function (apiary, cb) {
 
 	var helper = {
-		name: 'layout',
 
 		test: function (ctx, output) {
 			return output.list_blog_articles;

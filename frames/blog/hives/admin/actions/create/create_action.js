@@ -108,6 +108,8 @@ module.exports = {
 		if (!model.hasErrors(context)) {
 			context.$out.set('errors', false);
 		}
+
+		context.$out.set('article_editor', true);
 		done();
 	}
 

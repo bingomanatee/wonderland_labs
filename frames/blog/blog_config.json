@@ -1,4 +1,7 @@
 {
     "name": "blog",
-    "base_route": "/blog"
+    "base_route": "/blog",
+	"static": {
+	          "js": "/js/blog"
+	}
 }

@@ -24,7 +24,7 @@ module.exports = function (apiary, cb) {
 			var layout_js = layout ? layout.get_config('javascript', []) : [];
 			var output_js = output.javascript ? output.javascript : [];
 
-			console.log('javascripts: %s', util.inspect(
+if (_DEBUG)			console.log('javascripts: %s', util.inspect(
 				hive_js.concat(action_js.concat(layout_js.concat(output_js)))));
 
 			var js_data = js_model(apiary);

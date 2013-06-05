@@ -1,0 +1,170 @@
+<link type="text/css" rel="stylesheet" href="/js/blog/vendor/bootstrap-fileupload/bootstrap-fileupload.css"/>
+<div ng-app="article">
+    <div ng-controller="ArticleEditor">
+        <div class="alert alert-block alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4>Errors in form submission</h4>
+
+            <dl>
+                <dt></dt>
+                <dd></dd>
+            </dl>
+        </div>
+        <div ng-form class="form form-horizontal" name="article_edit_form" action="/admin/blog/create" method="post">
+
+            <div class="control-group row">
+                <label class="control-label span2" for="file_name" style="">Name</label>
+
+                <div class="span7">
+                    <input type="text" name="file_name" style="width: 100%" id="file_name" ng-model="article.title"
+                           placeholder="Displayed title">
+                </div>
+
+                <div class="span3">
+                    <span class="help-inline">{{article_edit_form.file_name.$errors }}</span>
+                </div>
+            </div>
+
+            <div class="control-group row">
+                <label class="control-label span2" for="title" style="">Title</label>
+
+                <div class="span7">
+                    <input type="text" name="title" style="width: 100%" id="title" ng-model="article.title"
+                           placeholder="Displayed title">
+                </div>
+                <div class="span3">
+                    <span class="help-inline">{{article_edit_form.title.$errors }}</span>
+                </div>
+            </div>
+
+            <div class="control-group row">
+                <label class="control-label span2" for="intro" style="">Introduction</label>
+
+                <div class="span7">
+                    <textarea style="width: 100%" rows="3" class="span10" id="intro" name="intro"
+                              placeholder="Introduction for menus/table of contents"
+                              ng-bind-html-unsafe="article.intro"></textarea>
+                </div>
+                <div class="span3">
+                    <span class="help-inline">{{article_edit_form.intro.$errors }}</span>
+                </div>
+            </div>
+
+            <div class="control-group row">
+                <label class="control-label span2" for="content" style="">Content</label>
+
+                <div class="span9">
+                    <tabset>
+                        <tab heading="Markdown">
+                            <textarea class="content-editor fixed" id="content" name="content"
+                                      placeholder="article - parsed by github markdown"
+                                      ng-bind-html-unsafe="article.content"></textarea>
+                        </tab>
+                        <tab heading="HTML">
+                            <textarea placeholder="HTML content" class="content-editor" id="content_html">
+
+                            </textarea>
+                        </tab>
+                        <tab heading="Images">
+                            <div class="row">
+                                <div class="span3">
+                                    <form action="/blog_image" method="post" enctype="multipart/form-data">
+                                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                                            <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image"/>
+                                            </div>
+                                            <div class="fileupload-preview fileupload-exists thumbnail"
+                                                 style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                            <div>
+                                    <span class="btn btn-file">
+                                        <span class="fileupload-new">Select image</span>
+                                        <span class="fileupload-exists">Change</span><input type="file"/></span>
+                                                <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-primary" ng-click="upload_image()">Upload
+                                                Image</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="span6">
+                                    image gallery
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                    <span class="help-block">{{article_edit_form.content.$errors }}</span>
+                </div>
+                <div class="span1"></div>
+            </div>
+
+
+            <h2>Metadata</h2>
+
+            <div class="control-group row">
+                <label class="control-label span2" for="tags" style="">Tags</label>
+
+                <div class="span7">
+                    <input type="text" name="tags" style="width: 100%" id="tags"
+                           placeholder="Tags"> -- todo - tag repeat
+                </div>
+
+                <div class="span3">
+                    <span class="help-inline">tag errors</span>
+                </div>
+            </div>
+
+
+            <div class="control-group row">
+                <label class="control-label span2" for="tags" style="">Settings</label>
+
+
+                <div class="span2">
+                    <label class="checkbox">
+                        <input type="checkbox" value="1" name="on_homepage"/> Show on home page
+                    </label>
+                </div>
+
+                <div class="span2">
+
+                    <label class="checkbox">
+                        <input type="checkbox" value="1" name="hide"/> Hide article
+                    </label>
+
+                </div>
+
+                <div class="span1 right">
+                    <label>In Folder</label>
+                </div>
+                <div class="span5">
+                    <select id="folder_select" name="folder" style="white-space: nowrap">
+                        <option value="">(root)</option>
+                        <% folders.forEach(function(folder){ %>
+                        <option value="<%= folder %>"><%= folder %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span5">
+
+                </div>
+
+                <div class="span7">
+                    <button class="btn btn-primary" type="submit">{{ SUBMIT_BUTTON_LABEL}} Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <h1>Preview</h1>
+
+        <div class="well">
+
+            <div id="preview">
+
+            </div>
+        </div>
+    </div>
+</div>

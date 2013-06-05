@@ -8,9 +8,11 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="/css/admin/bootstrap.css" rel="stylesheet">
-    <link href="/css/admin/layout.css" rel="stylesheet">
-    <link href="/js/admin/vendor/bootstrap-combobox/css/bootstrap-combobox.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"  href="/css/admin/bootstrap.css" />
+    <link  rel="stylesheet" type="text/css" href="/css/admin/layout.css" />
+    <link rel="stylesheet" type="text/css"  href="/js/admin/vendor/bootstrap-combobox/css/bootstrap-combobox.css" />
+    <link rel="stylesheet" type="text/css" href="/js/blog/vendor/bootstrap-wysihtml5/bootstrap-wysihtml5-0.0.2.css" />
+    <link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700' rel='stylesheet' type='text/css'/>
 
     <!--[if gte IE 9]>
     <style type="text/css">
@@ -45,6 +47,8 @@
     <!--[if lt IE 9]>
     <script src="/js/admin/html5shiv.js"></script>
     <![endif]-->
+
+    <%- js_model.render('head') %>
 
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/admin/ico/apple-touch-icon-144-precomposed.png">
@@ -125,9 +129,8 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="/js/admin/vendor/jquery-1.10.1.min.js"></script>
-<script src="/js/admin/vendor/bootstrap.js"></script>
-<script src="/js/admin/vendor/require.js"></script>
-<script src="/js/admin/vendor/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+
+<%- js_model.render('foot') %>
+
 </body>
 </html>

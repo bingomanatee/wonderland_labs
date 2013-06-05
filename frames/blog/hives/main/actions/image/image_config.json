@@ -1,0 +1,8 @@
+{
+	"routes": {
+	          "get": ["/blog_image/:filename", "/blog_image/:folder/:filename","/blog_thumb/:width/:height/:filename"],
+	          "put": ["/blog_image"],
+	          "post": ["/blog_image/:filename"]
+	}
+
+}
