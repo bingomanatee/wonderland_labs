@@ -4,6 +4,7 @@
 {
     display: none;
 }
+
 #comparison li {
     list-style: none;
 }
@@ -12,6 +13,7 @@
     color: green;
     font-weight: bold;
 }
+
 #comparison .delete, #comparison-doc .delete  {
     color: red;
     font-weight: bold;
@@ -19,4 +21,14 @@
 
 #comparison-doc {
     margin: 1em 0em;
+}
+
+
+.content-editor {
+    width: 95%;
+    height: 25em;
+    background-color: rgb(240, 250, 255);
+    padding: 4px;
+    border: 1px solid rgb(200, 150, 150);
+    padding-left: 2px;
 }

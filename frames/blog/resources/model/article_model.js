@@ -58,6 +58,10 @@ module.exports = function (apiary, cb) {
 
 		articles_folders: articles_folders,
 
+		clean_file_name: function (name) {
+				return name.toLowerCase().replace(/[^\w]+/g, '_');
+			},
+
 		error: function (context) {
 			if (!model.hasErrors(context)) {
 				return null;

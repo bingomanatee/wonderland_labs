@@ -383,7 +383,7 @@
                 "img": {
                     "check_attributes": {
                         "width": "numbers",
-                        "alt": "alt",
+                           "alt": "alt",
                         "src": "url",
                         "height": "numbers"
                     }

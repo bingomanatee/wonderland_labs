@@ -1,3 +1,32 @@
+
+<div ng-app="article">
 <h1>Add an Article</h1>
 
 <%- helpers.article.editor(this) %>
+</div>
+
+
+<script language="javascript">
+
+    $(function(){
+
+        var folder_path = _.template('/blog/<' + '%= folder %' + '>/<' + '%= file_name %' + '>');
+        var file_path = _.template('/blog/<' + '%= file_name %' + '>');
+
+        var scope = angular.element('#article_editor').scope();
+        console.log('scope', scope);
+
+        scope.$on('saved_article', function(context, article){
+            console.log('article: ', article);
+            var loc;
+            if (article.folder){
+                loc = folder_path(article)
+            } else {
+                loc = file_path(article)
+            }
+            console.log('loc: %s', loc);
+            document.location = loc;
+        } )
+    })
+
+</script>

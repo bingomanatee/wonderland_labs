@@ -1,18 +1,19 @@
-console.log('controller loaded');
-
 (function () {
 
 	var homeApp = angular.module('article', ['articleRestService' , 'ui.bootstrap']);
 
 	angular.module('articleRestService', ['ngResource']).factory('Articles',
 		function ($resource) {
-			return $resource('/blog_rest/article/:folder?/:file', { name: '@name'}, {
-				get:    {method: 'GET'},
-				query:  {method: 'GET', isArray: true},
-				add:    {method: 'POST' },
-				update: {method: 'PUT' },
-				delete: {method: 'DELETE'}
-			});
+			return $resource('/blog_rest/articles/:folder/:file_name', {
+					file_name: '@file_name', folder: '@folder'}
+				, {
+					get:    {method: 'GET'},
+					query:  {method: 'GET', isArray: true},
+					add:    {method: 'POST' },
+					update: {method: 'PUT' },
+					delete: {method: 'DELETE'},
+					exists: {method: 'GET', params: {exists: true}}
+				});
 		}).factory('Images',
 		function ($resource) {
 			return $resource('/blog_image/:file', {file: '@file'}, {
@@ -26,13 +27,58 @@ console.log('controller loaded');
 
 	function ArticleEditor($scope, $filter, $compile, Articles, Images) {
 
-		$scope.control_group_row = function(item){
+		$scope.get_article = function (art) {
+			$scope.article = Articles.get(art);
+		};
+
+		$scope.SUBMIT_BUTTON_LABEL = 'Save Article';
+
+		$scope.$watch('article.exists', function (ex) {
+			if (ex) {
+				$scope.SUBMIT_BUTTON_LABEL = 'Update Article';
+			} else {
+				$scope.SUBMIT_BUTTON_LABEL = 'Create Article';
+			}
+
+			choose_tab('markdown');
+		})
+
+		$scope.control_group_row = function (item) {
 			var classes = ['control-group', 'control-group-row'];
 			var target = $scope.article_edit_form[item];
-			if (target && !target.$valid){
+			if (target && !target.$valid) {
 				classes.push('error');
 			}
+			if ((item == 'file_name') && ($scope.article.exists) && (!_.contains(classes, 'error'))) {
+				classes.push('warning');
+			}
 			return classes.join(' ');
+		};
+
+		var afn_delay;
+
+		$scope.$watch('article.file_name', start_check_exists);
+		$scope.$watch('article.folder', start_check_exists);
+
+		function start_check_exists() {
+			if (afn_delay) {
+				clearTimeout(afn_delay);
+			}
+			if ($scope.article.file_name) {
+				afn_delay = setTimeout(check_exists, 1200);
+			}
+		}
+
+		function check_exists() {
+			afn_delay = null;
+
+			Articles.exists({
+					file_name: $scope.article.file_name,
+					folder:    $scope.article.folder || ''}
+				, function (result) {
+					$scope.article.exists = result.exists;
+					$scope.existence_tested = true;
+				});
 		}
 
 		$scope.show_image = function (image) {
@@ -74,6 +120,7 @@ console.log('controller loaded');
 		 */
 
 		$scope.content = '';
+		$scope.overwrite = false;
 
 		$scope.markdown_to_html = function (content) {
 			if (html_editor) {
@@ -81,15 +128,15 @@ console.log('controller loaded');
 				html_editor.composer.setValue($scope.source);
 			}
 		};
-		
-		function choose_tab(choice){
-			_.each($scope.active_tabs, function(v, tab){
+
+		function choose_tab(choice) {
+			_.each($scope.active_tabs, function (v, tab) {
 				$scope.active_tabs[tab] = false;
 			})
 			$scope.active_tabs[choice] = true;
 		}
-		
-		$scope.revert_to_markdown = function(){
+
+		$scope.revert_to_markdown = function () {
 			$scope.markdown_to_html();
 			choose_tab('markdown');
 		};
@@ -196,7 +243,21 @@ console.log('controller loaded');
 		var html_editor;
 
 		setTimeout(function () {
-			$('#folder_select').combobox();
+			var fc_delay;
+
+			$('#folder_select').combobox().on('change', function (ev) {
+				val = ev;
+				console.log('ev:', ev);
+				if (fc_delay) {
+					clearTimeout(fc_delay);
+				}
+				fc_delay = setTimeout(function () {
+					fc_delay = null;
+					$scope.article.folder = $(ev.target).val();
+					$scope.$apply();
+				}, 1500);
+			});
+
 			var chtml = $('#content_html');
 
 			chtml.wysihtml5({useLineBreaks: false, stylesheets: [], html: false, color: true,
@@ -234,6 +295,20 @@ console.log('controller loaded');
 				return false;
 			}
 			return false;
+		};
+
+		$scope.save_article = function () {
+
+			function handler(article) {
+				$scope.$broadcast('saved_article', article)
+
+			}
+
+			if($scope.overwrite){
+				Articles.update($scope.article, handler);
+			} else {
+				Articles.add($scope.article, handler);
+			}
 		}
 	}
 

@@ -22,7 +22,11 @@ var ae_template;
 
 function add_js(output) {
 	var js = [
-		{url: '/js/blog/vendor/angular/angular.min.js', context: 'head'},
+		{
+			"url":     "/js/admin/vendor/jquery-1.10.1.min.js",
+			"context": "head"
+		},
+		{url: '/js/blog/vendor/angular/angular.min.js', context: 'head', require: ['jquery']},
 		{url: '/js/blog/vendor/bootstrap-combobox/js/bootstrap-combobox.js', defer: true, context: 'head'},
 		{url: '/js/blog/vendor/angular/angular-resource.min.js', context: 'head', requires: ['angular']},
 		{url: '/js/blog/vendor/angular/ui-bootstrap-tpls-0.4.0-SNAPSHOT.js', context: 'head', requires: ['angular', 'bootstrap']},

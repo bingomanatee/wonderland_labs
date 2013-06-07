@@ -1,96 +1,35 @@
 <h1>Edit Article <%= article.folder ? article.folder + ':' : '' %>&quot;<%= article.title %>&quot;</h1>
 
-<form class="form" action="/admin/blog/edit/<%= article.file_name %>" method="post">
-    <p class="row">
-        <span class="span2">
-            <label>Name</label>
-        </span>
-
-        <input type="text" class="span10" name="file_name" value="<%= article.file_name %>"
-               placeholder="File name for article" readonly="readonly">
-    </p>
-
-    <p class="row">
-        <span class="span2">
-            <label>Title</label>
-        </span>
-
-        <input type="text" class="span10" name="title" value="<%= article.title || '' %>"
-               placeholder="Displayed title">
-    </p>
-
-    <p class="row">
-        <span class="span2">
-            <label>Introduction</label>
-        </span>
-
-        <textarea cols="150" rows="3" class="span10" name="intro" placeholder="Introduction/blurb"><%=
-            article.intro || '' %></textarea>
-    </p>
-
-    <p class="row">
-        <span class="span2">
-            <label>Content</label>
-        </span>
-
-        <textarea cols="150" rows="20" class="span10 fixed" name="content"
-                  placeholder="Markdown content" id="text"
-                  onchange="preview_text()"><%-article.content %></textarea>
-    </p>
-
-
-    <h2>Metadata</h2>
-
-    <p class="row">
-        <span class="span2"><label>Tags</label></span>
-
-        <input type="text" class="span10" name="tags" placeholder="Tags -- seperate with commas" />
-    </p>
-
-    <p class="row">
-        <span class="span2"><label>Settings</label></span>
-
-       <span class="span3">
-           <label class="checkbox">
-               <input type="checkbox" value="1" name="on_homepage" <%- on_homepage ? ' checked="checked" ' : '' %>/>
-               Show on
-               home
-               page
-           </label>
-       </span>
-
-        <span class="span3">
-
-           <label class="checkbox">
-               <input type="checkbox" value="1" name="hide" <%- hide ? ' checked="checked" ' : '' %>/>
-               Hide article (work in progress)
-           </label>
-
-        </span>
-
-        <span class="span2 help-block">
-        </span>
-    </p>
-
-    <p class="row">
-        <span class="span5">
-
-        </span>
-
-        <span class="span7">
-           <button class="btn btn-primary" type="submit">Revise Article</button>
-        </span>
-    </p>
-</form>
-
-<h1>Preview</h1>
-<div class="well">
-
-    <div id="preview">
-
-    </div>
+<div ng-app="article">
+    <%- helpers.article.editor(this) %>
 </div>
 
-<script language="javascript" src="/js/blog/admin/edit/marked.js"></script>
-<script language="javascript" defer="defer" src="/js/blog/admin/edit/edit.js">
+<script language="javascript">
+
+    $(function(){
+
+        var folder_path = _.template('/blog/<' + '%= folder %' + '>/<' + '%= file_name %' + '>');
+        var file_path = _.template('/blog/<' + '%= file_name %' + '>');
+
+        var scope = angular.element('#article_editor').scope();
+        console.log('scope', scope);
+        scope.get_article({
+             file_name: '<%= article.file_name %>'
+            , folder: '<%= article.folder || '' %>' });
+        scope.overwrite = true;
+        scope.$apply();
+
+       scope.$on('saved_article', function(context, article){
+          console.log('article: ', article);
+           var loc;
+           if (article.folder){
+                loc = folder_path(article)
+           } else {
+                loc = file_path(article)
+           }
+           console.log('loc: %s', loc);
+            document.location = loc;
+       } )
+    })
+
 </script>

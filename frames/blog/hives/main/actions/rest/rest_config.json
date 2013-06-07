@@ -1,5 +1,7 @@
 {
 	"routes": {
-	          "get": "/blog_rest/articles"
+		"get":  ["/blog_rest/articles", "/blog_rest/articles/:file_name", "/blog_rest/articles//:file_name", "/blog_rest/articles/:folder/:file_name"],
+		"post": ["/blog_rest/articles/:file_name", "/blog_rest/articles/:folder/:file_name", "/blog_rest/articles//:file_name"],
+		"put": ["/blog_rest/articles/:file_name", "/blog_rest/articles/:folder/:file_name", "/blog_rest/articles//:file_name"]
 	}
 }
