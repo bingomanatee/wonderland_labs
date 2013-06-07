@@ -2,6 +2,8 @@
     "name": "blog",
     "base_route": "/blog",
 	"static": {
-	          "js": "/js/blog"
+	          "js": "/js/blog",
+	          "img": "/img/blog",
+	          "css": "/css/blog"
 	}
 }

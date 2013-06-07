@@ -1,0 +1,22 @@
+#comparison h3,
+#comparison .count,
+#comparison .author
+{
+    display: none;
+}
+#comparison li {
+    list-style: none;
+}
+
+#comparison .insert, #comparison-doc .insert {
+    color: green;
+    font-weight: bold;
+}
+#comparison .delete, #comparison-doc .delete  {
+    color: red;
+    font-weight: bold;
+}
+
+#comparison-doc {
+    margin: 1em 0em;
+}

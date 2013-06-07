@@ -8,7 +8,8 @@
     "scandir": "0.0.8",
     "fs-extra": "~0.6.1",
     "canvas": "~1.0.3",
-    "imagemagick": "~0.1.3"
+    "imagemagick": "~0.1.3",
+    "prettydiff": "0.0.164"
   },
   "devDependencies": {
     "tap": "~0.4.3"

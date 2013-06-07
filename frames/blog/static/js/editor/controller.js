@@ -26,6 +26,15 @@ console.log('controller loaded');
 
 	function ArticleEditor($scope, $filter, $compile, Articles, Images) {
 
+		$scope.control_group_row = function(item){
+			var classes = ['control-group', 'control-group-row'];
+			var target = $scope.article_edit_form[item];
+			if (target && !target.$valid){
+				classes.push('error');
+			}
+			return classes.join(' ');
+		}
+
 		$scope.show_image = function (image) {
 			$scope.active_image = image;
 			$scope.open_image_dialog();
@@ -37,12 +46,13 @@ console.log('controller loaded');
 		};
 
 		$scope.add_to_markdown = function () {
-
 			$scope.article.content += "\n\n" + $scope.active_image_markdown() + "\n\n";
-
 			$scope.close_image_dialog();
+		};
 
-		}
+		$scope.active_tabs = {
+			markdown: true
+		};
 		/*
 
 		 var md_clippy_template = _.template('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="110" height="14" id="clippy" >' +
@@ -65,11 +75,32 @@ console.log('controller loaded');
 
 		$scope.content = '';
 
-		$scope.$watch ('article.content',function (content) {
-			console.log('cc',$scope.article.content);
-			html_editor.composer.setValue(marked($scope.article.content || ''));
-		});
+		$scope.markdown_to_html = function (content) {
+			if (html_editor) {
+				$scope.source = marked($scope.article.content || content || '');
+				html_editor.composer.setValue($scope.source);
+			}
+		};
+		
+		function choose_tab(choice){
+			_.each($scope.active_tabs, function(v, tab){
+				$scope.active_tabs[tab] = false;
+			})
+			$scope.active_tabs[choice] = true;
+		}
+		
+		$scope.revert_to_markdown = function(){
+			$scope.markdown_to_html();
+			choose_tab('markdown');
+		};
 
+		$scope.accept_html = function () {
+			var html = html_editor.composer.getValue();
+			$scope.article.content = toMarkdown(html);
+			choose_tab('markdown');
+		};
+
+		$scope.$watch('article.content', $scope.markdown_to_html);
 		$scope.show_image_dialog = false;
 
 		$scope.active_image_source = function () {
@@ -88,6 +119,44 @@ console.log('controller loaded');
 		$scope.image_dialog_options = {
 			backdropFade: true,
 			dialogFade:   true
+		};
+
+		$scope.insert_test_article = function () {
+			$scope.article.content = "# headline\n\n this is body\n\n * bullet\n * bullet 2\n\n ![dave2.jpg](/blog_image/dave2.jpg)\n\n## Head 2"
+		}
+
+		$scope.html_to_markdown = function () {
+			var html = html_editor.composer.getValue();
+			var converted = toMarkdown(html);
+			// simulating converted error
+			var alter = false;
+			if (alter) {
+
+				converted = converted.split("\n");
+				var line = converted.splice(3, 2, '');
+				line.unshift('');
+				converted.push.apply(converted, line);
+				converted = converted.join("\n");
+			}
+
+			console.log('parsing ', converted);
+
+			var conv_back = marked(converted).replace(/strong>/g, 'b>');
+			var comp = prettydiff({
+				source:   html,
+				diff:     conv_back,
+				mode:     'diff',
+				lang:     'markup',
+				diffview: 'inline',
+				quote:    false,
+				html:     true
+			});
+
+			$scope.conversion = comp[0].replace(/<(\/)?em>/g, '');
+			$scope.active_tabs.comparison = true;
+			$scope.active_tabs.html = false;
+
+			//$scope.article.content = converted;
 		};
 
 		$scope.images = Images.query();
@@ -128,13 +197,20 @@ console.log('controller loaded');
 
 		setTimeout(function () {
 			$('#folder_select').combobox();
-			$('#content_html').wysihtml5({useLineBreaks: false, stylesheets: []});
+			var chtml = $('#content_html');
 
-			html_editor = $('#content_html').data("wysihtml5").editor;
+			chtml.wysihtml5({useLineBreaks: false, stylesheets: [], html: false, color: true,
+				//@TODO: figure out how to not damage img with html editing
+				stylesheets:                ["/js/blog/vendor/bootstrap-wysihtml5/wysiwyg-color.css"], // (path_to_project/lib/css/wysiwyg-color.css)
+				locale:                     "en"
+
+			});
+
+			html_editor = chtml.data("wysihtml5").editor;
 		}, 1000);
 
 		$scope.upload_image = function () {
-			var input = $('#upload_form input[name=file_input]');
+			var input = $('#upload_form').find('input[name=file_input]');
 			var data = new FormData(input);
 			try {
 				jQuery.each(input[0].files, function (i, file) {

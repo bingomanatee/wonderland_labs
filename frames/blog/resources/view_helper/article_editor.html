@@ -1,210 +1,258 @@
 <link type="text/css" rel="stylesheet" href="/js/blog/vendor/bootstrap-fileupload/bootstrap-fileupload.css"/>
+<link type="text/css" rel="stylesheet" href="/css/blog/editor.css"/>
+
 <div ng-app="article">
-    <div ng-controller="ArticleEditor">
-        <div modal="show_image_dialog" close="close_image_dialog()" options="image_dialog_options">
-            <div class="modal-header">
-                <h4>Image &quot;{{active_image.name}}&quot;</h4>
-            </div>
-            <div class="modal-body" style="max-height: 400px">
-                <div style="margin-left: 5em; max-width: 300px; max-height: 300px; overflow:  scroll">
-                    <img src="{{active_image_source()}}" />
-                </div>
-                <table>
-                    <tr>
-                        <td><label>url path</label> </td>
-                        <td><input  class="input-xlarge" type="text" value="{{active_image_source()}}" readonly="readonly" /> </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><label>markdown</label></td>
-                        <td><input class="input-xlarge" type="text" value="{{active_image_markdown()}}" readonly="readonly"
-                                /></td>
-                        <td id="image_clippy">
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button class="btn" ng-click="add_to_markdown()">Add to Markdown</button>
-                <button class="btn btn-warning cancel" ng-click="close_image_dialog()">Cancel</button>
-            </div>
+<div ng-controller="ArticleEditor">
+<div modal="show_image_dialog" close="close_image_dialog()" options="image_dialog_options">
+    <div class="modal-header">
+        <h4>Image &quot;{{active_image.name}}&quot;</h4>
+    </div>
+    <div class="modal-body" style="max-height: 400px">
+        <div style="margin-left: 5em; max-width: 300px; max-height: 300px; overflow:  scroll">
+            <img src="{{active_image_source()}}"/>
+        </div>
+        <table>
+            <tr>
+                <td><label>url path</label></td>
+                <td><input class="input-xlarge" type="text" value="{{active_image_source()}}" readonly="readonly"/></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><label>markdown</label></td>
+                <td><input class="input-xlarge" type="text" value="{{active_image_markdown()}}" readonly="readonly"
+                        /></td>
+                <td id="image_clippy">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="add_to_markdown()">Add to Markdown</button>
+        <button class="btn btn-warning cancel" ng-click="close_image_dialog()">Cancel</button>
+    </div>
+</div>
+
+
+<div class="alert alert-block alert-error" ng-show="article_edit_form.$invalid">
+    <h4>Errors in form submission</h4>
+
+    <p>Please correct the field errors below.</p>
+</div>
+<div ng-form class="form form-horizontal" name="article_edit_form" action="/admin/blog/create" method="post">
+
+    <div ng-class="control_group_row('file_name')">
+        <label class="control-label span2" for="file_name" style="">File name</label>
+
+        <div class="span7">
+            <input type="text" name="file_name" style="width: 100%" id="file_name"
+                   ng-model="article.file_name"
+                   required="required"
+                   ng-minlength="4"
+                   ng-maxlength="30"
+                   ng-pattern="/^[a-z\-\_\d]+$/"
+                   placeholder="the name of the file that the article is saved to">
         </div>
 
-
-        <div class="alert alert-block alert-error">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4>Errors in form submission</h4>
-
-            <dl>
-                <dt></dt>
-                <dd></dd>
-            </dl>
+        <div class="span3">
+            <span class="help-inline " ng-show="article_edit_form.file_name.$error.required">Required</span>
+            <span class="help-inline " ng-show="article_edit_form.file_name.$error.pattern">letters and dashes
+                only</span>
         </div>
-        <div ng-form class="form form-horizontal" name="article_edit_form" action="/admin/blog/create" method="post">
+    </div>
 
-            <div class="control-group row">
-                <label class="control-label span2" for="file_name" style="">Name</label>
+    <div ng-class="control_group_row('title')">
+        <label class="control-label span2" for="title" style="">Title</label>
 
-                <div class="span7">
-                    <input type="text" name="file_name" style="width: 100%" id="file_name" ng-model="article.title"
-                           placeholder="Displayed title">
-                </div>
+        <div class="span7">
+            <input type="text" name="title" style="width: 100%" id="title" ng-model="article.title"
+                   required="required"
+                   ng-minlength="4"
+                   placeholder="Displayed title">
+        </div>
+        <div class="span3">
+            <span class="help-inline " ng-show="article_edit_form.title.$error.required">Required</span>
+        </div>
+    </div>
 
-                <div class="span3">
-                    <span class="help-inline">{{article_edit_form.file_name.$errors }}</span>
-                </div>
-            </div>
+    <div ng-class="control_group_row('intro')">
+        <label class="control-label span2" for="intro" style="">Introduction</label>
 
-            <div class="control-group row">
-                <label class="control-label span2" for="title" style="">Title</label>
+        <div class="span7">
+            <textarea style="width: 100%" rows="3" class="span10" id="intro" name="intro"
+                      placeholder="Introduction for menus/table of contents"
+                      ng-bind-html-unsafe="article.intro"></textarea>
+        </div>
+        <div class="span3">
+            <span class="help-inline">{{article_edit_form.intro.$errors }}</span>
+        </div>
+    </div>
 
-                <div class="span7">
-                    <input type="text" name="title" style="width: 100%" id="title" ng-model="article.title"
-                           placeholder="Displayed title">
-                </div>
-                <div class="span3">
-                    <span class="help-inline">{{article_edit_form.title.$errors }}</span>
-                </div>
-            </div>
+    <div ng-class="control_group_row('content')">
+        <label class="control-label span2" for="content" style="">Article</label>
 
-            <div class="control-group row">
-                <label class="control-label span2" for="intro" style="">Introduction</label>
+        <div class="span9">
+            <tabset>
+                <tab heading="Markdown" active="active_tabs.markdown">
+                    <textarea class="content-editor fixed" id="content" name="content"
+                              placeholder="article - parsed by github markdown"
+                              ng-change="change_content(markdown)"
+                              ng-model="article.content"
+                            ></textarea>
 
-                <div class="span7">
-                    <textarea style="width: 100%" rows="3" class="span10" id="intro" name="intro"
-                              placeholder="Introduction for menus/table of contents"
-                              ng-bind-html-unsafe="article.intro"></textarea>
-                </div>
-                <div class="span3">
-                    <span class="help-inline">{{article_edit_form.intro.$errors }}</span>
-                </div>
-            </div>
+                    <div>
+                        <button class="btn" ng-click="insert_test_article()">Insert Test Article</button>
+                    </div>
+                </tab>
+                <tab heading="HTML" active="active_tabs.html">
+                    <textarea placeholder="HTML content" class="content-editor" id="content_html">
 
-            <div class="control-group row">
-                <label class="control-label span2" for="content" style="">Content</label>
+                    </textarea>
 
-                <div class="span9">
-                    <tabset>
-                        <tab heading="Markdown">
-                            <textarea class="content-editor fixed" id="content" name="content"
-                                      placeholder="article - parsed by github markdown"
-                                      ng-change="change_content(markdown)"
-                                      ng-model="article.content"
-                                     ></textarea>
-                        </tab>
-                        <tab heading="HTML">
-                            <textarea placeholder="HTML content" class="content-editor" id="content_html">
+                    <div>
+                        <button class="btn" ng-click="markdown_to_html()">reload from Markdown</button>
+                        <button class="btn btn-primary" ng-click="html_to_markdown()">Copy to Markdown</button>
+                    </div>
+                </tab>
+                <tab heading="HTML source" active="active_tabs.source">
+                    <textarea placeholder="HTML content" class="content-editor" ng-model="source">
 
-                            </textarea>
-                            <div>
-                                <button class="btn">reload from Markdown</button>
-                                <button class="btn btn-primary" ng-click="html_to_markdown()">Copy to Markdown</button>
-                            </div>
-                        </tab>
-                        <tab heading="Images">
-                                <div class="span4">
-                                    <form action="/blog_image" style="margin: 0px" method="post"
-                                          id="upload_form"
-                                          enctype="multipart/form-data">
-                                        <div class="fileupload fileupload-new" data-provides="fileupload">
-                                            <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image"/>
-                                            </div>
-                                            <div class="fileupload-preview fileupload-exists thumbnail"
-                                                 style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
-                                            <div>
+                    </textarea>
+
+                    <div>
+                        <button class="btn" ng-click="markdown_to_html()">reload from Markdown</button>
+                        <button class="btn btn-primary" ng-click="html_to_markdown(source)">Copy to Markdown</button>
+                    </div>
+                </tab>
+                <tab heading="Comparison" active="active_tabs.comparison">
+                    <div class="content-editor" id="comparison"
+                         ng-bind-html-unsafe="conversion"></div>
+                    <div id="comparison-doc"><p>This is html that will be produced <i>from</i> the markup
+                        <i>if you click</i> confirm conversion.</p>
+
+                        <p>If there no <span class="insert">green</span> or
+                            <span class="delete">red</span> lines it is safe to accept conversion.</p>
+                    </div>
+                    <div>
+                        <div class="span3">
+                            <button class="btn btn-warning" ng-click="revert_to_markdown()">Revert to markdown</button>
+                        </div>
+                        <div class="span3">
+                            <button class="btn btn-primary" ng-click="accept_html()">Accept conversion</button>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="Images" active="active_tabs.images">
+                    <div class="span4">
+                        <form action="/blog_image" style="margin: 0px" method="post"
+                              id="upload_form"
+                              enctype="multipart/form-data">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                    <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image"/>
+                                </div>
+                                <div class="fileupload-preview fileupload-exists thumbnail"
+                                     style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                <div>
                                     <span class="btn btn-file">
                                         <span class="fileupload-new">Select image</span>
                                         <span class="fileupload-exists">Change</span>
                                         <input type="file" name="file_input"/></span>
-                                                <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <button type="button" class="btn btn-primary"
-                                                    ng-click="upload_image()">Upload
-                                                Image</button>
-                                        </div>
-                                    </form>
+                                    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
                                 </div>
-                                <div class="span5">
-                                   <img ng-repeat="image in images" src="{{ thumb_path(image) }}"
-                                        hspace="2" vspace="2" ng-click="show_image(image)"
-                                        width="50" height="50"  />
-                                </div>
-                        </tab>
-                    </tabset>
-                    <span class="help-block">{{article_edit_form.content.$errors }}</span>
-                </div>
-                <div class="span1"></div>
-            </div>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-primary"
+                                        ng-click="upload_image()">Upload
+                                    Image
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="span5">
+                        <img ng-repeat="image in images" src="{{ thumb_path(image) }}"
+                             hspace="2" vspace="2" ng-click="show_image(image)"
+                             width="50" height="50"/>
+                    </div>
+                </tab>
+                <tab heading="Options" active="active_tabs.meta">
+
+                    <div ng-class="control_group_row('tags')">
+                        <label class="control-label span2" for="tags" style="">Tags</label>
+
+                        <div class="span7">
+                            <input type="text" name="tags" style="width: 100%" id="tags"
+                                   placeholder="Tags"> -- todo - tag repeat
+                        </div>
+
+                        <div class="span3">
+                            <span class="help-inline">tag errors</span>
+                        </div>
+                    </div>
+
+                    <div ng-class="control_group_row('settings')">
+                        <label class="control-label span2" for="tags" style="">Visibility</label>
 
 
-            <h2>Metadata</h2>
+                        <div class="span3">
+                            <label class="checkbox">
+                                <input type="checkbox" value="1" name="on_homepage"/> Show on home page
+                            </label>
+                        </div>
 
-            <div class="control-group row">
-                <label class="control-label span2" for="tags" style="">Tags</label>
+                        <div class="span3">
 
-                <div class="span7">
-                    <input type="text" name="tags" style="width: 100%" id="tags"
-                           placeholder="Tags"> -- todo - tag repeat
-                </div>
+                            <label class="checkbox">
+                                <input type="checkbox" value="1" name="hide"/> Hide article
+                            </label>
 
-                <div class="span3">
-                    <span class="help-inline">tag errors</span>
-                </div>
-            </div>
+                        </div>
+                    </div>
 
+                    <div ng-class="control_group_row('folder')">
 
-            <div class="control-group row">
-                <label class="control-label span2" for="tags" style="">Settings</label>
+                        <label class="control-label span2" for="folder_select" style="">Folder</label>
+                        <div class="span5">
+                            <select id="folder_select" name="folder" style="white-space: nowrap">
+                                <option value="">(root)</option>
+                                <% folders.forEach(function(folder){ %>
+                                <option value="<%= folder %>"><%= folder %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+            <span class="help-block">{{article_edit_form.content.$errors }}</span>
+        </div>
+        <div class="span1"></div>
+    </div>
 
+    <div class="row">
+        <div class="span5">
 
-                <div class="span2">
-                    <label class="checkbox">
-                        <input type="checkbox" value="1" name="on_homepage"/> Show on home page
-                    </label>
-                </div>
-
-                <div class="span2">
-
-                    <label class="checkbox">
-                        <input type="checkbox" value="1" name="hide"/> Hide article
-                    </label>
-
-                </div>
-
-                <div class="span1 right">
-                    <label>In Folder</label>
-                </div>
-                <div class="span5">
-                    <select id="folder_select" name="folder" style="white-space: nowrap">
-                        <option value="">(root)</option>
-                        <% folders.forEach(function(folder){ %>
-                        <option value="<%= folder %>"><%= folder %></option>
-                        <% }) %>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="span5">
-
-                </div>
-
-                <div class="span7">
-                    <button class="btn btn-primary" type="submit">{{ SUBMIT_BUTTON_LABEL}} Submit</button>
-                </div>
-            </div>
         </div>
 
-        <h1>Preview</h1>
-
-        <div class="well">
-
-            <div id="preview">
-
-            </div>
+        <div class="span7">
+            <button class="btn btn-primary" type="submit">{{ SUBMIT_BUTTON_LABEL}} Submit</button>
         </div>
     </div>
+</div>
+
+<h2>Debug</h2>
+<h4>
+    Errors
+</h4>
+
+<div>
+    {{ $errors | json }}
+</div>
+<h3>AEF</h3>
+
+<div>
+    {{ article_edit_form | json }}
+
+</div>
+
+</div>
 </div>

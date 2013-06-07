@@ -1746,6 +1746,7 @@ function($parse, $http, $templateCache, $compile) {
         }
 
         scope.$watch('active', function(active) {
+	      console.log('watching active ', active);
           setActive(scope.$parent, active);
           if (active) {
             tabsetCtrl.select(scope);
