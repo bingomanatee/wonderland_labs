@@ -42,7 +42,7 @@ module.exports = function (apiary, cb) {
 			output.helpers.member.fb_script = function(){
 				return _fb_init_script({
 					fb_app_id: apiary.get_config('facebook_app_id'),
-					domain_url: apiary.get_config('domain_url')
+					domain: apiary.get_config('domain')
 				})
 			};
 

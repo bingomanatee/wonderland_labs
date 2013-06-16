@@ -7,8 +7,7 @@ var express = require('express')
 	, path = require('path')
 	, util = require('util')
 	, mvc = require('hive-mvc')
-	, mongoose = require('mongoose')
-	, queen = require('hive-queen');
+	, mongoose = require('mongoose');
 
 var app = express();
 var PORT = 80;
