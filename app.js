@@ -29,7 +29,6 @@ app.configure(function () {
 
 });
 
-
 app.configure('development', function () {
 	//app.use(express.errorHandler());
 });
@@ -39,19 +38,11 @@ server.on('close', function () {
 	console.log('======== closing server');
 });
 
-/**
- * Spawn in transition - dont use
- queen.spawn(
- __dirname, require('./structure.json')
- ,
- function () {
-		console.log('spawned');
-	});
- */
-
 server.listen(app.get('port'), function () {
 	mongoose.connect('mongodb://localhost/wll');
 	var apiary = mvc.Apiary({mongoose: mongoose}, __dirname + '/frames');
+	apiary._config.setAll(require('./site_identity.json'));
+	apiary._config.setAll(require('./facebook_config.json'));
 	console.log('initializing apiary for port %s', PORT);
 	apiary.init(function () {
 		console.log('serving');

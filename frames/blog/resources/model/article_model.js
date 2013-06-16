@@ -4,6 +4,7 @@ var _ = require('underscore');
 var Gate = require('gate');
 var util = require('util');
 var moment = require('moment');
+var folder_to_cache = require('article_model/folder_to_cache');
 
 var ARTICLE_DIR = path.resolve(__dirname, '../../articles');
 
@@ -59,8 +60,8 @@ module.exports = function (apiary, cb) {
 		articles_folders: articles_folders,
 
 		clean_file_name: function (name) {
-				return name.toLowerCase().replace(/[^\w]+/g, '_');
-			},
+			return name.toLowerCase().replace(/[^\w]+/g, '_');
+		},
 
 		error: function (context) {
 			if (!model.hasErrors(context)) {
@@ -152,66 +153,9 @@ module.exports = function (apiary, cb) {
 			});
 		},
 
-		init: function (done) {
-
-			function read_folder(folder, done) {
-				fs.readdir(folder, function (err, files) {
-					var json_files = _.filter(files, function (file) {
-						return /\.json$/i.test(file);
-					});
-
-					cache = _.reduce(json_files, function (out, file) {
-						var root_name = file.replace(/\.json$/, '');
-						var file_root = path.resolve(folder, root_name);
-
-						out[file_root] = {
-							file_name: root_name,
-							file_root: file_root,
-							file_path: file_root + '.md',
-							meta_path: path.resolve(folder, file)
-						};
-						return out;
-					}, cache);
-
-					var gate = Gate.create();
-
-					_.each(cache, function (file_data) {
-
-						var l = gate.latch();
-						fs.readFile(file_data.meta_path, 'utf8', function (err, meta) {
-							try {
-								meta = JSON.parse(meta);
-								_.extend(file_data, meta);
-							} catch (err) {
-							}
-							l();
-						})
-
-					});
-
-					var possible_folders = _.difference(files, json_files);
-
-					_.each(possible_folders, function (poss_folder) {
-						var pf_path = path.resolve(folder, poss_folder);
-						var l = gate.latch();
-
-						fs.stat(pf_path, function (err, stat) {
-							if (stat && stat.isDirectory()) {
-								read_folder(pf_path, l);
-							} else {
-								l()
-							}
-						})
-					});
-
-					gate.await(done);
-				});
-			}
-
-			read_folder = _.bind(read_folder, this);
-
-			read_folder(ARTICLE_DIR, done);
-
+		init: function(done){
+			cache = {};
+			folder_to_cache(ARTICLE_DIR, cache, done);
 		},
 
 		put: function (data, done) {
@@ -228,8 +172,11 @@ module.exports = function (apiary, cb) {
 			fs.writeFile(full_path, data.content, 'utf8', function () {
 				delete(data.content);
 				var meta_path = path.resolve(ARTICLE_DIR, folder, file_name + '.json');
-				fs.writeFile(meta_path, JSON.stringify(data, true, 4), done);
-				cache[file_name] = data;
+				fs.writeFile(meta_path, JSON.stringify(data, true, 4), function(){
+					model.init(function(){
+						done(null, data);
+					});
+				});
 			});
 		}
 	};

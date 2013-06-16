@@ -87,6 +87,7 @@
                     <li><a href="/admin/blog/create">Add Article</a></li>
                 </ul>
             </div>
+            <%- helpers.member.fb_button() %>
             <!--/.well -->
         </div>
         <!--/span-->
@@ -111,5 +112,8 @@
 <!-- Placed at the end of the document so the pages load faster -->
 
 <%- js_model.render('foot') %>
+<script language="javascript">
+    <%- helpers.member.fb_script() %>
+</script>
 </body>
 </html>

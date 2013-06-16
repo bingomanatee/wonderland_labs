@@ -12,3 +12,5 @@
 /frames/blog/images/
 /frames/blog/node_modules/
 /frames/blog/hives/images/
+/set_facebook_config.js
+/frames/member/node_modules/
