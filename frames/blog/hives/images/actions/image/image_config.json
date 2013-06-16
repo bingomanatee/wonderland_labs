@@ -1,0 +1,17 @@
+{
+	"routes": {
+		"get":  [
+			"/blog_image"
+			, "/blog_image/:filename"
+			, "/blog_image/:folder/:filename"
+			, "/blog_thumb/:width/:height/:filename"
+			, "/admin/blog/%7B%7Bactive_image_source()%7D%7D"
+			, "/admin/blog/%7B%7B%20thumb_path(image)%20%7D%7D"
+		],
+		"put":  [
+			"/blog_image/:filename"
+			, "/blog_image/:folder/:filename"
+		],
+		"post": ["/blog_image"]
+	}
+}
