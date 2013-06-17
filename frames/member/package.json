@@ -4,9 +4,9 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "passport": "~0.1.17",
     "passport-facebook": "~0.1.5",
-    "hive-model-mongoose": "0.0.1"
+    "hive-model-mongoose": "0.0.1",
+    "passport-twitter": "~0.1.5"
   },
   "devDependencies": {
     "tap": "~0.4.3"

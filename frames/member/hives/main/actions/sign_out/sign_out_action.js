@@ -3,7 +3,6 @@ var util = require('util');
 var path = require('path');
 var fs = require('fs');
 var _DEBUG = false;
-var passport = require('passport');
 
 /* ************************************
  * 
@@ -15,15 +14,19 @@ var passport = require('passport');
 
 module.exports = {
 
-	on_process: function (context, done) {
-		var handler = passport.authenticate('facebook',
-			function(req, res){
-				console.log('======= never called ===========')
-			}
-		);
-		handler(context.$req, context.$res, done)
+	on_validate: function (context, callback) {
+		context.$session_clear('member');
+		context.$req.logOut();
+
+		context.$go('/', callback);
 	},
 
+	on_input: function (context, callback) {
+		callback();
+	},
 
+	on_process: function (context, callback) {
+		callback();
+	},
 
 } // end action

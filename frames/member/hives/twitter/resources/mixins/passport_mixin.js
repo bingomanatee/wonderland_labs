@@ -18,10 +18,11 @@ var FACEBOOK_APP_SECRET = "--insert-facebook-app-secret-here--";
 /* ********* EXPORTS ******** */
 
 module.exports = function (apiary, callback) {
+
 	callback(null, {
-		name:    'facebook_passport_mixin',
+		name:    'facebook_passport',
 		respond: function (done) {
-			console.log('loading facebook strategy');
+
 			FACEBOOK_APP_ID = apiary.get_config('facebook_app_id');
 			FACEBOOK_APP_SECRET = apiary.get_config('facebook_app_secret');
 			if (_DEBUG) console.log('FB ID: %s/ FB S: %s', FACEBOOK_APP_ID, FACEBOOK_APP_SECRET);
@@ -33,7 +34,7 @@ module.exports = function (apiary, callback) {
 				},
 				function (accessToken, refreshToken, profile, done2) {
 					console.log('profile: %s', util.inspect(profile));
-					done2();
+					done2(null, profile);
 				}
 			));
 

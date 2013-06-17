@@ -16,14 +16,13 @@ var passport = require('passport');
 module.exports = {
 
 	on_process: function (context, done) {
-		var handler = passport.authenticate('facebook', {
-			failureRedirect: '/?auth_failure=1'},
-			function(req, res){
-				console.log('req: %s', util.inspect(req));
-				context.$go('/');
-			}
-		);
-		handler(context.$req, context.$res, done)
+		passport.authenticate('facebook',
+			{ failureRedirect: '/' },
+			function (err, member) {
+				console.log('have AUTHENTICATED, %s, %s', err, util.inspect(member));
+				context.$session_set('member', member)
+				context.$go('/', done);
+			})(context.$req, context.$res, done);
 	}
 
 } // end action

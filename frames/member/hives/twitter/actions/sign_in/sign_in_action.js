@@ -16,7 +16,7 @@ var passport = require('passport');
 module.exports = {
 
 	on_process: function (context, done) {
-		var handler = passport.authenticate('facebook',
+		var handler = passport.authenticate('twitter',
 			function(req, res){
 				console.log('======= never called ===========')
 			}

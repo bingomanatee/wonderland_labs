@@ -7,6 +7,7 @@ var express = require('express')
 	, path = require('path')
 	, util = require('util')
 	, mvc = require('hive-mvc')
+	, passport = require('passport')
 	, mongoose = require('mongoose');
 
 var app = express();
@@ -23,6 +24,8 @@ app.configure(function () {
 	app.use(express.methodOverride());
 	app.use(express.cookieParser('fuzzy little pizzas'));
 	app.use(express.session());
+	app.use(passport.initialize());
+	app.use(passport.session());
 	app.use(app.router);
 	app.use(express.static(path.join(__dirname, 'public')));
 
@@ -41,7 +44,7 @@ server.listen(app.get('port'), function () {
 	mongoose.connect('mongodb://localhost/wll');
 	var apiary = mvc.Apiary({mongoose: mongoose}, __dirname + '/frames');
 	apiary._config.setAll(require('./site_identity.json'));
-	apiary._config.setAll(require('./facebook_config.json'));
+	apiary._config.setAll(require('./passport_config.json'));
 	console.log('initializing apiary for port %s', PORT);
 	apiary.init(function () {
 		console.log('serving');
