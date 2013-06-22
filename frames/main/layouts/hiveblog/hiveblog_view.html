@@ -80,17 +80,11 @@
     <div class="row-fluid">
         <div class="span3" style="padding-right: 2em">
 
+            <%- helpers.member.menu.render() %>
+
             <div class="well sidebar-nav">
 
                 <ul class="nav nav-list">
-                    <li class="nav_header">Member</li>
-                    <% if (helpers.member.member) { %>
-                    <li>Signed in as <%= helpers.member.member.displayName %></li>
-                    <li><a href="/sign_out">Sign Out</a></li>
-                    <% } else { %>
-                    <li><a href="/sign_in/facebook">Sign in using Facebook</a></li>
-                    <li><a href="/sign_in/twitter">Sign in using Twitter</a></li>
-                    <% } %>
                     <li class="nav-header">Site</li>
                     <li class="active"><a href="/">Home</a></li>
                     <li class="nav-header">Articles</li>

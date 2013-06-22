@@ -14,19 +14,11 @@ var _DEBUG = false;
 
 module.exports = {
 
-	on_validate: function (context, callback) {
+	on_process: function (context, callback) {
 		context.$session_clear('member');
 		context.$req.logOut();
 
 		context.$go('/', callback);
-	},
-
-	on_input: function (context, callback) {
-		callback();
-	},
-
-	on_process: function (context, callback) {
-		callback();
-	},
+	}
 
 } // end action

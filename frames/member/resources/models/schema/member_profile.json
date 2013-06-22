@@ -1,0 +1,6 @@
+{
+	"displayName":   "String",
+	"oauthProfiles": ["Mixed"],
+	"roles":         ["String"],
+	"cans":          ["String"]
+}

@@ -1,0 +1,20 @@
+<div class="well sidebar-nav">
+    <%
+    var member = false;
+    auths.forEach(function(auth){
+    if (auth.member){
+    member = auth.member;
+    } });
+    %>
+    <ul class="nav nav-list">
+        <li class="nav_header">Member</li>
+        <% auths.forEach(function(auth){
+        if (auth.member){
+        %>
+        <li>Signed in through <%= auth.label %> as <%= auth.member.displayName %></li>
+        <li><a href="/sign_out/<%= auth.type %>">Sign Out of <%= auth.label %></a></li>
+        <% } else if (!member) { %>
+        <li><a href="/sign_in/<%= auth.type %>">Sign In via <%= auth.type %></a></li>
+        <% } }) %>
+    </ul>
+</div>

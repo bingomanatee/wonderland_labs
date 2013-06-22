@@ -1,5 +1,0 @@
-{
-	"routes": {
-		"get": "/sign_out"
-	}
-}

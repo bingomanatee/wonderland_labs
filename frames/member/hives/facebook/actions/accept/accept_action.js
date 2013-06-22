@@ -20,7 +20,7 @@ module.exports = {
 			{ failureRedirect: '/' },
 			function (err, member) {
 				console.log('have AUTHENTICATED, %s, %s', err, util.inspect(member));
-				context.$session_set('member', member)
+				context.$session_set('member', member[0]);
 				context.$go('/', done);
 			})(context.$req, context.$res, done);
 	}

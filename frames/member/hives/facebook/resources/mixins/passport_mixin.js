@@ -19,6 +19,7 @@ var FACEBOOK_APP_SECRET = "--insert-facebook-app-secret-here--";
 
 module.exports = function (apiary, callback) {
 
+	var member_model = apiary.model('member');
 	callback(null, {
 		name:    'facebook_passport',
 		respond: function (done) {
@@ -36,7 +37,12 @@ module.exports = function (apiary, callback) {
 				},
 				function(token, tokenSecret, profile, done2) {
 					console.log('profile: %s', util.inspect(profile));
-					done2(null, profile);
+					profile.provider = 'twitter';
+
+					member_model.add_from_oauth(profile, function(err, member){
+						console.log('member for profile %s: %s', util.inspect(profile), util.inspect(member));
+						done2(null, member);
+					})
 				}
 			));
 
