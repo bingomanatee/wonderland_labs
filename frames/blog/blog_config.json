@@ -1,9 +1,38 @@
 {
-    "name": "blog",
-    "base_route": "/blog",
-	"static": {
-	          "js": "/js/blog",
-	          "img": "/img/blog",
-	          "css": "/css/blog"
-	}
+	"name":       "blog",
+	"base_route": "/blog",
+	"static":     {
+		"js":  "/js/blog",
+		"img": "/img/blog",
+		"css": "/css/blog"
+	},
+
+	"member_actions": [
+		"create article",
+		"read unpublished article",
+		"edit article",
+		"publish article",
+		"delete article",
+		"unpublish article"
+	],
+
+	"member_roles": [
+		{
+			"name": "article editor",
+			"actions":  [
+				"edit article",
+				"read unpublished article",
+				"delete article",
+				"publish article"
+			]
+		},
+		{
+			"name": "article reviewer",
+			"actions":  [
+				"read unpublished article",
+				"publish article",
+				"unpublish article"
+			]
+		}
+	]
 }

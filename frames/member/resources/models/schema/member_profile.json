@@ -2,5 +2,5 @@
 	"displayName":   "String",
 	"oauthProfiles": ["Mixed"],
 	"roles":         ["String"],
-	"cans":          ["String"]
+	"actions":       ["String"]
 }

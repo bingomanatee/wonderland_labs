@@ -61,3 +61,9 @@ section.homepage-articles article {
     -ms-transform:rotate(2deg); /* IE 9 */
     -webkit-transform:rotate(2deg); /* Safari and Chrome */
 }
+
+/* ********* TABLE ********** */
+
+.table-bordered, .table td, .table th, .table-bordered td, .table-bordered th{
+    border-color: rgba(0,0,0, 0.5);
+}
