@@ -21,4 +21,4 @@ module.exports = {
 		context.$go('/', callback);
 	}
 
-} // end action
+}; // end action

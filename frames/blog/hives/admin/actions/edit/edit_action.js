@@ -15,18 +15,30 @@ var _DEBUG = false;
 module.exports = {
 
 	on_get_validate: function (context, done) {
+		var member_model = this.model('member');
 		var model = this.model('blog_article');
-		if (!context.file_name) {
-			return done(new Error('no file name'));
 
-		}
-		model.exists(context, function (ex) {
-			if (!ex) {
-				model.addError(context, 'cannot find article ' + context.file_name);
-				done(new Error('cannot find article ' + context.file_name));
-			} else {
-				done();
+		//@TODO: add edit own article
+
+		member_model.ican(context, ["edit article"], function () {
+
+			if (!context.file_name) {
+				return done(new Error('no file name'));
 			}
+
+			model.exists(context, function (ex) {
+				if (!ex) {
+					model.addError(context, 'cannot find article ' + context.file_name);
+					done(new Error('cannot find article ' + context.file_name));
+				} else {
+					done();
+				}
+			})
+
+		}, {
+			go:      '/',
+			message: 'You do not have permission to edit articles',
+			key:     'error'
 		})
 	},
 

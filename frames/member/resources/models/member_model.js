@@ -4,6 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var _DEBUG = false;
 var Mongoose_Model = require('hive-model-mongoose');
+var Gate = require('gate');
 
 /* ************************************
  * 
@@ -20,6 +21,49 @@ module.exports = function (apiary, cb) {
 	var mongoose = apiary.get_config('mongoose');
 	var model;
 	member_profile.oauthProfiles = [new mongoose.Schema(oauth_user_profile)];
+
+	function _can(has_actions, need_actions, callback) {
+		callback(null, _.every(need_actions, function (action) {
+			return _.contains(has_actions, action);
+		}))
+	}
+
+	function can(member, actions, callback) {
+
+		if (!member || !member.roles || !member.roles.length) {
+			callback(null, false);
+		} else if (!member.role_actions) {
+			var member_roles = apiary.model('member_role');
+			member_roles.role_actions(member.roles, function (err, role_actions) {
+				member.role_actions = role_actions;
+				_can(role_actions, actions, callback);
+			})
+		} else {
+			_can(member.role_actions, actions, callback);
+		}
+	}
+
+	function ican(ctx, actions, if_can, if_cant) {
+
+		function _resolve(act) {
+			if (_.isFunction(act)) {
+				act();
+			} else {
+				if (act.message){
+					ctx.add_message(act.message, act.key || 'error');
+				}
+				ctx.$go(act.go);
+			}
+		}
+
+		this.can(ctx.$session('member'), actions, function (err, can) {
+			if (can) {
+				_resolve(if_can);
+			} else {
+				_resolve(if_cant);
+			}
+		});
+	}
 
 	/**
 	 * fetches or creates a member record from oauth.
@@ -51,8 +95,8 @@ module.exports = function (apiary, cb) {
 					oauthProfiles: [oAuth]
 				};
 
-				model.put(data, function(err, member){
-					if (member){
+				model.put(data, function (err, member) {
+					if (member) {
 						member = [member];
 					} else {
 						member = [];
@@ -70,7 +114,7 @@ module.exports = function (apiary, cb) {
 		} else {
 			var provider = oAuth.provider;
 			var identity = {
-				_id:  id,
+				_id:      id,
 				provider: provider};
 			console.log('seeking identity %s', util.inspect(identity));
 
@@ -82,11 +126,21 @@ module.exports = function (apiary, cb) {
 		}
 	}
 
+	function primary_oauth (member){
+		var primary = _.find(member.oauthProfiles, function(profile){
+			return profile.primary;
+		})
+		return primary || _.first(member.oauthProfiles);
+	}
+
 	Mongoose_Model(
 		{
 			name:           'member',
 			add_from_oauth: add_from_oauth,
-			get_from_oauth: get_from_oauth
+			get_from_oauth: get_from_oauth,
+			primary_oauth: primary_oauth,
+			can:            can,
+			ican:           ican
 		}
 		, {
 			mongoose:   mongoose,

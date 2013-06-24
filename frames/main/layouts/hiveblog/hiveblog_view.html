@@ -78,7 +78,7 @@
 
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="span3" style="padding-right: 2em">
+        <div class="span3">
 
             <%- helpers.member.menu.render() %>
 
@@ -96,6 +96,7 @@
         </div>
         <!--/span-->
         <div class="span9">
+            <%- helpers.message_alert() %>
             <%- body %>
         </div>
         <!--/span-->

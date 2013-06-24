@@ -52,8 +52,8 @@ module.exports = {
 				model.exists(context, function (ex) {
 				})
 			} else {
-				model.get(context, function (err,data){
-					if (err){
+				model.get(context, function (err, data) {
+					if (err) {
 						return done(err);
 					}
 					context.$send(data);
@@ -73,32 +73,49 @@ module.exports = {
 	/* *************** POST **************** */
 
 	on_post_validate: function (context, done) {
-		var model = this.model('blog_article');
-		if (!context.file_name) {
-			return done(new Error('file_name required'))
-		}
-		context.file_name = model.clean_file_name(context.file_name);
-		if (!context.file_name) {
-			return done(new Error('file_name required'))
-		}
+		var member_model = this.model('member');
 
-		if (!context.title) {
-			return done(new Error('no title'));
-		}
-		if (!context.content) {
-			return done(new Error('no content'))
-		}
+		member_model.ican(context, ["create article"], function () {
 
-		model.exists(context, function (ex) {
-			if (ex) {
-				done(new Error('article ' + context.file_name + ' exists'));
-			} else {
-				done();
+			var model = this.model('blog_article');
+			if (!context.file_name) {
+				return done(new Error('file_name required'))
 			}
+			context.file_name = model.clean_file_name(context.file_name);
+			if (!context.file_name) {
+				return done(new Error('file_name required'))
+			}
+
+			if (!context.title) {
+				return done(new Error('no title'));
+			}
+			if (!context.content) {
+				return done(new Error('no content'))
+			}
+
+			model.exists(context, function (ex) {
+				if (ex) {
+					done(new Error('article ' + context.file_name + ' exists'));
+				} else {
+					done();
+				}
+			});
+		}, {
+			go:      '/',
+			message: 'You do not have permission to create articles',
+			key:     'error'
 		});
 	},
 
 	on_post_input: function (context, done) {
+		var member = context.$session('member');
+		var oauth = this.model('member').primary_oauth(member);
+		var auth_data = {
+			_id:         oauth._id,
+			provider:    oauth.provider,
+			displayName: oauth.displayName
+		};
+
 		context._data = {
 			file_name:   context.file_name,
 			title:       context.title,
@@ -108,7 +125,8 @@ module.exports = {
 			tags:        context.tags ? context.tags.split(',') : [],
 			on_homepage: context.on_homepage || false,
 			hide:        context.hide || false,
-			folder:      context.folder || ''
+			folder:      context.folder || '',
+			author:      auth_data
 		};
 		done();
 	},
@@ -119,7 +137,7 @@ module.exports = {
 			context.$send(data, done);
 		});
 	},
-	
+
 	/* *************** PUT **************** */
 
 	on_put_validate: function (context, done) {

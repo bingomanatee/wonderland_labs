@@ -11,15 +11,27 @@
 		"create article",
 		"read unpublished article",
 		"edit article",
+		"edit own article",
 		"publish article",
 		"delete article",
-		"unpublish article"
+		"delete own article",
+		"unpublish article",
+		"unpublish own article"
 	],
 
 	"member_roles": [
 		{
-			"name": "article editor",
-			"actions":  [
+			"name":    "writer",
+			"actions": [
+				"create article",
+				"edit own article",
+				"delete own article",
+				"unpublish own article"
+			]
+		},
+		{
+			"name":    "article editor",
+			"actions": [
 				"edit article",
 				"read unpublished article",
 				"delete article",
@@ -27,8 +39,8 @@
 			]
 		},
 		{
-			"name": "article reviewer",
-			"actions":  [
+			"name":    "article reviewer",
+			"actions": [
 				"read unpublished article",
 				"publish article",
 				"unpublish article"

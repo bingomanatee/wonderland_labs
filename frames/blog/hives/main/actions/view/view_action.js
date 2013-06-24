@@ -4,6 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var _DEBUG = false;
 var marked = require('marked');
+var hyperlink = require(path.resolve(__dirname, '../../../lib/hyperlink_marked'));
 
 /* ************************************
  * 
@@ -44,7 +45,7 @@ module.exports = {
 
 	on_input: function (context, callback) {
 		var model = this.model('blog_article');
-		console.log('getting article %s', util.inspect(context, false, 0));
+		//console.log('getting article %s', util.inspect(context, false, 0));
 		model.get(context, function(err, article){
 			if (err){
 				return callback(err);
@@ -55,7 +56,7 @@ module.exports = {
 	},
 
 	on_process: function (context, callback) {
-		context.$out.set('html', marked(context.$out.get('article').content));
+		context.$out.set('html', hyperlink(marked(context.$out.get('article').content), context));
 		context.$out.set('edit_link', edit_link(context.$out.get('article')));
 		callback();
 	}

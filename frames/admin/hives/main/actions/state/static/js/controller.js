@@ -6,26 +6,22 @@ console.log('controller loaded');
 
 	angular.module('routeService', ['ngResource']).factory('Routes',
 		function ($resource) {
-			return $resource('/admin/routes/:file_name', { file_name: '@file_name'}, {
+			return $resource('/admin/state/routes', {}, {
 				get:    {method: 'GET'},
-				query:  {method: 'GET', url: "/admin_routes", params: {}, isArray: true},
-				add:    {method: 'POST' },
-				update: {method: 'PUT' },
-				delete: {method: 'DELETE'}
+				query:  {method: 'GET', isArray: true}
+			});
+		}).factory('StaticPaths',
+		function ($resource) {
+			return $resource('/admin/state/staticpaths', {}, {
+				get:    {method: 'GET'},
+				query:  {method: 'GET', isArray: true}
 			});
 		});
 
-	function StateController($scope, $filter, $compile, Routes) {
+	function StateController($scope, $filter, $compile, Routes, StaticPaths) {
 
 		$scope.routes = Routes.query();
-
-		$scope.get_routes = function () {
-			var routes = $scope.routes.slice(0);
-
-			// perform any dynamic filtering here
-
-			return routes;
-		}
+		$scope.staticpaths = StaticPaths.query();
 
 		$scope.gridOptions = {
 			data:           'routes',
@@ -39,10 +35,19 @@ console.log('controller loaded');
 			]
 
 		};
+		$scope.staticGridOptions = {
+			data:           'staticpaths',
+			showFilter:     true,
+			columnDefs:     [
+				{field: 'alias', displayName: 'Action', width: "**"},
+				{field: 'prefix', displayName: 'Method', width: "***"}
+			]
+
+		};
 
 	}
 
-	StateController.$inject = ['$scope', '$filter', '$compile', 'Routes'];
+	StateController.$inject = ['$scope', '$filter', '$compile', 'Routes', 'StaticPaths'];
 
 	homeApp.controller('StateController', StateController);
 })();

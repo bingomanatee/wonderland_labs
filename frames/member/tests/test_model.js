@@ -52,6 +52,116 @@ function clone(obj) {
 /* ************************* TESTS ****************************** */
 
 if (true) {
+	tap.test('test grant model', function (t) {
+
+		var rand_number = Math.round(Math.random() * 10000000);
+		var name = 'wll_model_test_' + rand_number;
+		console.log('created database ..... %s', name);
+		mongoose.connect('mongodb://localhost/' + name, function () {
+
+			var apiary = mvc.Apiary({mongoose: mongoose}, path.resolve(__dirname, '../../'));
+
+			apiary.init(function () {
+				var role_model = apiary.model('member_role');
+				var action_model = apiary.model('member_action');
+				var member_model = apiary.model('member');
+
+				function _test_roles() {
+					var member_with_role_1_2 = {
+						roles: ['role 1 2']
+					};
+
+					var member_with_role_1_2_and_2_3 = {
+						roles: ['role 1 2', 'role 2 3']
+					};
+
+					member_model.can(member_with_role_1_2, ['task 4'], function (err, can) {
+						t.equal(can, false, 'role 1 2 cannot do task 4');
+
+						member_model.can(member_with_role_1_2, ['task 2'], function (err, can) {
+
+							t.equal(can, true, 'role 1 2 can do task 2');
+
+							member_model.can(member_with_role_1_2, ['task 1', 'task 2'], function (err, can) {
+
+								t.equal(can, true, 'role 1 2, can do task 1 and task 2');
+
+								member_model.can(member_with_role_1_2, ['task 1', 'task 3'], function (err, can) {
+									t.equal(can, false, 'role 1 2 cannot do both task 1 and task 3');
+
+									member_model.can(member_with_role_1_2_and_2_3, ['task 1', 'task 3'], function(err, can){
+										t.equal(can, true, 'member_with_role_1_2_and_2_3 can do both task 1 and task 3');
+
+										mongoose.connection.db.dropDatabase(function (err) {
+											console.log('database %s dropped, err = %s', name, err);
+											mongoose.disconnect(function () {
+												t.end();
+											})
+										});
+									})
+
+								});
+							});
+
+						})
+					});
+
+				}
+
+				role_model.empty(function () {
+					action_model.empty(function () {
+
+						role_model.count(function (err, count) {
+							t.equal(count, 0, 'no roles');
+
+							action_model.count(function (err, count) {
+								t.equal(count, 0, 'no roles');
+
+								action_model.add(
+									[
+										{
+											_id: 'task 1'
+										},
+										{
+											_id: 'task 2'
+										},
+										{
+											_id: 'task 3'
+										},
+										{
+											_id: 'task 4'
+										}
+									], function () {
+										role_model.add(
+											[
+												{
+													_id: 'role 1 2', actions: [ 'task 1', 'task 2' ]
+												},
+												{
+													_id: 'role 2 3', actions: [ 'task 3', 'task 2' ]
+												}
+
+											],
+											_test_roles
+										)
+									})
+							})
+						})
+					})
+
+				});
+
+				/**
+				 * validate that the record errors out without a provider ID
+				 */
+			});
+		});
+
+	}); // end tap.test_auth_model
+}
+
+/* *********************** MEMBER MODEL ************************* */
+if (false) {
 	tap.test('test auth model', function (t) {
 
 		var rand_number = Math.round(Math.random() * 10000000);
@@ -163,7 +273,6 @@ if (false) {
 					t.ok(_.isArray(members), 'member is an array');
 					t.equal(members.length, 1, 'has a member');
 
-					return t.end();
 					mongoose.connection.db.dropDatabase(function (err) {
 						console.log('database %s dropped, err = %s', name, err);
 						mongoose.disconnect(function () {

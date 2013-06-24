@@ -41,7 +41,7 @@ module.exports = function (apiary, callback) {
 
 					if (frame.has_config('member_roles')){
 						frame.get_config('member_roles').forEach(function(role){
-							console.log('adding role %s', util.inspect(role));
+						//  	console.log('adding role %s', util.inspect(role));
 							role_model.find_or_add_role(role, gate.latch());
 						});
 					}

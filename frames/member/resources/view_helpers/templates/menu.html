@@ -7,14 +7,16 @@
     } });
     %>
     <ul class="nav nav-list">
-        <li class="nav_header">Member</li>
+        <li class="nav-header">Member</li>
         <% auths.forEach(function(auth){
         if (auth.member){
         %>
-        <li>Signed in through <%= auth.label %> as <%= auth.member.displayName %></li>
-        <li><a href="/sign_out/<%= auth.type %>">Sign Out of <%= auth.label %></a></li>
+        <li><img src="/img/members/social_media_icons/16px/<%- auth.type %>.png" title="<%= auth.label %>"/>
+             <%= auth.member.displayName %></li>
+        <li><a href="/sign_out/<%= auth.type %>">Sign Out</a></li>
         <% } else if (!member) { %>
-        <li><a href="/sign_in/<%= auth.type %>">Sign In via <%= auth.type %></a></li>
+        <li><a href="/sign_in/<%= auth.type %>"><img src="/img/members/social_media_icons/16px/<%- auth.type %>.png"/>
+            Sign In via <%= auth.type %></a></li>
         <% } }) %>
     </ul>
 </div>

@@ -98,7 +98,7 @@
                     <li><a href="/admin/blog/create">Add Article</a></li>
 
                     <li class="nav-header">Member Administration</li>
-                    <li><a href="/admin/members/members">Members</a></li>
+                    <li><a href="/admin/members/list">Members</a></li>
                     <li><a href="/admin/members/actions">Member Actions</a></li>
                 </ul>
             </div>
@@ -106,6 +106,7 @@
         </div>
         <!--/span-->
         <div class="span9">
+            <%- helpers.message_alert() %>
             <%- body %>
         </div>
         <!--/span-->
