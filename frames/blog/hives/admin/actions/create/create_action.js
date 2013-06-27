@@ -25,6 +25,12 @@ module.exports = {
 		})
 	},
 
+	on_input: function(context, done){
+		context.$out.set('folder', context.folder || '');
+		context.$out.set('file_name', context.file_name || '');
+		done();
+	},
+
 	on_output: function (context, done) {
 		context.$out.set('article_editor', true);
 		done();

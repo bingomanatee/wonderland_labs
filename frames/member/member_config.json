@@ -1,5 +1,22 @@
 {
 	"static": {
-	          "img": "/img/members"
-	}
+		"img": "/img/members"
+	},
+
+	"member_actions": [
+		"edit_user",
+		"delete_user"
+	],
+
+	"member_roles": [
+		{
+			"name":    "member_admin",
+			"actions": [
+				"edit_user",
+				"delete_user"
+			]
+
+		}
+
+	]
 }

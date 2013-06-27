@@ -5,7 +5,6 @@
 <%- helpers.article.editor(this) %>
 </div>
 
-
 <script language="javascript">
 
     $(function(){
@@ -15,6 +14,13 @@
 
         var scope = angular.element('#article_editor').scope();
         console.log('scope', scope);
+
+        <% if (file_name) { %>
+        scope.set_file_name( '<%= file_name %>');
+
+        <% } %>
+
+        scope._apply();
 
         scope.$on('saved_article', function(context, article){
             console.log('article: ', article);

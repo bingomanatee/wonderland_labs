@@ -215,6 +215,10 @@
 			content:   '',
 			folder:    null
 		}; // Articles.get(file_name, folder);
+
+		$scope.set_file_name = function(n){
+			$scope.article.file_name = n;
+		}
 		/*
 		 $scope.get_articles = function () {
 		 var articles = $scope.article.slice(0);

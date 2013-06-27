@@ -1,7 +1,9 @@
 {
 	"routes": {
 		"get":  [
-			"*/create"
+			"*/create",
+			"*/create/:file_name",
+			"*/create/:folder/:file_name"
 		],
 		"post": [
 			"*/create"

@@ -23,12 +23,19 @@ module.exports = function (apiary, cb) {
 	member_profile.oauthProfiles = [new mongoose.Schema(oauth_user_profile)];
 
 	function _can(has_actions, need_actions, callback) {
+		console.log('god mode: %s', apiary.get_config('god_mode'));
+		if (apiary.get_config('god_mode')){
+			return callback(null, true);
+		}
 		callback(null, _.every(need_actions, function (action) {
 			return _.contains(has_actions, action);
 		}))
 	}
 
 	function can(member, actions, callback) {
+		if (apiary.get_config('god_mode')){
+			return callback(null, true);
+		}
 
 		if (!member || !member.roles || !member.roles.length) {
 			callback(null, false);

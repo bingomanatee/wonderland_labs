@@ -4,7 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var _DEBUG = false;
 var marked = require('marked');
-var hyperlink = require(path.resolve(__dirname, '../../../lib/hyperlink_marked'));
+var hyperlink = require(path.resolve(__dirname, '../../../../lib/hyperlink_marked.js'));
 
 /* ************************************
  * 
@@ -16,8 +16,8 @@ var file_edit_link = _.template('/admin/blog_edit/<%= file_name %>');
 
 var folder_edit_link = _.template('/admin/blog_edit/<%= folder %>/<%= file_name %>');
 
-function edit_link(article){
-	if(article.folder){
+function edit_link(article) {
+	if (article.folder) {
 		return folder_edit_link(article);
 	} else {
 		return file_edit_link(article);
@@ -35,7 +35,12 @@ module.exports = {
 			var model = this.model('blog_article');
 			model.exists(context, function (has_article) {
 				if (!has_article) {
-					callback(new Error("cannot find article" + context.file_name));
+					//@TODO: check permissions
+					if (context.folder) {
+						context.$go('/admin/blog/create/' + context.folder + '/' + context.file_name, callback);
+					} else {
+						context.$go('/admin/blog/create/' + context.file_name, callback);
+					}
 				} else {
 					callback();
 				}
@@ -46,8 +51,8 @@ module.exports = {
 	on_input: function (context, callback) {
 		var model = this.model('blog_article');
 		//console.log('getting article %s', util.inspect(context, false, 0));
-		model.get(context, function(err, article){
-			if (err){
+		model.get(context, function (err, article) {
+			if (err) {
 				return callback(err);
 			}
 			context.$out.set('article', article);
