@@ -1,5 +1,6 @@
 <link type="text/css" rel="stylesheet" href="/js/blog/vendor/bootstrap-fileupload/bootstrap-fileupload.css"/>
 <link type="text/css" rel="stylesheet" href="/css/blog/editor.css"/>
+<link type="text/css" rel="stylesheet" href="/js/blog/vendor/select2-3.4.0/select2.css"/>
 
 <div ng-controller="ArticleEditor" id="article_editor" ng-show="existence_tested">
 <div modal="show_image_dialog" close="close_image_dialog()" options="image_dialog_options">
@@ -243,7 +244,8 @@
                     <label class="control-label span2" for="folder_select" style="">Folder</label>
 
                     <div class="span5">
-                        <select id="folder_select" name="folder" style="white-space: nowrap">
+                        <select id="folder_select" name="folder"  ui-select2 ng-model="article.folder"
+                                style="white-space: nowrap">
                             <option value="">(root)</option>
                             <% folders.forEach(function(folder){ %>
                             <option value="<%= folder %>"><%= folder %></option>

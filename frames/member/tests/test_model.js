@@ -161,7 +161,7 @@ if (true) {
 }
 
 /* *********************** MEMBER MODEL ************************* */
-if (false) {
+if (true) {
 	tap.test('test auth model', function (t) {
 
 		var rand_number = Math.round(Math.random() * 10000000);
@@ -239,47 +239,6 @@ if (false) {
 
 					})
 				})
-			});
-		});
-
-	}); // end tap.test_auth_model
-}
-
-/**
- * this is a "follow up" test to examine if an added record exists
- */
-if (false) {
-	tap.test('test polling member', function (t) {
-
-		var rand_number = 1345615; // Math.round(Math.random() * 10000000);
-		var name = 'wll_model_test_' + rand_number;
-		console.log('created database ..... %s', name);
-
-		mongoose.connect('mongodb://localhost/' + name, function () {
-
-			var apiary = mvc.Apiary({mongoose: mongoose}, path.resolve(__dirname, '../../'));
-
-			apiary.init(function () {
-				var member_model = apiary.model('member');
-				var dfbid_typed = clone(dave_facebook_id);
-				dfbid_typed.provider = 'facebook';
-
-				/**
-				 * validate that the record is found.
-				 */
-				member_model.get_from_oauth(dfbid_typed, function (err, members) {
-
-					t.ok(_.isNull(err), 'has no error');
-					t.ok(_.isArray(members), 'member is an array');
-					t.equal(members.length, 1, 'has a member');
-
-					mongoose.connection.db.dropDatabase(function (err) {
-						console.log('database %s dropped, err = %s', name, err);
-						mongoose.disconnect(function () {
-							t.end();
-						})
-					});
-				}, 300);
 			});
 		});
 

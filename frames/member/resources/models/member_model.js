@@ -134,6 +134,9 @@ module.exports = function (apiary, cb) {
 	}
 
 	function primary_oauth (member){
+		if (!member){
+			throw new Error('cannot find primary_oauth of undefined');
+		}
 		var primary = _.find(member.oauthProfiles, function(profile){
 			return profile.primary;
 		})

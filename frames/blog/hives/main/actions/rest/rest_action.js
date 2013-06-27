@@ -74,10 +74,10 @@ module.exports = {
 
 	on_post_validate: function (context, done) {
 		var member_model = this.model('member');
-
+		var self = this;
 		member_model.ican(context, ["create article"], function () {
 
-			var model = this.model('blog_article');
+			var model = self.model('blog_article');
 			if (!context.file_name) {
 				return done(new Error('file_name required'))
 			}

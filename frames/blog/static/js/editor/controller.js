@@ -43,6 +43,21 @@
 			choose_tab('markdown');
 		})
 
+
+		$scope._apply = function (f) {
+			try {
+				if (!$scope.$$phase) {
+					$scope.$apply(f);
+				} else {
+					if (f) {
+						f();
+					}
+				}
+			} catch (e) {
+				throw e
+			}
+		};
+
 		$scope.control_group_row = function (item) {
 			var classes = ['control-group', 'control-group-row'];
 			var target = $scope.article_edit_form[item];
@@ -219,6 +234,11 @@
 		$scope.set_file_name = function(n){
 			$scope.article.file_name = n;
 		}
+
+		var sfci;
+		$scope.set_folder = function(f){
+			$scope.article.folder = f;
+		}
 		/*
 		 $scope.get_articles = function () {
 		 var articles = $scope.article.slice(0);
@@ -247,21 +267,6 @@
 		var html_editor;
 
 		setTimeout(function () {
-			var fc_delay;
-
-			$('#folder_select').combobox().on('change', function (ev) {
-				val = ev;
-				console.log('ev:', ev);
-				if (fc_delay) {
-					clearTimeout(fc_delay);
-				}
-				fc_delay = setTimeout(function () {
-					fc_delay = null;
-					$scope.article.folder = $(ev.target).val();
-					$scope.$apply();
-				}, 1500);
-			});
-
 			var chtml = $('#content_html');
 
 			chtml.wysihtml5({useLineBreaks: false, stylesheets: [], html: false, color: true,
@@ -272,7 +277,7 @@
 			});
 
 			html_editor = chtml.data("wysihtml5").editor;
-		}, 1000);
+		}, 500);
 
 		$scope.upload_image = function () {
 			var input = $('#upload_form').find('input[name=file_input]');
@@ -283,7 +288,7 @@
 				});
 
 				$.ajax({
-					type:        'put',
+					type:        'post',
 					data:        data,
 					url:         '/blog_image',
 					cache:       false,
@@ -291,12 +296,12 @@
 					processData: false,
 					success:     function (data) {
 						console.log('data from success: ', data);
-						alert(data);
+						$scope.images = Images.query();
+						$scope._apply()
 					}
 				});
 			} catch (err) {
 				console.log(err);
-				return false;
 			}
 			return false;
 		};

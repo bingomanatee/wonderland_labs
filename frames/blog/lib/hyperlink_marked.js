@@ -10,6 +10,7 @@ var _DEBUG = false;
 
 /* ******* CLOSURE ********* */
 
+var pathRE = /^(.*)\/([^\/]+)/;
 
 var link_template = _.template('<a href="/blog/<%= folder ? folder + "/" : "" %><%= file_name %>"><%= link_text %></a>');
 
@@ -35,9 +36,15 @@ module.exports = function (text, context) {
 		var find = match[0];
 
 		file_name = match[1];
+		if (pathRE.test(file_name)){
+			var m2 = pathRE.exec(file_name);
+			my_folder = m2[1];
+			file_name = m2[2];
+		} else {
+			my_folder = folder;
+		}
 
 		link_text = match[3] || file_name;
-		my_folder = '';
 
 		var replacement = link_template({
 			file_name: file_name,
