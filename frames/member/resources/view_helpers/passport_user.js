@@ -23,7 +23,7 @@ Member_Menu.prototype = {
 
 		var oap = null;
 		if (member){
-			console.log('searching %s for %s',  util.inspect(member.valueOf()), type);
+		//	console.log('searching %s for %s',  util.inspect(member.valueOf()), type);
 			for (var i = 0; i < member.oauthProfiles.length; ++ i){
 				if (member.oauthProfiles[i].provider == type){
 					oap =  member.oauthProfiles[i];

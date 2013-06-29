@@ -1,11 +1,18 @@
 <link rel="stylesheet" type="text/css" href="/js/vendor/angular/ng-grid.css"/>
 <link rel="stylesheet" type="text/css" href="/css/home/list.css"/>
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><div class="divider"></div></li>
+    <li>Blog</li>
+    <li><div class="divider"></div></li>
+    <li class="active"><%= folder %></li>
+</ul>
 
-<h1>Wonderland Labs</h1>
+
 <div ng-app="home">
 
-    <div ng-controller="ArticleCtrl">
-        <h2>Articles</h2>
+    <div ng-controller="ArticleCtrl" id="article_list">
+        <h1><%= folder %> Articles</h1>
         <div class="navbar">
             <div class="navbar-inner">
                 <a class="brand" href="#">View</a>
@@ -20,16 +27,6 @@
                             <li><a ng-click="clear_tag_filter()">(all)</a></li>
                             <li ng-repeat="tag in tags()">
                                 <a ng-click="set_tag_filter(tag)">{{ tag }}</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Folder
-                            ({{ folder_filter || 'any' }}) <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-header">Folders</li>
-                            <li><a ng-click="clear_folder_filter()">(any)</a></li>
-                            <li ng-repeat="folder in folders()">
-                                <a ng-click="set_folder_filter(folder)">{{ folder }}</a></li>
                         </ul>
                     </li>
                     <li>
@@ -49,8 +46,7 @@
                     <p class="footer">
                  <span class="label" style="margin-right: 0.5em" ng-repeat="tag in article.tags"
                        ng-click="set_tag_filter(tag)">{{tag}} </span>
-                        <time
-                                class="revised">{{
+                        <time class="revised">{{
                             article.revised | date:'shortDate'
                             }}
                         </time>
@@ -69,3 +65,11 @@
         </div>
     </div>
 </div>
+
+<script language="javascript">
+    $(function () {
+        var scope = angular.element('#article_list').scope();
+        scope.folder_filter='<%= folder %>';
+        scope._apply();
+    });
+</script>

@@ -19,7 +19,7 @@ var link_template = _.template('<a href="/blog/<%= folder ? folder + "/" : "" %>
 module.exports = function (text, context) {
 
 	var regex2 = new RegExp('\\[\\[([\\w\\/]+)\\]\\]');
-	var regex =  new RegExp('\\[\\[([\\w\\/]+)\\]\\](\\((.*)\\))');
+	var regex =  new RegExp('\\[\\[([\\w\\/]+)\\]\\](\\(([^\)]*)\\))');
 
 	var folder = context.hasOwnProperty('folder') ? context.folder : '';
 	var my_folder, file_name, link_text;

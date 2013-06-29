@@ -61,9 +61,21 @@ module.exports = {
 	},
 
 	on_process: function (context, callback) {
-		context.$out.set('html', hyperlink(marked(context.$out.get('article').content), context));
+		context.$out.set('html',marked( hyperlink(context.$out.get('article').content, context)));
 		context.$out.set('edit_link', edit_link(context.$out.get('article')));
 		callback();
+	},
+
+	on_output: function(context, done){
+		member_model = this.model('member');
+		member_model.ican(context, ['edit article'] , function(){
+			context.$out.set('iCanEditArticle', true);
+			done();
+		},
+		function(){
+			context.$out.set('iCanEditArticle', false);
+			done();
+		})
 	}
 
 } // end action

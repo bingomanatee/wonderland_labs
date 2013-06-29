@@ -84,7 +84,7 @@
     <div class="span7">
         <textarea style="width: 100%" rows="3" class="span10" id="intro" name="intro"
                   placeholder="Introduction for menus/table of contents"
-                  ng-bind-html-unsafe="article.intro"></textarea>
+                  ng-model="article.intro"></textarea>
     </div>
     <div class="span3">
         <span class="help-inline">{{article_edit_form.intro.$errors }}</span>
@@ -92,9 +92,7 @@
 </div>
 
 <div ng-class="control_group_row('content')">
-    <label class="control-label span2" for="content" style="">Article</label>
-
-    <div class="span9">
+    <div class="span12">
         <tabset>
             <tab heading="Markdown" active="active_tabs.markdown">
                 <textarea class="content-editor fixed" id="content" name="content"
@@ -185,7 +183,7 @@
                     <div class="span7">
                         <textarea style="width: 100%" rows="3" class="span10" id="intro2" name="intro"
                                   placeholder="Introduction for menus/table of contents"
-                                  ng-bind="article.intro"></textarea>
+                                  ng-model="article.intro"></textarea>
                     </div>
                     <div class="span3">
                         <span class="help-inline">{{article_edit_form.intro2.$errors }}</span>
@@ -244,7 +242,7 @@
                     <label class="control-label span2" for="folder_select" style="">Folder</label>
 
                     <div class="span5">
-                        <select id="folder_select" name="folder"  ui-select2 ng-model="article.folder"
+                        <select id="folder_select" name="folder" ng-model="article.folder"
                                 style="white-space: nowrap">
                             <option value="">(root)</option>
                             <% folders.forEach(function(folder){ %>

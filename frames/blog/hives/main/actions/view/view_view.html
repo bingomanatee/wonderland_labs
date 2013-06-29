@@ -1,4 +1,13 @@
-<h1><%= article.title %></h1>
+<ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><div class="divider"></div></li>
+    <li>Blog</li>
+    <li><div class="divider"></div></li>
+    <li><a href="/blog_folder/<%= article.folder %>"><%= article.folder %></a></li>
+</ul>
+<h1><%= article.title %> <% if (iCanEditArticle) {%>
+  <a href="<%= edit_link %>" class="btn btn-small">Edit</a>
+    <% } %></h1>
 
 <%- html %>
 <div class="well">
@@ -18,5 +27,6 @@
     </dl>
 
 </div>
-
-        <p><small><a href="<%= edit_link %>" class="btn btn-small">Edit</a></small></p>
+<% if (iCanEditArticle) {%>
+<p><a href="<%= edit_link %>" class="btn btn-small">Edit</a></p>
+        <% } %>

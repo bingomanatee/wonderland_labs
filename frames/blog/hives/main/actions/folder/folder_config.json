@@ -1,9 +1,9 @@
 {
-	"name":        "home",
+	"name":        "blog_folder",
 	"layout_name": "hiveblog",
 	"routes":      {
 		"get": [
-			"/"
+			"/blog_folder/:folder"
 		]
 	},
 

@@ -1,6 +1,6 @@
 (function () {
 
-	var homeApp = angular.module('article', ['articleRestService' , 'ui.bootstrap']);
+	var homeApp = angular.module('article', ['articleRestService' , 'ui.bootstrap', 'ui.select2']);
 
 	angular.module('articleRestService', ['ngResource']).factory('Articles',
 		function ($resource) {
