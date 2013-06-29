@@ -1,0 +1,10 @@
+{
+    "file_name": "template",
+    "title": "Action Templates",
+    "intro": "the model for the page",
+    "revised": "2013-06-27 04:53",
+    "tags": [],
+    "on_homepage": false,
+    "hide": false,
+    "folder": "hive_mvc"
+}

@@ -1,7 +1,8 @@
 {
     "file_name": "context",
     "title": "Request Context",
-    "revised": "2013-06-27 01:29",
+    "intro": "The class for tracking state through an action.",
+    "revised": "2013-06-27 02:34",
     "tags": [],
     "on_homepage": false,
     "hide": false,

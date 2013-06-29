@@ -1,0 +1,15 @@
+{
+    "file_name": "output",
+    "title": "Action (context)Output",
+    "intro": "the end result of an action's activity",
+    "revised": "2013-06-27 02:44",
+    "tags": [],
+    "on_homepage": false,
+    "hide": false,
+    "folder": "hive_mvc",
+    "author": {
+        "_id": "805008941",
+        "provider": "facebook",
+        "displayName": "Dave Edelhart"
+    }
+}

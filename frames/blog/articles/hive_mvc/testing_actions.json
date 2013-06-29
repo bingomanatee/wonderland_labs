@@ -1,7 +1,8 @@
 {
     "file_name": "testing_actions",
-    "title": "Testing Hive Actions",
-    "revised": "2013-06-27 02:27",
+    "title": "Unit Testing in Hive",
+    "intro": "Hive_MVC is designed to be extremely open to isolated tests of its actions and other components.",
+    "revised": "2013-06-28 01:14",
     "tags": [],
     "on_homepage": false,
     "hide": false,

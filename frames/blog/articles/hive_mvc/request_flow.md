@@ -18,8 +18,8 @@ The output of this pipe is then sent as a response, as HTML text.
 
 Not all responses are HTML. If an action has no template, OR if the action calls one of [[context]](contexts') "Routing Methods:
 
-* context.$send({obj}, callback
-* context.$sendfile(path{string}, callback)
-* context.$go(path or URL {string}, callback)
+* **context.$send({obj}, callback(**
+* **context.$sendfile(path{string}, callback)**
+* **context.$go(path or URL {string}, callback)**
 
-then as shown in the above document, the request flow is suspended and the appropriate content is sent to the response.
+then as shown in the above document, the request flow is suspended and the appropriate content is sent to the response and expressed as JSON (or other formats as appropriate).

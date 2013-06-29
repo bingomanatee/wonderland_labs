@@ -1,7 +1,8 @@
 {
     "file_name": "static_files",
     "title": "Static Files",
-    "revised": "2013-06-27 07:27",
+    "intro": "Injecting static files at the action level",
+    "revised": "2013-06-27 02:34",
     "tags": [],
     "on_homepage": false,
     "hide": false,

@@ -1,0 +1,10 @@
+{
+    "file_name": "view_helpers",
+    "title": "View Helpers",
+    "intro": "View helpers filter the content of a response, after the action is called and before the template is rendered",
+    "revised": "2013-06-27 03:42",
+    "tags": [],
+    "on_homepage": false,
+    "hide": false,
+    "folder": "hive_mvc"
+}
