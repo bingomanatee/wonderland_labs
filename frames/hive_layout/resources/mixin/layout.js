@@ -14,7 +14,7 @@ module.exports = function (apiary, cb) {
 				if (_DEBUG) {
 					console.log('scanning frame for layouts folder: %s', frame.get_config('root'));
 				}
-				var ll = layouts_dir_loader(frame.get_config('root'), apiary);
+				var ll = layouts_dir_loader(frame.get_config('root'));
 				ll.core(apiary);
 
 				ll.load(_.identity);

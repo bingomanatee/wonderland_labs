@@ -10,12 +10,6 @@ var _DEBUG = false;
 
 /* ******* CLOSURE ********* */
 
-var template = _.template('<a href="/blog/<%= url %>"><%= title %></a>');
-link = function(article){
-	var url = article.folder ? article.folder + '/' + article.file_name : article.file_name;
-	return template(_.extend({url: url}, article));
-};
-
 var click_template = _.template(' onClick="document.location=\'/blog/<%= url %>\'" ');
 link_click = function(article){
 	var url = article.folder ? article.folder + '/' + article.file_name : article.file_name;
@@ -38,7 +32,7 @@ module.exports = function (apiary, cb) {
 		respond: function (ctx, output, done) {
 			if (!output.helpers) output.helpers = {};
 			if (!output.helpers.article) output.helpers.article = {};
-			output.helpers.article.link = link;
+			output.helpers.article.link = require('./../../lib/article_link');
 			output.helpers.article.link_click = link_click;
 			done();
 		}

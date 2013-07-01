@@ -13,8 +13,6 @@ var Mongoose_Model = require('hive-model-mongoose');
 
 var roles_schema = require(path.resolve(__dirname, 'schema/member_role.json'));
 
-console.log('roles schema: %s', util.inspect(roles_schema));
-
 /* ********* EXPORTS ******** */
 
 module.exports = function (apiary, cb) {

@@ -4,16 +4,12 @@ var util = require('util');
 var path = require('path');
 var _DEBUG = false;
 
-console.log('adding context mixer');
-
 module.exports = function (apiary, cb) {
 	cb(null, {
 		name:    'message_context_mixin',
 		respond: function (callback) {
 
 			var context = apiary.Context;
-
-			console.log(' -------- swapping contexts');
 
 			function add_message(text, key) {
 				if (!text) return;
