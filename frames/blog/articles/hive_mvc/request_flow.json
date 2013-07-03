@@ -1,10 +1,10 @@
 {
     "file_name": "request_flow",
     "title": "Request Flow",
-    "intro": "The flow of activity through Hive MVC is extremely granular, and allows for fine tuning of activity.",
-    "revised": "2013-06-27 02:38",
+    "intro": "The flow of activity through an HTML response",
+    "revised": "2013-07-03 11:38",
     "tags": [],
-    "on_homepage": false,
+    "on_homepage": true,
     "hide": false,
     "folder": "hive_mvc"
 }

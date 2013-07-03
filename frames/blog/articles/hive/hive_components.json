@@ -2,9 +2,9 @@
     "file_name": "hive_components",
     "title": "The Hive family of code components",
     "intro": "A family of components that support the Hive-MVC",
-    "revised": "2013-07-03 10:22",
+    "revised": "2013-07-03 11:35",
     "tags": [],
-    "on_homepage": false,
+    "on_homepage": true,
     "hide": false,
     "folder": "hive"
 }

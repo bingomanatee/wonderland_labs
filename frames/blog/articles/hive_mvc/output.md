@@ -9,6 +9,6 @@ console.log('foo: %s', context.$out.get('foo'));
 
 ```
 
-This $out property's manifest is translated to a plain object before it is passed through the [[view_helpers]](View Helpers). 
+This $out property's manifest is translated to a plain object before it is passed through the ?[View Helpers](view_helpers). 
 
 However, if you find this too cumbersome, you can replace context.$out with a generic object. In fact if you are writing a REST action, you can even replace it with an array if you'd like.

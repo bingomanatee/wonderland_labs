@@ -3,5 +3,25 @@
 	          "get": ["/blog/:file_name", "/blog/:folder/:file_name"]
 	},
 
-	"layout_name" : "hiveblog"
+	"layout_name" : "hiveblog",
+
+	"javascript": [
+		{
+			"url": "/js/blog/vendor/underscore-min.js",
+			"context" : "foot",
+			"defer": true
+		},
+		{
+			"url": "/js/blog/vendor/shjs-0.6/sh_main.js",
+			"context" : "foot",
+			"defer": true
+		},
+		{
+			"url": "/js/blog/highlight_code.js",
+			"context": "foot",
+			"defer": true
+		}
+
+
+	]
 }

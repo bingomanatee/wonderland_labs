@@ -1,8 +1,8 @@
 {
     "file_name": "view_helpers",
     "title": "View Helpers",
-    "intro": "View helpers filter the content of a response, after the action is called and before the template is rendered",
-    "revised": "2013-06-27 03:42",
+    "intro": "Output pipes that add functionality for action templates.",
+    "revised": "2013-07-03 11:28",
     "tags": [],
     "on_homepage": false,
     "hide": false,

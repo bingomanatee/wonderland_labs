@@ -2,7 +2,6 @@
 section.homepage-articles {
     clear: both;
     overflow: auto;
-    padding-top: 4em;
 }
 
 section.homepage-articles article:hover {
@@ -12,23 +11,19 @@ section.homepage-articles article:hover {
 section.homepage-articles article {
     float: left;
     background-color: white;
+    position: relative;
     width: 200px;
-    height: 100px;
-    padding: 0.75em;
-    margin: 0.5em;
-    margin-top: -1em;
-    margin-right: -0.5em;
-    border: 1px solid rgb(200,200,200);
-    -webkit-border-radius: 20px;
-    border-radius: 20px;
-
-    transform:rotate(2deg);
-    -ms-transform:rotate(2deg); /* IE 9 */
-    -webkit-transform:rotate(2deg); /* Safari and Chrome */
+    height: 90px;
+    padding: 6px;
+    margin: 5px;
+    border: 2px solid rgb(225,225,225);
+    border-top: 2px solid rgb(240,240,240);
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
 }
 section.homepage-articles article p {
     padding: 0;
-    margin: 5px;
+    margin: 3px;
     font-family:  "Helvetica Neue", Arial, sans-serif;
     color: black;
     font-weight: 400;
@@ -42,31 +37,18 @@ section.homepage-articles article p {
 
 section.homepage-articles article p.footer {
     margin-top: 0.5em;
+    font-size: 70%;
+    text-align: right;
+    position: absolute;
+    height: 15px;
+    bottom: 2px;
+    right: 2px;
 }
 
 section.homepage-articles article h3 {
     margin: 0;
-    margin-bottom: 0.125em;
     line-height: 110%;
     font-size: 125%;
-}
-
-section.homepage-articles article:nth-child(4n) {
-    transform: rotate(3deg);
-    -ms-transform: rotate(3deg); /* IE 9 */
-    -webkit-transform: rotate(3deg); /* Safari and Chrome */
-}
-
-section.homepage-articles article:nth-child(3n) {
-    transform: rotate(1deg);
-    -ms-transform: rotate(1deg); /* IE 9 */
-    -webkit-transform: rotate(1deg); /* Safari and Chrome */
-}
-
-section.homepage-articles article:nth-child(2n) {
-    transform: rotate(-2deg);
-    -ms-transform: rotate(-2deg); /* IE 9 */
-    -webkit-transform: rotate(-2deg); /* Safari and Chrome */
 }
 
 section.homepage-articles-grid .ngGrid {

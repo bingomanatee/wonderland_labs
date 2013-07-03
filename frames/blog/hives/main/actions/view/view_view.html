@@ -5,9 +5,9 @@
     <li><div class="divider"></div></li>
     <li><a href="/blog_folder/<%= article.folder %>"><%= article.folder %></a></li>
 </ul>
-<h1><%= article.title %> <% if (iCanEditArticle) {%>
-  <a href="<%= edit_link %>" class="btn btn-small">Edit</a>
-    <% } %></h1>
+<h1><% if (article.folder){ %><a href="/blog_folder/<%= article.folder %>"><%= article.folder %></a>: <% } %><%=
+    article.title %>
+ </h1>
 
 <%- html %>
 <div class="well">
@@ -30,3 +30,4 @@
 <% if (iCanEditArticle) {%>
 <p><a href="<%= edit_link %>" class="btn btn-small">Edit</a></p>
         <% } %>
+<link href="/js/blog/vendor/shjs-0.6/sh_style.min.css" rel="stylesheet">

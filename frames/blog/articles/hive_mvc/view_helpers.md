@@ -1,6 +1,6 @@
 View helpers are resources that allow you to filter the output of your actions after an action occurs and before the template is rendered. 
 
-Every view helper, by default, filters every action; there is no inflection of view helpers based on which action/hive/frame's [[resource_folders]](resource_folder) hosts it.
+Every view helper, by default, filters every action; there is no inflection of view helpers based on which action/hive/frame's ?[resource_folder](resource_folders) hosts it.
 
 Here is a sample view_helper:
 

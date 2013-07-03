@@ -203,8 +203,6 @@
                         <span class="help-inline " ng-show="article_edit_form.title2.$error.required">Required</span>
                     </div>
                 </div>
-            </tab>
-            <tab heading="Options">
                 <div ng-class="control_group_row('tags')">
                     <label class="control-label span2" for="tags" style="">Tags</label>
 
@@ -224,14 +222,15 @@
 
                     <div class="span3">
                         <label class="checkbox">
-                            <input type="checkbox" value="1" name="on_homepage"/> Show on home page
+                            <input type="checkbox" value="1" name="on_homepage" ng-model="article.on_homepage"/> Show
+                            onhomepage
                         </label>
                     </div>
 
                     <div class="span3">
 
                         <label class="checkbox">
-                            <input type="checkbox" value="1" name="hide"/> Hide article
+                            <input type="checkbox" value="1" name="hide" ng-model="article.hide"/> Hide article
                         </label>
 
                     </div>

@@ -12,16 +12,16 @@ var _DEBUG = false;
 if (true) {
 	tap.test('test hyperlinks', function (t) {
 
-		t.equal(hyperlink_marked('my [[basicFile]] link', {})
-			, 'my <a href="/blog/basicFile">basicFile</a> link', 'basic link');
-
-		t.equal(hyperlink_marked('my [[basicFile]] link with [[another]] link', {})
-			, 'my <a href="/blog/basicFile">basicFile</a> link with <a href="/blog/another">another</a> link', 'two links');
-
-		t.equal(hyperlink_marked('my [[basicFile]](File Name) link', {})
+		t.equal(hyperlink_marked('my ?[File Name](basicFile) link', {folder: ''})
 			, 'my <a href="/blog/basicFile">File Name</a> link', 'a link with a name');
 
-		t.equal(hyperlink_marked('my [[pathed/basicFile]](File Name) link', {})
+		t.equal(hyperlink_marked('my ?[File Name](pathed/basicFile) link', {folder: ''})
+			, 'my <a href="/blog/pathed/basicFile">File Name</a> link', 'a link with a name');
+
+		t.equal(hyperlink_marked('my ?[File Name](basicFile) link', {folder: 'baseFolder'})
+			, 'my <a href="/blog/baseFolder/basicFile">File Name</a> link', 'a link with a name');
+
+		t.equal(hyperlink_marked('my ?[File Name](pathed/basicFile) link', {folder: 'baseFolder'})
 			, 'my <a href="/blog/pathed/basicFile">File Name</a> link', 'a link with a name');
 
 		t.end();

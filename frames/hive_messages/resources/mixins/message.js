@@ -20,7 +20,7 @@ module.exports = function (apiary, cb) {
 					key:  key
 				};
 
-				var messages = this.$session('messages') || []
+				var messages = this.$session('messages') || [];
 				messages.push(message);
 				this.$session_set('messages', messages);
 			}

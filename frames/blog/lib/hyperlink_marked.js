@@ -11,45 +11,33 @@ var _DEBUG = false;
 /* ******* CLOSURE ********* */
 
 var pathRE = /^(.*)\/([^\/]+)/;
+var regex =  /\?\[(.*)\]\((.*)\)/gi;
 
-var link_template = _.template('<a href="/blog/<%= folder ? folder + "/" : "" %><%= file_name %>"><%= link_text %></a>');
+var link_template = _.template('<a href="/blog/<%= file_name %>"><%= link_text %></a>');
 
 /* ********* EXPORTS ******** */
 
 module.exports = function (text, context) {
-
-	var regex2 = new RegExp('\\[\\[([\\w\\/]+)\\]\\]');
-	var regex =  new RegExp('\\[\\[([\\w\\/]+)\\]\\](\\(([^\)]*)\\))');
-
 	var folder = context.hasOwnProperty('folder') ? context.folder : '';
 	var my_folder, file_name, link_text;
 	do {
 
 		var match = regex.exec(text);
-		if (!match) {
-			match = regex2.exec(text);
-			if(!match) return text;
-		}
+		//console.log('text: %s, match: %s', text, util.inspect(match));
+		if (!match) return text;
 
-		console.log('match: %s', util.inspect(match));
 
 		var find = match[0];
 
-		file_name = match[1];
-		if (pathRE.test(file_name)){
-			var m2 = pathRE.exec(file_name);
-			my_folder = m2[1];
-			file_name = m2[2];
-		} else {
-			my_folder = folder;
+		file_name = match[2];
+		if (folder && !/\//.test(file_name)){
+			file_name = folder + '/' + file_name;
 		}
-
-		link_text = match[3] || file_name;
+		link_text = match[1];
 
 		var replacement = link_template({
 			file_name: file_name,
-			link_text: link_text,
-			folder: my_folder
+			link_text: link_text
 		});
 
 		text = text.replace(find, replacement);
