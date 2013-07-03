@@ -18,7 +18,6 @@ var roles_schema = require(path.resolve(__dirname, 'schema/member_role.json'));
 module.exports = function (apiary, cb) {
 	var mongoose = apiary.get_config('mongoose');
 	var model;
-
 	function role_actions(roles, callback) {
 		this.find({_id: {'$in': roles}}, function(err, role_records){
 			var out = [];

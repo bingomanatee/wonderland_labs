@@ -5,6 +5,7 @@ var fs = require('fs');
 var _DEBUG = false;
 var moment = require('moment');
 var ejs = require('ejs');
+var hm = require('hive-menu');
 
 /* ************************************
  *
@@ -13,32 +14,56 @@ console.log('found hive_blog_menu');
 
 /* ******* CLOSURE ********* */
 
+var _sidebar;
+
 /* ********* EXPORTS ******** */
 
 module.exports = function (apiary, cb) {
 
-	var helper = {
+	fs.readFile(path.resolve(__dirname, 'sidebar_template.html'), 'utf8', function(err, txt){
 
-		name: 'hive_blog_layout_menu',
+		_sidebar = ejs.compile(txt);
 
-		test: function (ctx, output) {
-			console.log('testing %s for layout_name hive_blog', util.inspect(output));
-			return output.layout_name == 'hiveblog';
-		},
+		var helper = {
 
-		weight: 50,
+			name: 'hive_blog_layout_menu',
 
-		respond: function (ctx, output, done) {
-			if (!output.helpers){
-				output.helpers = {};
+			test: function (ctx, output) {
+				console.log('testing %s for layout_name hive_blog', util.inspect(output));
+				return output.layout_name == 'hiveblog';
+			},
+
+			weight: -50,
+
+			respond: function (ctx, output, done) {
+				if (!output.helpers){
+					output.helpers = {};
+				}
+
+				var site_menu = new hm.Menu({
+					name: 'site',
+					title: 'Site',
+					items: [
+						{name: 'home', title: 'Home', link: '/', weight: -1000000}
+					]
+				})
+
+				var menu = new hm.Menu({name: 'sidebar', title: '', items: [
+					site_menu
+				]});
+
+				output.helpers.sidebar_menu_data = menu;
+
+				output.helpers.sidebar_menu = function(){
+					return _sidebar(output.helpers.sidebar_menu_data.toJSON());
+				};
+
+				done();
 			}
+		};
 
-			output.helpers.sidebar_menu = function(){
-				return '<h2>Menu</h2>';
-			};
-			done();
-		}
-	};
+		cb(null, helper);
 
-	cb(null, helper);
+	})
+
 };

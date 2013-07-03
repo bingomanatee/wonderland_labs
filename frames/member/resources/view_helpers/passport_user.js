@@ -30,9 +30,9 @@ Member_Menu.prototype = {
 					console.log('found profile %s', util.inspect(oap));
 				}
 			}
-			console.log('.......... oap for %s: %s', type, util.inspect(oap));
+		//	console.log('.......... oap for %s: %s', type, util.inspect(oap));
 		} else {
-			console.log('.......... no member for %s in session', type);
+		//	console.log('.......... no member for %s in session', type);
 			member = false;
 		}
 
