@@ -2,9 +2,9 @@
 <link rel="stylesheet" type="text/css" href="/css/home/list.css"/>
 <ul class="breadcrumb">
     <li><a href="/">Home</a></li>
-    <li><div class="divider"></div></li>
+    <li><div class="divider">~</div></li>
     <li>Blog</li>
-    <li><div class="divider"></div></li>
+    <li><div class="divider">~</div></li>
     <li class="active"><%= folder %></li>
 </ul>
 
@@ -14,12 +14,12 @@
     <div ng-controller="ArticleCtrl" id="article_list">
         <h1><%= folder %> Articles</h1>
         <div class="navbar">
-            <div class="navbar-inner">
+            <div class="navbar-inner visible-desktop">
                 <a class="brand" href="#">View</a>
                 <ul class="nav">
                     <li ng-class="nav_class('cards')"><a ng-click="set_nav_mode('cards')">Cards</a></li>
                     <li ng-class="nav_class('list')"><a ng-click="set_nav_mode('list')">List</a></li>
-                    <li class="dropdown">
+                    <li class="dropdown" ng-hide="true">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tag
                             ({{ tag_filter || 'all' }}) <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -29,7 +29,7 @@
                                 <a ng-click="set_tag_filter(tag)">{{ tag }}</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li ng-hide="true">
                         <button class="btn" ng-click="clear_filters()">View All</button>
                     </li>
                 </ul>
@@ -70,6 +70,7 @@
     $(function () {
         var scope = angular.element('#article_list').scope();
         scope.folder_filter='<%= folder %>';
+        scope.gridOptions.showGroupPanel = false;
         scope._apply();
     });
 </script>

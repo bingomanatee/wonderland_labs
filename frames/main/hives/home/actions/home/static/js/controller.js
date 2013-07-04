@@ -149,7 +149,7 @@ console.log('controller loaded');
 			showFilter:     true,
 			columnDefs:     [
 				{field: 'title', displayName: 'Title', width: '*****', groupable: false,
-					cellTemplate: '<div><div class="ngCellText" style="padding: 0px">' +
+					cellTemplate: '<div><div class="ngCellText">' +
 						              '<a ng-click="go(row.entity)">{{ row.getProperty(col.field) }}</a>' +
 						'</div></div>'
 

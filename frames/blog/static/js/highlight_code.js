@@ -5,13 +5,14 @@
 		var text = "\n" + ele.text();
 		var indents = /\n([ ]+)/g;
 		var indent;
+		var counts = [];
 
 		while(indent = indents.exec(text)){
 			console.log('indent: ', indent);
 			counts.push(indent[1].length);
 		}
 
-		var counts = _.sortBy(_.uniq(counts), _.identity).reverse();
+		 counts = _.sortBy(_.uniq(counts), _.identity).reverse();
 
 		_.each(counts, function(count, index){
 			var spaces = _.map(_.range(0, count), function(){
@@ -24,6 +25,7 @@
 		});
 
 		text = text.replace(/\t/g, '   ');
+		text = text.replace(/^[\s]+/, '');
 		ele.html(text);
 		console.log('indents: ');
 	}
