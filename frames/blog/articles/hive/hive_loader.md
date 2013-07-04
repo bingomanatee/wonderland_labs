@@ -85,7 +85,7 @@ note - on a found directory, (and the name filter for this handler will hit any 
 
 and for the text file hits for that loader. 
 
-### txt_file.js
+#### txt_file.js
 
 ``` javascript
 var Handler = loader.handler;

@@ -2,9 +2,9 @@
     "file_name": "request_flow",
     "title": "Request Flow",
     "intro": "The flow of activity through an HTML response",
-    "revised": "2013-07-03 11:38",
+    "revised": "2013-07-03 07:31",
     "tags": [],
-    "on_homepage": true,
+    "on_homepage": false,
     "hide": false,
     "folder": "hive_mvc"
 }

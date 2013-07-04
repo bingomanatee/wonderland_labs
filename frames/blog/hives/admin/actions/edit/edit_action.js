@@ -20,11 +20,11 @@ module.exports = {
 
 		//@TODO: add edit own article
 
-		member_model.ican(context, ["edit article"], function () {
+		if (!context.file_name) {
+			return done(new Error('no file name'));
+		}
 
-			if (!context.file_name) {
-				return done(new Error('no file name'));
-			}
+		member_model.ican(context, ["edit article"], function () {
 
 			model.exists(context, function (ex) {
 				if (!ex) {

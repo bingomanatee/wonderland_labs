@@ -1,4 +1,4 @@
-Actions are at the core of Hive. Traditionally actions have been methods of a long, winding controller. In Hive, each action is a discrete folder with a ?[script](action_scripts) file, (optionally) its own ?[static file collection](static_files), its own configuration file (with routing definitions), and potentially, any other ?[resources](resources) that are specific to the action. 
+Actions are at the core of Hive. Traditionally actions have been methods of a long, winding controller. In Hive, each action is a discrete folder with a ?[script](action_scripts) file, (optionally) its own ?[static file collection](static_files), its own configuration file (with routing definitions), and potentially, any other ?[resources](resources) that are specific to the action.
 
 Actions are organized by the folder structure, within ?[Hives](hives) and indirectly, the Hives' ?[Frame](frames). 
 

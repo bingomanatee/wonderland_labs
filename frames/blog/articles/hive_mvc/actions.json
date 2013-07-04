@@ -2,14 +2,9 @@
     "file_name": "actions",
     "title": "Action Folders",
     "intro": "Actions are at the core of Hive. They answer one (or more) rest endpoints.",
-    "revised": "2013-06-27 05:11",
+    "revised": "2013-07-03 07:19",
     "tags": [],
     "on_homepage": false,
     "hide": false,
-    "folder": "hive_mvc",
-    "author": {
-        "_id": "805008941",
-        "provider": "facebook",
-        "displayName": "Dave Edelhart"
-    }
+    "folder": "hive_mvc"
 }

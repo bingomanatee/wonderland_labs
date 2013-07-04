@@ -5,11 +5,14 @@
     <li><div class="divider"></div></li>
     <li><a href="/blog_folder/<%= article.folder %>"><%= article.folder %></a></li>
 </ul>
+        <article>
+
 <h1><% if (article.folder){ %><a href="/blog_folder/<%= article.folder %>"><%= article.folder %></a>: <% } %><%=
     article.title %>
  </h1>
 
 <%- html %>
+</article>
 <div class="well">
     <dl>
         <dt>Revised</dt>
@@ -27,7 +30,8 @@
     </dl>
 
 </div>
+
 <% if (iCanEditArticle) {%>
 <p><a href="<%= edit_link %>" class="btn btn-small">Edit</a></p>
         <% } %>
-<link href="/js/blog/vendor/shjs-0.6/sh_style.min.css" rel="stylesheet">
+<link href="/js/blog/vendor/shjs-0.6/sh_style.min.css" rel="stylesheet"><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css'>

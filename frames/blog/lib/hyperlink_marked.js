@@ -10,8 +10,7 @@ var _DEBUG = false;
 
 /* ******* CLOSURE ********* */
 
-var pathRE = /^(.*)\/([^\/]+)/;
-var regex =  /\?\[(.*)\]\((.*)\)/gi;
+var regex =  /\?\[([^\]]+)\]\(([^\)]+)\)/gi;
 
 var link_template = _.template('<a href="/blog/<%= file_name %>"><%= link_text %></a>');
 
@@ -25,7 +24,6 @@ module.exports = function (text, context) {
 		var match = regex.exec(text);
 		//console.log('text: %s, match: %s', text, util.inspect(match));
 		if (!match) return text;
-
 
 		var find = match[0];
 

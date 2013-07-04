@@ -141,7 +141,11 @@ module.exports = {
 	/* *************** PUT **************** */
 
 	on_put_validate: function (context, done) {
-		var model = this.model('blog_article');
+
+		var member_model = this.model('member');
+		var self = this;
+		member_model.ican(context, ["create article"], function () {
+		var model = self.model('blog_article');
 		if (!context.file_name) {
 			return done(new Error('file_name required'))
 		}
@@ -158,6 +162,11 @@ module.exports = {
 		}
 
 		done();
+	}, {
+			go:      '/',
+			message: 'You do not have permission to update articles',
+			key:     'error'
+		});
 	},
 
 	on_put_input: function (context, done) {

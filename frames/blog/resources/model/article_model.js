@@ -153,7 +153,7 @@ module.exports = function (apiary, cb) {
 			});
 		},
 
-		init: function(done){
+		init: function (done) {
 			cache = {};
 			folder_to_cache(ARTICLE_DIR, cache, done);
 		},
@@ -162,19 +162,36 @@ module.exports = function (apiary, cb) {
 			var file_name = data.file_name.replace(/\.md$/, '');
 			var folder = data.folder || '';
 			var full_path = path.resolve(ARTICLE_DIR, folder, file_name + '.md');
+			var root = path.resolve(ARTICLE_DIR, folder);
 
 			if (!data.revised) {
 				data.revised = new Date();
 			}
 
-			data.revised = moment(data.revised).format('YYYY-MM-DD hh:mm');
+			var revised = moment(data.revised);
 
-			fs.writeFile(full_path, data.content, 'utf8', function () {
-				delete(data.content);
-				var meta_path = path.resolve(ARTICLE_DIR, folder, file_name + '.json');
-				fs.writeFile(meta_path, JSON.stringify(data, true, 4), function(){
-					model.init(function(){
-						done(null, data);
+			data.revised = revised.format('YYYY-MM-DD hh:mm');
+
+			var backup_folder = path.resolve(root, '.backups');
+			if (!fs.existsSync(backup_folder)) {
+				fs.mkdirSync(backup_folder);
+			}
+
+			var date_suffix = revised.format('YYY-MMM-DDThh-mm');
+
+			var backup_path = path.resolve(backup_folder, data.file_name + '.md.' + date_suffix);
+
+			fs.writeFile(backup_path, data.content, function () {
+				fs.writeFile(full_path, data.content, 'utf8', function () {
+					delete(data.content);
+					var meta_path = path.resolve(ARTICLE_DIR, folder, file_name + '.json');
+					fs.writeFile(meta_path, JSON.stringify(data, true, 4), function () {
+						var meta_path_bu = path.resolve(backup_folder, file_name + '.json.' + date_suffix);
+						fs.writeFile(meta_path_bu, JSON.stringify(data, true, 4), function () {
+							model.init(function () {
+								done(null, data);
+							});
+						});
 					});
 				});
 			});
