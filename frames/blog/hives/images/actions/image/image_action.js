@@ -12,7 +12,7 @@ var im = require('imagemagick');
 
 /* ******* CLOSURE ********* */
 
-var IMAGES_FOLDER = path.resolve(__dirname, '../../../../images');
+var IMAGES_FOLDER;
 
 function send_thumb(context, thumb_path, done) {
 
@@ -54,7 +54,6 @@ function send_thumb(context, thumb_path, done) {
 					stream.pipe(handle);
 
 					stream.on('end', function () {
-						console.log('done writing data to %s', thumb_path);
 						setTimeout(function(){
 							context.$sendfile(thumb_path, done);
 						}, 500);
@@ -70,8 +69,19 @@ function send_thumb(context, thumb_path, done) {
 module.exports = {
 
 	on_get_validate: function (context, done) {
+
+		if (!IMAGES_FOLDER){
+			console.log('no images folder');
+			var apiary = this.get_config('apiary');
+			if (apiary.has_config('article_root')){
+				IMAGES_FOLDER = path.resolve(apiary.root, apiary.get_config('article_root'), 'images');
+			} else {
+				return	done(new Error('cannot find article_root in apiary config'));
+			}
+			console.log('IMAGES_FOLDER: %s', IMAGES_FOLDER);
+		}
 		var name = context.filename;
-		console.log('getting image %s', name);
+		//console.log('getting image %s', name);
 		if (/\{/.test(name)){
 			context.$go('/img/blog/placeholder.gif', done);
 		}else	if (name) {
@@ -120,7 +130,6 @@ module.exports = {
 	},
 
 	on_post_validate: function (context, done) {
-		console.log('request: %s', util.inspect(context.$req));
 		if (!context.$req.files.image) {
 			done(new Error('no image file included'))
 		} else if (!/^image\//.test(context.$req.files.image.type)) {
@@ -137,7 +146,6 @@ module.exports = {
 	},
 
 	on_post_process: function (context, done) {
-		console.log('copying %s to %s', context.image_file_data.path, context.write_path);
 		fs.copy(context.image_file_data.path, context.write_path, done);
 	},
 

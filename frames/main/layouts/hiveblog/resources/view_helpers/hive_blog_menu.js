@@ -29,7 +29,7 @@ module.exports = function (apiary, cb) {
 			name: 'hive_blog_layout_menu',
 
 			test: function (ctx, output) {
-				console.log('testing %s for layout_name hive_blog', util.inspect(output));
+			//	console.log('testing %s for layout_name hive_blog', util.inspect(output));
 				return output.layout_name == 'hiveblog';
 			},
 
