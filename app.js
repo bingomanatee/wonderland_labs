@@ -45,6 +45,7 @@ server.listen(app.get('port'), function () {
 	var apiary = mvc.Apiary({mongoose: mongoose}, __dirname + '/frames');
 	apiary._config.setAll(require('./site_identity.json'));
 	apiary._config.setAll(require('./passport_config.json'));
+	apiary._config.setAll(require('./article_config.json'));
 	apiary.set_config('god_mode', false);
 	console.log('initializing apiary for port %s', PORT);
 	apiary.init(function () {

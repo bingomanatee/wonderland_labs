@@ -6,7 +6,7 @@ var util = require('util');
 var moment = require('moment');
 var folder_to_cache = require('article_model/folder_to_cache');
 
-var ARTICLE_DIR = path.resolve(__dirname, '../../articles');
+var ARTICLE_DIR;
 
 function getTitle(filepath, callback) {
 	var buffer = new Buffer(400);
@@ -27,6 +27,10 @@ function articles_folders(cb) {
 	fs.readdir(ARTICLE_DIR, function (err, files) {
 		var gate = Gate.create();
 		var folders = [];
+
+		if (err){
+			return cb(err);
+		}
 
 		files.forEach(function (file) {
 			var full_path = path.resolve(ARTICLE_DIR, file);
@@ -50,6 +54,13 @@ function articles_folders(cb) {
 //var Mongoose_Model = require('hive-model-mongoose');
 
 module.exports = function (apiary, cb) {
+
+	if (apiary.has_config('article_root')){
+		ARTICLE_DIR = path.resolve(apiary.root, apiary.get_config('article_root'), 'articles');
+		console.log('ARTICLE_DIR: %s', ARTICLE_DIR);
+	} else {
+		throw new Error('cannot find article_root in apiary config');
+	}
 
 	var cache = {};
 
