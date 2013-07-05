@@ -19,10 +19,10 @@ var FACEBOOK_APP_SECRET = "--insert-facebook-app-secret-here--";
 
 module.exports = function (apiary, callback) {
 
-	var member_model = apiary.model('member');
 	callback(null, {
 		name:    'facebook_passport',
 		respond: function (done) {
+			var member_model = apiary.model('member');
 
 			TWITTER_CONSUMER_KEY = apiary.get_config('twitter_consumer_key');
 			TWITTER_CONSUMER_SECRET = apiary.get_config('twitter_consumer_secret');

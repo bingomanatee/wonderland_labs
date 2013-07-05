@@ -19,10 +19,10 @@ var FACEBOOK_APP_SECRET = "--insert-facebook-app-secret-here--";
 
 module.exports = function (apiary, callback) {
 
-	var member_model = apiary.model('member');
 	callback(null, {
 		name:    'facebook_passport',
 		respond: function (done) {
+			var member_model = apiary.model('member');
 
 			FACEBOOK_APP_ID = apiary.get_config('facebook_app_id');
 			FACEBOOK_APP_SECRET = apiary.get_config('facebook_app_secret');
