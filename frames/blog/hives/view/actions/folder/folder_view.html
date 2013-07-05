@@ -55,7 +55,7 @@
             </section>
 
             <section class="homepage-articles-grid" ng-switch-when="list">
-                <div ng-grid="gridOptions"></div>
+                <div ng-grid="gridOptions" style="height: 300px"></div>
             </section>
 
             <section ng-hide="get_articles().length">
@@ -66,6 +66,8 @@
     </div>
 </div>
 
+<%- html %>
+
 <script language="javascript">
     $(function () {
         var scope = angular.element('#article_list').scope();
@@ -74,3 +76,4 @@
         scope._apply();
     });
 </script>
+

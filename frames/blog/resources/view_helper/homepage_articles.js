@@ -52,7 +52,7 @@ module.exports = function (apiary, cb) {
 					var arts = apiary.model('blog_article');
 					if (!output.helpers) output.helpers = {};
 					if (!output.helpers.article) output.helpers.article = {};
-					arts.list(function (err, list) {
+					arts.all(function (err, list) {
 						function memoized_template_fn(params) {
 							var my_list = list.slice(0);
 							if (!params.all) {

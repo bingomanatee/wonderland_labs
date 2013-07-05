@@ -10,6 +10,38 @@ var _DEBUG = false;
 
 /* ******* CLOSURE ********* */
 
+function article_to_data(context, auth_data){
+
+	var tags = [];
+
+	if (context.tags) {
+		if (_.isString(context.tags)) {
+			tags = context.tags.split(',')
+		} else if (_.isArray(context.tags)){
+			tags = context.tags;
+		}
+	}
+
+	var out = {
+		file_name:   context.file_name,
+		title:       context.title,
+		intro:       context.intro,
+		content:     context.content,
+		revised:     new Date(),
+		tags:        tags,
+		on_homepage: context.on_homepage || false,
+		hide:        context.hide || false,
+		folder:      context.folder || '',
+		on_folder_homepage: context.on_folder_homepage || false,
+		on_homepage_weight: parseInt(context.on_homepage_weight)
+	};
+	if (auth_data){
+		out.author = auth_data;
+	}
+
+	return out;
+}
+
 /* ********* EXPORTS ******** */
 
 module.exports = {
@@ -60,7 +92,7 @@ module.exports = {
 				});
 			}
 		} else {
-			model.list(function (err, articles) {
+			model.all(function (err, articles) {
 				if (err) {
 					done(err);
 				} else {
@@ -116,18 +148,7 @@ module.exports = {
 			displayName: oauth.displayName
 		};
 
-		context._data = {
-			file_name:   context.file_name,
-			title:       context.title,
-			intro:       context.intro,
-			content:     context.content,
-			revised:     new Date(),
-			tags:        context.tags ? context.tags.split(',') : [],
-			on_homepage: context.on_homepage || false,
-			hide:        context.hide || false,
-			folder:      context.folder || '',
-			author:      auth_data
-		};
+		context._data = article_to_data(context, auth_data);
 		done();
 	},
 
@@ -170,17 +191,7 @@ module.exports = {
 	},
 
 	on_put_input: function (context, done) {
-		context._data = {
-			file_name:   context.file_name,
-			title:       context.title,
-			intro:       context.intro,
-			content:     context.content,
-			revised:     new Date(),
-			tags:        context.tags,
-			on_homepage: context.on_homepage || false,
-			hide:        context.hide || false,
-			folder:      context.folder || ''
-		};
+		context._data = article_to_data(context);
 		done();
 	},
 

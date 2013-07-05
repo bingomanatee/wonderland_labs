@@ -17,16 +17,23 @@
     <dl>
         <dt>Revised</dt>
         <dd><%= article.revised %></dd>
-        <% if (article.on_homepage){ %>
+        <% if (article.on_homepage || article.on_folder_homepgae){ %>
         <dt>Flagged</dt>
+        <% if (article.on_homepage){ %>
         <dd>for home page</dd>
+        <% } %>
+        <% if (article.on_folder_homepage){ %>
+        <dd>for folder home page</dd>
+        <% } %>
         <% } %>
         <% if (article.hide) { %>
         <dt>Hidden</dt>
         <dd>true</dd>
         <% } %>
+        <% if (article.tags && article.tags.length) { %>
         <dt>Tags</dt>
         <dd><% article.tags.forEach(function(tag){ %><%= tag %> <% }) %></dd>
+        <% } %>
     </dl>
 
 </div>

@@ -28,7 +28,6 @@ module.exports = {
 
 			model.exists(context, function (ex) {
 				if (!ex) {
-					model.addError(context, 'cannot find article ' + context.file_name);
 					done(new Error('cannot find article ' + context.file_name));
 				} else {
 					done();

@@ -20,11 +20,16 @@ module.exports = {
 	},
 
 	on_get_output: function(context, cb){
+		var model = this.model('blog_article');
+
 		context.$out.set('moment', moment);
 		context.$out.set('_', _);
 		context.$out.set('folder', context.folder);
+		model.folder_html(context.folder, function(err, html){
 
-		cb(null, context);
+			context.$out.set('html',  html);
+			cb();
+		})
 	}
 
 }

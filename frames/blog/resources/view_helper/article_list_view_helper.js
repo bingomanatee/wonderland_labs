@@ -26,7 +26,7 @@ module.exports = function (apiary, cb) {
 			var arts = apiary.model('blog_article');
 			if (!output.helpers) output.helpers = {};
 			if (!output.helpers.article) output.helpers.article = {};
-			arts.list(function(err, list){
+			arts.all(function(err, list){
 				if (_.isFunction(output.list_blog_articles)){
 					list = _.filter(list, output.list_blog_articles);
 				}
