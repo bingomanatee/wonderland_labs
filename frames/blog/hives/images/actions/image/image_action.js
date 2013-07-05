@@ -74,7 +74,7 @@ module.exports = {
 			console.log('no images folder');
 			var apiary = this.get_config('apiary');
 			if (apiary.has_config('article_root')){
-				IMAGES_FOLDER = path.resolve(apiary.root, apiary.get_config('article_root'), 'images');
+				IMAGES_FOLDER = path.resolve(apiary.get_config('root'), apiary.get_config('article_root'), 'images');
 			} else {
 				return	done(new Error('cannot find article_root in apiary config'));
 			}

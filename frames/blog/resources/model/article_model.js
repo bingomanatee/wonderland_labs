@@ -56,7 +56,7 @@ function articles_folders(cb) {
 module.exports = function (apiary, cb) {
 
 	if (apiary.has_config('article_root')){
-		ARTICLE_DIR = path.resolve(apiary.root, apiary.get_config('article_root'), 'articles');
+		ARTICLE_DIR = path.resolve(apiary.get_config('root'), apiary.get_config('article_root'), 'articles');
 		console.log('ARTICLE_DIR: %s', ARTICLE_DIR);
 	} else {
 		throw new Error('cannot find article_root in apiary config');
