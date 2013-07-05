@@ -156,6 +156,7 @@ console.log('controller loaded');
 				},
 				{field: 'folder', displayName: 'Folder', width: "**"},
 				{field: 'intro', displayName: ' ', width: '*********', groupable: false},
+				{field: 'revised', displayName: 'Revised', width: '***', cellFilter: "date:'MMM dd, YYYY'"},
 				{field:           'tags', displayName: 'Tags', width: '***', groupable: false,
 					cellTemplate: '<div>' +
 					                  '<div class="ngCellText" ng-class="col.colIndex()" ' +
