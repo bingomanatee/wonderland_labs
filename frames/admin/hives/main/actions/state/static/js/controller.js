@@ -16,12 +16,18 @@ console.log('controller loaded');
 				get:    {method: 'GET'},
 				query:  {method: 'GET', isArray: true}
 			});
+		}).factory('Models',
+		function ($resource) {
+			return $resource('/admin/state/models', {}, {
+				query:  {method: 'GET', isArray: true}
+			});
 		});
 
-	function StateController($scope, $filter, $compile, Routes, StaticPaths) {
+	function StateController($scope, $filter, $compile, Routes, StaticPaths, Models) {
 
 		$scope.routes = Routes.query();
 		$scope.staticpaths = StaticPaths.query();
+		$scope.models = Models.query();
 
 		$scope.gridOptions = {
 			data:           'routes',
@@ -44,10 +50,18 @@ console.log('controller loaded');
 			]
 
 		};
+		$scope.modelGridOptions = {
+			data:           'models',
+			showFilter:     true,
+			columnDefs:     [
+				{field: 'name', displayName: 'Name', width: "**"}
+			]
+
+		};
 
 	}
 
-	StateController.$inject = ['$scope', '$filter', '$compile', 'Routes', 'StaticPaths'];
+	StateController.$inject = ['$scope', '$filter', '$compile', 'Routes', 'StaticPaths', 'Models'];
 
 	homeApp.controller('StateController', StateController);
 })();

@@ -37,9 +37,9 @@ module.exports = function (apiary, cb) {
 				var article_model = apiary.model('blog_article');
 				var member_model = apiary.model('member');
 
-
-
 				article_model.articles_folders(function(err, folders){
+
+					console.log('af: %s, %s', err, util.inspect(folders));
 
 					var article_menu = new hm.Menu({
 						name: 'articles',
