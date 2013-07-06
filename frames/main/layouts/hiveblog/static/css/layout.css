@@ -9,7 +9,7 @@
     color: black;
 }
 .navbar-inverse .brand , .navbar-inverse .nav > li > a {
-    font-family: Rokkitt, Helvetica Neue, Arial, sans-serif;
+    font-family: 'Roboto Condensed', Helvetica Neue, Arial, sans-serif;
     weight: 700;
     color: white;
     background-color: rgba(0,0,0,0.25);
@@ -79,7 +79,7 @@ article a:hover {
 }
 
 h1, h2, h3, h4 {
-    font-family: Rokkitt, Helvetica Neue, Arial, sans-serif;
+    font-family: 'Roboto Condensed', Helvetica Neue, Arial, sans-serif;
     font-size: 180%;
     font-weight: 400;
     margin-top: 0.5em;
@@ -96,6 +96,7 @@ h1 a:link, h2 a:link, h3 a:link, h4 a:link{
 }
 
 h1 {
+    margin-top: 0.5em;
     font-size: 240%;
     font-weight: 700;
 }
@@ -210,7 +211,7 @@ section.homepage-articles article h3 {
 }
 
 section.homepage-articles-grid .ngGrid {
-    font-family: Rokkitt, Helvetica Neue, Arial, sans-serif;
+    font-family: 'Roboto Condensed', Helvetica Neue, Arial, sans-serif;
     font-size: 120%;
 }
 

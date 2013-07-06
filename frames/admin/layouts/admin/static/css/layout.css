@@ -11,11 +11,11 @@
 
 }
 h1 {
-    font-family: Rokkitt, Helvetica Neue, Arial, sans-serif;
+    font-family: 'Roboto Condensed', Helvetica Neue, Arial, sans-serif;
     font-weight: 700;
 }
 h2, h3, h4 {
-    font-family: Rokkitt, Helvetica Neue, Arial, sans-serif;
+    font-family: 'Roboto Condensed', Helvetica Neue, Arial, sans-serif;
     color: red;
     font-weight: 700;
 }
@@ -113,7 +113,7 @@ html{
 
 .nav-tabs > li {
     margin-bottom: -1px;
-    font-family: Rokkitt, Helvetica Neue, Arial, sans-serif;
+    font-family: 'Roboto Condensed', Helvetica Neue, Arial, sans-serif;
     font-weight: 400;
     font-size: 120%;
     text-transform: uppercase;
