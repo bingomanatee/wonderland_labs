@@ -18,7 +18,7 @@
 			var spaces = _.map(_.range(0, count), function(){
 				return ' ';
 			}).join('');
-			var tabs = _.map(_.range(0, counts.length -(index + 1)), function(){
+			var tabs = _.map(_.range(0, counts.length -(index)), function(){
 				return "\t";
 			}).join('');
 			text = text.replace(new RegExp("\n" + spaces, 'g'), "\n" + tabs)
