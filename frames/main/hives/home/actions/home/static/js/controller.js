@@ -156,7 +156,26 @@ console.log('controller loaded');
 				},
 				{field: 'folder', displayName: 'Folder', width: "**"},
 				{field: 'intro', displayName: ' ', width: '*********', groupable: false},
-				{field: 'revised', displayName: 'Revised', width: '***', cellFilter: "date:'MMM dd, yyyy'"},
+				{field: 'revised', displayName: 'Revised', width: '***', cellFilter: "date:'MMM dd, yyyy'",
+				sortFn: function(a, b){
+					if (!a.unix){
+						a.unix = moment(a.revised, 'MM DD, YYYY').unix();
+					}
+
+					if (!b.unix){
+						b.unix = moment(b.revised, 'MM DD, YYYY').unix();
+					}
+
+					if (a.unix < b.unix){
+						return -1;
+					} else if (a.unix > b.unix){
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+
+				},
 			/*	{field:           'tags', displayName: 'Tags', width: '***', groupable: false,
 					cellTemplate: '<div>' +
 					                  '<div class="ngCellText" ng-class="col.colIndex()" ' +
