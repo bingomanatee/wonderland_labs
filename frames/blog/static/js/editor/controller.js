@@ -114,25 +114,6 @@
 		$scope.active_tabs = {
 			markdown: true
 		};
-		/*
-
-		 var md_clippy_template = _.template('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="110" height="14" id="clippy" >' +
-		 '<param name="movie" value="/js/blog/vendor/clippy.swf"/>' +
-		 '<param name="allowScriptAccess" value="always" />' +
-		 '<param name="quality" value="high" />' +
-		 '<param name="scale" value="noscale" />' +
-		 '<param NAME="FlashVars" value="text=<%= content %>">' +
-		 '<embed src="/js/blog/vendor/clippy.swf" width="110" height="14" name="clippy" quality="high"  allowScriptAccess="always" type="application/x-shockwave-flash"  pluginspage="http://www.macromedia.com/go/getflashplayer" FlashVars="text=<%= content %>"  />' +
-		 '				</object>');
-
-		 $scope.$watch('active_image', function(image){
-		 if(image && image.name){
-		 var mct = md_clippy_template({content: $scope.active_image_markdown()});
-		 console.log('embedding ', mct);
-		 $('#image_clippy').html(mct);
-		 }
-		 }, true);
-		 */
 
 		$scope.content = '';
 		$scope.overwrite = false;
@@ -193,15 +174,12 @@
 			// simulating converted error
 			var alter = false;
 			if (alter) {
-
 				converted = converted.split("\n");
 				var line = converted.splice(3, 2, '');
 				line.unshift('');
 				converted.push.apply(converted, line);
 				converted = converted.join("\n");
 			}
-
-			console.log('parsing ', converted);
 
 			var conv_back = marked(converted).replace(/strong>/g, 'b>');
 			var comp = prettydiff({
@@ -278,6 +256,10 @@
 
 			html_editor = chtml.data("wysihtml5").editor;
 		}, 500);
+
+		$scope.$watch('article.on_homepage_weight', function(w){
+			console.log('ohw: ', w);
+		});
 
 		$scope.upload_image = function () {
 			var input = $('#upload_form').find('input[name=file_input]');
