@@ -158,8 +158,8 @@ console.log('controller loaded');
 				{field: 'intro', displayName: ' ', width: '*********', groupable: false},
 				{field: 'revised', displayName: 'Revised', width: '***', cellFilter: "date:'MMM dd, yyyy'",
 				sortFn: function(a, b){
-					a = moment(a, 'MM DD, YYYY').unix();
-					b = moment(b, 'MM DD, YYYY').unix();
+					a = moment(a, 'MMM DD, YYYY').unix();
+					b = moment(b, 'MMM DD, YYYY').unix();
 					if (a < b){
 						return -1;
 					} else if (a > b){
