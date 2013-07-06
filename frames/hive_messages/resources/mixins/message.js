@@ -26,7 +26,6 @@ module.exports = function (apiary, cb) {
 			}
 
 			apiary.Context = function (req, res, action) {
-				console.log('altering context');
 				var ctx = context(req, res, action);
 				ctx.add_message = add_message;
 				return ctx;

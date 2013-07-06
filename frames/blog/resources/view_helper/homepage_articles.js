@@ -93,7 +93,6 @@ module.exports = function (apiary, cb) {
 								}
 							} else {
 								var out = _template(data);
-								console.log('out: %s', out);
 								return out;
 							}
 						};

@@ -22,6 +22,8 @@ function article_to_data(context, auth_data){
 		}
 	}
 
+	console.log('input: %s, homepage weight: %s', util.inspect(context, false, 0), context.on_homepage_weight);
+
 	var out = {
 		file_name:   context.file_name,
 		title:       context.title,
@@ -33,8 +35,10 @@ function article_to_data(context, auth_data){
 		hide:        context.hide || false,
 		folder:      context.folder || '',
 		on_folder_homepage: context.on_folder_homepage || false,
-		on_homepage_weight: parseInt(context.on_homepage_weight)
+		folder_homepage_weight: _.isNumber(context.folder_homepage_weight) ? parseInt(context.folder_homepage_weight) : 0
 	};
+
+	console.log('article input: %s', util.inspect(out));
 	if (auth_data){
 		out.author = auth_data;
 	}

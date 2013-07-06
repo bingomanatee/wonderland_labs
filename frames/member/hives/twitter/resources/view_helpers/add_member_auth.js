@@ -25,7 +25,6 @@ module.exports = function (apiary, cb) {
 
 			respond: function (ctx, output, done) {
 				var menu = output.helpers.member.menu;
-				console.log('adding twitter auth');
 				menu.add_auth('twitter', 'Twitter');
 				done();
 			}

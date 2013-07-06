@@ -26,7 +26,6 @@ module.exports = function (apiary, cb) {
 
 			respond: function (ctx, output, done) {
 				var menu = output.helpers.member.menu;
-				console.log('adding facebook auth');
 				menu.add_auth('facebook', 'Facebook');
 				done();
 			}
