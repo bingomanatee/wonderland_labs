@@ -156,15 +156,15 @@ console.log('controller loaded');
 				},
 				{field: 'folder', displayName: 'Folder', width: "**"},
 				{field: 'intro', displayName: ' ', width: '*********', groupable: false},
-				{field: 'revised', displayName: 'Revised', width: '***', cellFilter: "date:'MMM dd, YYYY'"},
-				{field:           'tags', displayName: 'Tags', width: '***', groupable: false,
+				{field: 'revised', displayName: 'Revised', width: '***', cellFilter: "date:'MMM dd, yyyy'"},
+			/*	{field:           'tags', displayName: 'Tags', width: '***', groupable: false,
 					cellTemplate: '<div>' +
 					                  '<div class="ngCellText" ng-class="col.colIndex()" ' +
 					                  'title="{{row.getProperty(col.field).join(\', \') }}">' +
 					                  '{{row.getProperty(col.field).slice(0, 2).join(\', \') }}' +
 						'</div></div>'
 
-				},
+				}, */
 				{field:           '_id', displayName: ' ', width: '**', groupable: false,
 					cellTemplate: '<div><div class="ngCellText" style="padding: 0px">' +
 						'<button class="btn btn-xsmall"' +
