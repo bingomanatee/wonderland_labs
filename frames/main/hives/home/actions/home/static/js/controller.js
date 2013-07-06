@@ -159,11 +159,11 @@ console.log('controller loaded');
 				{field: 'revised', displayName: 'Revised', width: '***', cellFilter: "date:'MMM dd, yyyy'",
 				sortFn: function(a, b){
 					if (!a.unix){
-						a.unix = moment(a.revised, 'MM DD, YYYY').unix();
+						a.unix = moment(a, 'MM DD, YYYY').unix();
 					}
 
 					if (!b.unix){
-						b.unix = moment(b.revised, 'MM DD, YYYY').unix();
+						b.unix = moment(b, 'MM DD, YYYY').unix();
 					}
 
 					if (a.unix < b.unix){
