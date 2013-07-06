@@ -158,17 +158,11 @@ console.log('controller loaded');
 				{field: 'intro', displayName: ' ', width: '*********', groupable: false},
 				{field: 'revised', displayName: 'Revised', width: '***', cellFilter: "date:'MMM dd, yyyy'",
 				sortFn: function(a, b){
-					if (!a.unix){
-						a.unix = moment(a, 'MM DD, YYYY').unix();
-					}
-
-					if (!b.unix){
-						b.unix = moment(b, 'MM DD, YYYY').unix();
-					}
-
-					if (a.unix < b.unix){
+					a = moment(a, 'MM DD, YYYY').unix();
+					b = moment(b, 'MM DD, YYYY').unix();
+					if (a < b){
 						return -1;
-					} else if (a.unix > b.unix){
+					} else if (a > b){
 						return 1;
 					} else {
 						return 0;
