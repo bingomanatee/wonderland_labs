@@ -11,7 +11,7 @@ var _DEBUG = false;
 /* ******* CLOSURE ********* */
 
 /* ********* EXPORTS ******** */
-
+//@TODO: examine security closer
 module.exports = {
 
 	/* *********** GET ********** */

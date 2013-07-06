@@ -4,16 +4,16 @@
 	},
 
 	"member_actions": [
-		"edit_user",
-		"delete_user"
+		"edit member",
+		"delete member"
 	],
 
 	"member_roles": [
 		{
 			"name":    "member_admin",
 			"actions": [
-				"edit_user",
-				"delete_user"
+				"edit member",
+				"delete member"
 			]
 
 		}

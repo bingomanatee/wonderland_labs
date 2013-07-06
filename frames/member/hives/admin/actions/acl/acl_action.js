@@ -15,8 +15,12 @@ var _DEBUG = false;
 module.exports = {
 
 	on_validate: function (context, callback) {
-		//@TODO: secure page
-		callback();
+		var member_model = this.model('member');
+		member_model.ican(context, ['edit member'], callback,{
+			go: '/',
+			message: 'You do not have authorization to administer members',
+			key: 'error'
+		})
 	},
 
 	on_input: function (context, callback) {
