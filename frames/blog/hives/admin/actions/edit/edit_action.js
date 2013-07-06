@@ -24,6 +24,8 @@ module.exports = {
 			return done(new Error('no file name'));
 		}
 
+		if (/\{\{/.test())
+
 		member_model.ican(context, ["edit article"], function () {
 
 			model.exists(context, function (ex) {

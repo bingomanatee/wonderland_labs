@@ -276,8 +276,7 @@
 					cache:       false,
 					contentType: false,
 					processData: false,
-					success:     function (data) {
-						console.log('data from success: ', data);
+					success:     function () {
 						$scope.images = Images.query();
 						$scope._apply()
 					}
