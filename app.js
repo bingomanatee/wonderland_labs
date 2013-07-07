@@ -45,7 +45,7 @@ var log_file = path.resolve(__dirname, '../app_log.config');
 
 server.listen(app.get('port'), function () {
 	mongoose.connect('mongodb://localhost/wll');
-	var apiary = mvc.Apiary({mongoose: mongoose, log_file: log_file}, __dirname + '/frames');
+	var apiary = mvc.Apiary({mongoose: mongoose, log_file: log_file, action_handler_failsafe_time: 3000}, __dirname + '/frames');
 	apiary._config.setAll(require('./site_identity.json'));
 	apiary._config.setAll(require('./passport_config.json'));
 	apiary._config.setAll(require('./article_config.json'));

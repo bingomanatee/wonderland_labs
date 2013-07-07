@@ -1,5 +1,6 @@
 {
-	"routes": {
-	          "get": ["/sign_in/twitter"]
-	}
+	"routes":                {
+		"get": ["/sign_in/twitter"]
+	},
+	"handler_failsafe_time": 10000
 }
