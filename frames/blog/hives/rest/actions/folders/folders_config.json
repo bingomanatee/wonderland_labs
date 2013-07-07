@@ -1,0 +1,8 @@
+{
+	"routes": {
+		"get":  ["/blog_rest/folders"],
+		"post": ["/blog_rest/folders/:name"]
+	},
+
+	"handler_failsafe_time": 5000
+}

@@ -16,7 +16,8 @@
 		"delete article",
 		"delete own article",
 		"unpublish article",
-		"unpublish own article"
+		"unpublish own article",
+	    "add folder"
 	],
 
 	"member_roles": [
@@ -29,15 +30,18 @@
 				"unpublish own article"
 			]
 		},
+
 		{
 			"name":    "article editor",
 			"actions": [
 				"edit article",
 				"read unpublished article",
 				"delete article",
-				"publish article"
+				"publish article",
+			    "add folder"
 			]
 		},
+
 		{
 			"name":    "article reviewer",
 			"actions": [

@@ -35,6 +35,8 @@ module.exports = function (apiary, cb) {
 
 		articles_folders: articles_folders,
 
+		add_folder: require('article_model/add_folder'),
+
 		article_html: require('article_model/article_html'),
 
 		clean_file_name: function (name) {

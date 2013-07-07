@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" href="/js/admin/vendor/angular/ng-grid.css"/>
+<div ng-app="state">
+    <div ng-controller="ArticleStateController">
+        <h1>Folders</h1>
+
+        <p>Folders are "article groups"; you don't need to have folders -- you can put articles in the
+        main folder, and not categorize your stories -- but if  you do want to group your articles into volumes,
+        use the form below to create a folder for articles to be copied into.</p>
+
+        <div ng-grid="folderGridOptions" style="width: 100%; height:  30em"></div>
+
+        <div ng-form="add_folder_form">
+            <div class="control-group">
+                <label class="control-label span2" for="new_folder" style="">Add Folder</label>
+
+                <div class="span7">
+                    <input type="text" ng-pattern="/^[\w_]+$/" required="required" id="new_folder" name="new_folder"
+                           ng-model="new_folder"/>
+                </div>
+
+                <div class="span3">
+                    <span class="help-inline " ng-show="article_edit_form.new_folder.$error.required">Required</span>
+                </div>
+            </div>
+
+            <div>
+                <button class="btn btn-primary" ng-click="add_folder()">Add Folder</button>
+            </div>
+        </div>
+    </div>
+</div>

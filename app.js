@@ -41,7 +41,7 @@ server.on('close', function () {
 });
 
 
-var log_file = path.resolve(__dirname, '../app_log.config');
+var log_file = path.resolve(__dirname, '../actions.log');
 
 server.listen(app.get('port'), function () {
 	mongoose.connect('mongodb://localhost/wll');

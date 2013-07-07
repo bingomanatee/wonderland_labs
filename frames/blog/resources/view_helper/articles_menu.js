@@ -24,7 +24,8 @@ module.exports = function (apiary, cb) {
 			name: 'articles_menu',
 
 			test: function (ctx, output) {
-				return output.helpers && output.helpers.sidebar_menu_data;
+				console.log('layout name: %s', ctx.layout_name);
+				return (output.layout_name == 'hiveblog') && output.helpers && output.helpers.sidebar_menu_data;
 			},
 
 			weight: 0,

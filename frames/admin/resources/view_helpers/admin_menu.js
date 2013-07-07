@@ -35,22 +35,26 @@ module.exports = function (apiary, cb) {
 
 			var member_model = apiary.model('member');
 
-			member_model.ican(ctx, ['administer site'], function () {
+			if (output.layout_name == 'hiveblog'){
+				member_model.ican(ctx, ['administer site'], function () {
 
-				var admin_menu = new hm.Menu({
-					name:   'admin',
-					title:  'Administer Site',
-					weight: 10000
-				});
-				admin_menu.add({
-					title: 'Administer Site',
-					link:  '/admin'
-				});
+					var admin_menu = new hm.Menu({
+						name:   'admin',
+						title:  'Administer Site',
+						weight: 10000
+					});
+					admin_menu.add({
+						title: 'Administer Site',
+						link:  '/admin'
+					});
 
-				output.helpers.sidebar_menu_data.add(admin_menu);
+					output.helpers.sidebar_menu_data.add(admin_menu);
 
+					done();
+				}, done);
+			} else {
 				done();
-			}, done);
+			}
 		}
 	};
 
