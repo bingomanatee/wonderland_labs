@@ -24,7 +24,9 @@ module.exports = {
 			return done(new Error('no file name'));
 		}
 
-		if (/\{\{/.test())
+		if (/\{\{/.test()){
+			return context.$go('/img/blog/placeholder.gif', done);
+		}
 
 		member_model.ican(context, ["edit article"], function () {
 
