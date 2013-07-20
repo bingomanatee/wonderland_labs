@@ -49,8 +49,15 @@ module.exports = function (apiary, cb) {
 				member_model.ican(ctx, ['create article', 'add folder'], function(){
 					article_menu.add({
 						title: 'Articles',
-						link: '/admin/articles'
+						link: '/admin/articles',
+						weight: 0
 					});
+
+					article_menu.add({
+						title: 'Add Article',
+						link: '/admin/blog/create',
+						weight: 50
+					})
 					done();
 				}, done);
 
