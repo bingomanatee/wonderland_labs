@@ -89,6 +89,21 @@
     <div class="span3">
         <span class="help-inline">{{article_edit_form.intro.$errors }}</span>
     </div>
+
+</div>
+
+<div ng-class="control_group_row('folder')" ng-hide="article.exists">
+    <label class="control-label span2" for="folder_select_main" style="">Folder</label>
+
+    <div class="span5">
+        <select id="folder_select_main" name="folder" ng-model="article.folder"
+                style="white-space: nowrap">
+            <option value="">(root)</option>
+            <% folders.forEach(function(folder){ %>
+            <option value="<%= folder %>"><%= folder %></option>
+            <% }) %>
+        </select>
+    </div>
 </div>
 
 <div ng-class="control_group_row('content')">
