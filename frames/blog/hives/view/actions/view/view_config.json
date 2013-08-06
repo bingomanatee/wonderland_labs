@@ -23,7 +23,7 @@
 		},
 
         {
-            "url": "/js/blog/vendor/jquery.tableofcontets.min.js",
+            "url": "/js/blog/vendor/jquery.tableofcontents.min.js",
             "context": "foot"
         }
 
