@@ -6,7 +6,7 @@
     <li><a href="/blog_folder/<%= article.folder %>"><%= article.folder %></a></li>
 </ul>
         <article>
-
+<div id="toc"></div>
 <h1><% if (article.folder){ %><a href="/blog_folder/<%= article.folder %>"><%= article.folder %></a>: <% } %><%=
     article.title %>
  </h1>
@@ -37,6 +37,25 @@
     </dl>
 
 </div>
+
+<style>
+    #toc {
+        float: right;
+        width: 33%;
+        margin: 1em;
+    }
+
+    article #toc h1, article #toc h2, article #toc h3 {
+        font-size: 80%;
+        color: red;
+        font-weight: bold;
+        margin: 2px;
+        padding: 0;
+    }
+</style>
+<script type="text/javascript" charset="utf-8">
+    $(function(){ $("article #toc").tableOfContents(); })
+</script>
 
 <% if (iCanEditArticle) {%>
 <p><a href="<%= edit_link %>" class="btn btn-small">Edit</a></p>

@@ -20,7 +20,13 @@
 			"url": "/js/blog/highlight_code.js",
 			"context": "foot",
 			"defer": true
-		}
+		},
+
+        {
+            "url": "/js/blog/vendor/jquery.ableofcontets.min.js",
+            "context": "foot"
+        }
+
 
 
 	]
