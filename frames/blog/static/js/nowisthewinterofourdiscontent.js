@@ -1,0 +1,1 @@
+$(function(){ $("article #toc").tableOfContents(); })

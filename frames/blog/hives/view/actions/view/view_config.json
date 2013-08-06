@@ -25,9 +25,13 @@
         {
             "url": "/js/blog/vendor/jquery.tableofcontents.min.js",
             "context": "foot"
+        },
+
+        {
+            "url": "/js/blog/nowisthewinterofourdiscontent.js",
+            "context": "foot",
+            "defer": true
         }
-
-
 
 	]
 }
