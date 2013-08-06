@@ -24,8 +24,8 @@
 
         {
             "url": "/js/blog/vendor/jquery.tableofcontents.min.js",
-            "requires": "jquery",
             "defer": true,
+            "require": ["jquery"],
             "context": "foot"
         },
 
