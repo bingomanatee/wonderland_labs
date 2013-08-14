@@ -27,7 +27,7 @@ $(function () {
     var SIZE = water_canvas.height;
     var SCALE = 3;
     var WIDTH = 5;
-    var MAX = 50;
+    var MAX = 100;
     var CUTOFF = 150;
     var ANGLE = 0.1;
     var RAY_OP = 20;
@@ -343,6 +343,10 @@ $(function () {
 
         floor_container.addChild(video_bitmap);
         floor_container.addChild(video_offset_bitmap);
+        var s = new createjs.Shape();
+        s.graphics.lf('rgba(  4, 37,133, 0', 'rgba(  4, 37,133,255)', 0, 0, 0, 200);
+        floor_container.add(s);
+
         floor_container.addChild(highlight_container);
         floor_container.y = half_vh * scale;
 
