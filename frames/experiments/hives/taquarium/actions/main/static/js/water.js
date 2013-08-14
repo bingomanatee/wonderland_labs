@@ -344,8 +344,9 @@ $(function () {
         floor_container.addChild(video_bitmap);
         floor_container.addChild(video_offset_bitmap);
         var s = new createjs.Shape();
-        s.graphics.lf('rgba(  4, 37,133, 0', 'rgba(  4, 37,133,255)', 0, 0, 0, 200);
-        floor_container.add(s);
+        s.graphics.lf(['rgba(  4, 37,133,255)', 'rgba(  4, 37,133,0)'], [0, 1], 0, 0, 0, 400).r(0,-10,water.width(), 500);
+
+        floor_container.addChild(s);
 
         floor_container.addChild(highlight_container);
         floor_container.y = half_vh * scale;
