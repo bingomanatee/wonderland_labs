@@ -27,8 +27,8 @@ $(function () {
     var SIZE = water_canvas.height;
     var SCALE = 3;
     var WIDTH = 5;
-    var MAX = 20;
-    var CUTOFF = 150;
+    var MAX = 60;
+    var CUTOFF = 140;
     var ANGLE = 0.1;
     var RAY_OP = 20;
     var H_SCALE = 0.5;
@@ -64,7 +64,7 @@ $(function () {
 
         video_bitmap.updateCache(0, 0, video_width * scale, video_height * scale);
 
-        var ctx = video_bitmap.cacheCanvas.getContext('2d');
+      /*  var ctx = video_bitmap.cacheCanvas.getContext('2d');
 
         var id = ctx.getImageData(0, 0, video_bitmap.cacheCanvas.width, video_bitmap.cacheCanvas.height);
 
@@ -113,7 +113,9 @@ $(function () {
         ctxc.putImageData(id, 0, 0);
 
         video_bitmap.cacheCanvas = canvas;
-        video_offset_bitmap.cacheCanvas = canvas;
+        video_offset_bitmap.cacheCanvas = canvas;*/
+
+        video_offset_bitmap.cacheCanvas = video_bitmap.cacheCanvas;
     }
 
     function start_highlights() {
