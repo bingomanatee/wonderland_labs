@@ -27,8 +27,8 @@ $(function () {
     var SIZE = water_canvas.height;
     var SCALE = 3;
     var WIDTH = 5;
-    var MAX = 60;
-    var CUTOFF = 140;
+    var MAX = 50;
+    var CUTOFF = 150;
     var ANGLE = 0.1;
     var RAY_OP = 20;
     var H_SCALE = 0.5;
