@@ -1,0 +1,14 @@
+{
+    "name": "taquarium",
+    "routes": {
+        "get": [
+            "/taquarium"
+        ]
+    },
+
+    "static": {
+        "/css": "/css/taquarium",
+        "/js":  "/js/taquarium",
+        "/img": "/img/taquarium"
+    }
+}
