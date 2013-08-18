@@ -36,11 +36,11 @@ module.exports = function (apiary, callback) {
 					callbackURL: domain_url + "/sign_in/twitter/callback"
 				},
 				function(token, tokenSecret, profile, done2) {
-					console.log('profile: %s', util.inspect(profile));
+					//console.log('profile: %s', util.inspect(profile));
 					profile.provider = 'twitter';
 
 					member_model.add_from_oauth(profile, function(err, member){
-						console.log('member for profile %s: %s', util.inspect(profile), util.inspect(member));
+					//	console.log('member for profile %s: %s', util.inspect(profile), util.inspect(member));
 						done2(null, member);
 					})
 				}

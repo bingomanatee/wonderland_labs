@@ -32,7 +32,7 @@
 			"requires": ["angular"]
 		},
 		{
-			"url": "/js/blog/vendor/angular/ui-bootstrap-tpls-0.4.0-SNAPSHOT.js",
+			"url": "/js/blog/vendor/angular/ui-bootstrap-tpls-0.5.0.min.js",
 			"context": "head",
 			"requires": ["angular", "bootstrap"]
 		},

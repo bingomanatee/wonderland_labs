@@ -5,7 +5,7 @@ var fs = require('fs');
 var _DEBUG = false;
 
 /* ************************************
- * 
+ * note - past a point, listing all members may become a performance issue.
  * ************************************ */
 
 /* ******* CLOSURE ********* */
@@ -17,7 +17,13 @@ module.exports = {
 	/* *********** GET ********** */
 
 	on_get_validate: function (context, callback) {
-		callback();
+        var member_model = this.model('member');
+        member_model.ican(context, [
+            "view member data"], callback,{
+            go: '/',
+            message: 'You do not have authorization to view members',
+            key: 'error'
+        })
 	},
 
 	on_get_input: function (context, done) {

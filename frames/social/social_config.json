@@ -1,0 +1,15 @@
+{
+    "member_actions": [
+        "view tweets",
+        "publish links"
+    ],
+    "member_roles": [
+        {
+            "name":    "link editor",
+            "actions": [
+                "view tweets",
+                "publish links"
+            ]
+        }
+    ]
+}

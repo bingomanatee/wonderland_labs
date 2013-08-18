@@ -27,7 +27,7 @@ function add_js(output) {
 		{url: '/js/blog/vendor/angular/angular.min.js', context: 'head', require: ['jquery']},
 		{url: '/js/blog/vendor/angular/select2.js', context: 'head', requires: ['angular']},
 		{url: '/js/blog/vendor/angular/angular-resource.min.js', context: 'head', requires: ['angular']},
-		{url: '/js/blog/vendor/angular/ui-bootstrap-tpls-0.4.0-SNAPSHOT.js', context: 'head', requires: ['angular', 'bootstrap']},
+		{url: '/js/blog/vendor/angular/ui-bootstrap-tpls-0.5.0.min.js', context: 'head', requires: ['angular', 'bootstrap']},
 		{url: '/js/blog/vendor/marked.js', context: 'head'},
 		{url: '/js/blog/vendor/to-markdown.js', context: 'head'},
 		{url: '/js/blog/vendor/prettydiff.js', context: 'head'},

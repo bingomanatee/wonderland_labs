@@ -13,15 +13,13 @@ var hm = require('hive-menu');
 
 /* ******* CLOSURE ********* */
 
-
 /* ********* EXPORTS ******** */
 
 module.exports = function (apiary, cb) {
 
-
 		var helper = {
 
-			name: 'member_admin_menu',
+			name: 'social_admin_menu',
 
 			test: function (ctx, output) {
 				return (output.layout_name == 'admin') &&  output.helpers && output.helpers.sidebar_menu_data;
@@ -36,24 +34,23 @@ module.exports = function (apiary, cb) {
 
 				var member_model = apiary.model('member');
 
-				member_model.ican(ctx, ['edit member'], function(){
-					var member_menu = new hm.Menu({
-						name: 'members',
-						title: 'Members',
-						weight: 100,
-						items: [
-						]
-					});
+                var social_menu = new hm.Menu({
+                    name: 'social_content',
+                    title: 'Social Content',
+                    weight: 60,
+                    items: [
+                    ]
+                });
 
-					output.helpers.sidebar_menu_data.add(member_menu);
-					member_menu.add({
-						title: 'Members',
-						link: '/admin/members/list'
-					});
+                output.helpers.sidebar_menu_data.add(social_menu);
 
-					member_menu.add({
-						title:'Member Actions',
-						link: '/admin/members/actions'
+                member_model.ican(ctx, [
+                    "view tweets",
+                    "publish links"], function(){
+					social_menu.add({
+						title: 'Tweets',
+						link: '/admin/tweets',
+						weight: 0
 					});
 					done();
 				}, done);

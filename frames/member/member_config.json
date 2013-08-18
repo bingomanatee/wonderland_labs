@@ -4,6 +4,7 @@
 	},
 
 	"member_actions": [
+        "view member data",
 		"edit member",
 		"delete member"
 	],
@@ -12,6 +13,7 @@
 		{
 			"name":    "member_admin",
 			"actions": [
+                "view member data",
 				"edit member",
 				"delete member"
 			]

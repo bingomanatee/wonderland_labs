@@ -1,0 +1,7 @@
+{
+    "routes": {
+        "get": "/tweets/:user_id"
+    },
+
+    "handler_failsafe_time": 1000000000
+}

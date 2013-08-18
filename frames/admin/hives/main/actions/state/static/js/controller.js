@@ -1,5 +1,3 @@
-console.log('controller loaded');
-
 (function () {
 
 	var homeApp = angular.module('state', ['routeService', 'ngGrid']);
