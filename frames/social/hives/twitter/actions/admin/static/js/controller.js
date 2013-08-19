@@ -19,7 +19,7 @@
      */
     function denorm_tweets(tweets) {
         var simple_tweets = _.map(tweets, function (tweet) {
-            var out = _.object(tweet, ['text', 'created_at']);
+            var out = _.pick(tweet, ['text', 'created_at']);
 
             out.urls = _.reduce((tweet.entities.urls || []),
                 function (out, url) {
@@ -29,6 +29,11 @@
                     return out;
                 },
                 []);
+
+            // controlling date to
+           var m = moment(tweet.created_at).startOf('week');
+
+            out.created_at = m.toDate();
 
             out.mentions = _.reduce((tweet.entities.user_mentions || []),
                 function (out, mention) {
@@ -113,7 +118,7 @@
             uid = parseInt(uid);
             if (!uid || isNaN(uid)) return;
 
-            console.log('twitter uid = ', uid);
+            // console.log('twitter uid = ', uid);
             Tweets.query({user_id: uid}, function(data){
                 $scope.tweet_count = data.length;
                 $scope.tweets = denorm_tweets(data);
@@ -122,7 +127,7 @@
 
 
         $scope.$watch('fragment', function (fragment) {
-            console.log('user changed to ', fragment);
+            // console.log('user changed to ', fragment);
             if ((!fragment) || (fragment.length < 2)) {
                 $scope.users = [];
             } else {
@@ -132,7 +137,7 @@
                         provider: 'twitter'
                     }
                     , function (users) {
-                        console.log('found users with ', $scope.user, users);
+                        // console.log('found users with ', $scope.user, users);
                         $scope.users = users;
                     });
             }
@@ -149,7 +154,7 @@
         };
 
         $scope.$watch('user()', function(u){
-            console.log('profiles changed: ', u);
+            // console.log('profiles changed: ', u);
             if (!u || !_.isObject(u)){
                 $scope.user_id = false;
                 return;
@@ -159,7 +164,7 @@
                 return p.provider == 'twitter';
             });
 
-            console.log('twitter_profile: ', twitter_profile);
+            // console.log('twitter_profile: ', twitter_profile);
 
             $scope.user_id = twitter_profile ? twitter_profile._id : false;
 
@@ -174,7 +179,7 @@
                 {field: 'mentions', displayName: '@', width: '*'},
                 {field: 'domain', displayName: 'Domain', width: "*"},
                 {field: 'url', displayName: 'URL', width: "**", groupable: false},
-                {field: 'created_at', dislayName: 'at', width: '**', cellFilter: "date:'MM dd, &apos;yy '"}
+                {field: 'created_at', displayName: 'at', width: '**', cellFilter: "date:'MMM d, yy '"}
             ]
 
         };

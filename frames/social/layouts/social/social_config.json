@@ -1,0 +1,14 @@
+{
+	"name":   "social",
+	"static": {
+		"/img": "/img/socialç",
+		"/css": "/css/social",
+		"/js":  "/js/social"
+	},
+	"javascript": [
+		{"url": "/js/social/vendor/jquery-1.10.1.min.js", "context": "foot" },
+		{"url": "/js/social/vendor/bootstrap.js", "context": "foot" },
+		{"url": "/js/social/vendor/bootstrap-combobox/js/bootstrap-combobox.js", "context": "foot",
+		"require": ["bootstrap"]}
+	]
+}

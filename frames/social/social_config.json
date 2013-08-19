@@ -11,5 +11,9 @@
                 "publish links"
             ]
         }
-    ]
+    ],
+    "static":      {
+        "js": "/js/social"
+    }
+
 }

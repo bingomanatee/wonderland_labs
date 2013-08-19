@@ -7,7 +7,11 @@ var Mongoose_Model = require('hive-model-mongoose');
 var Gate = require('gate');
 
 /* ************************************
- * 
+ * a member identity. note that member data is linked to but not identical to
+ * an oauth user. It is possible to have more than one oauth profile for a user
+ * though this has not yet been tested.
+ *
+ * @TODO: the _id of the oauth profile user is from different databases so there is a minute chance of collisions.
  * ************************************ */
 
 /* ******* CLOSURE ********* */
@@ -17,10 +21,39 @@ var oauth_user_profile = require(path.resolve(__dirname, 'schema/oauth_user_prof
 
 /* ********* EXPORTS ******** */
 
+var model;
 module.exports = function (apiary, cb) {
+
+    if (model){
+        return cb(null, model);
+    }
+
 	var mongoose = apiary.get_config('mongoose');
-	var model;
 	member_profile.oauthProfiles = [new mongoose.Schema(oauth_user_profile)];
+    var member_profile_schema = new mongoose.Schema(member_profile);
+    member_profile_schema.methods.setting = function(name, value){
+        if (!this.options){
+            this.options = [];
+        }
+
+        var setting = _.find(this.options, function(o){ return o.name == name});
+
+        if(arguments.length < 2){
+            return setting ? setting.value : null;
+        } else if (!setting){
+            setting = {name: name, value: value};
+            this.settings.push(setting);
+        } else {
+            setting.value = value;
+        }
+
+        this.markModified('settings');
+
+        this.save();
+
+        return setting.value;
+    };
+
 
 	function _can(has_actions, need_actions, callback) {
 		console.log('god mode: %s', apiary.get_config('god_mode'));
@@ -154,7 +187,7 @@ module.exports = function (apiary, cb) {
 		}
 		, {
 			mongoose:   mongoose,
-			schema_def: member_profile
+			schema_def: member_profile_schema
 		},
 		apiary.dataspace,
 		function (err, member_model) {

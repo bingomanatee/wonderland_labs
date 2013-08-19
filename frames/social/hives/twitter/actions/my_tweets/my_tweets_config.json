@@ -1,0 +1,54 @@
+{
+    "layout_name": "social",
+    "routes": {
+        "get": "/my_tweets"
+    },
+
+    "static": {
+        "js": "/js/social/tweets"
+    },
+
+    "javascript": [
+        {
+            "url":     "/js/social/vendor/moment.min.js",
+            "defer":   true,
+            "context": "head"
+        },
+        {
+            "url":     "/js/social/vendor/underscore-min.js",
+            "defer":   true,
+            "context": "head"
+        },
+        {
+            "url":     "/js/social/vendor/angular/angular.js",
+            "defer":   true,
+            "context": "head"
+        },
+        {
+            "url":     "/js/social/vendor/angular/angular-resource.min.js",
+            "defer":   true,
+            "context": "head",
+            "require": ["angular"]
+        },
+        {
+            "url":     "/js/social/vendor/angular/ui-bootstrap-tpls-0.5.0.min.js",
+            "defer":   true,
+            "context": "head",
+            "require": ["angular"]
+        },
+        {
+            "url":     "/js/social/vendor/angular/ng-grid-2.0.7.min.js",
+            "defer":   true,
+            "context": "head",
+            "require": ["angular"]
+        },
+        {
+            "url":     "/js/social/tweets/controller.js",
+            "defer":   true,
+            "context": "head",
+            "require": ["angular"]
+        }
+
+    ]
+
+}

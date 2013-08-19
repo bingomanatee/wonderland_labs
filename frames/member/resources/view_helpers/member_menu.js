@@ -43,7 +43,7 @@ module.exports = function (apiary, cb) {
 					weight: 1,
 					items:  [
 					]
-				})
+				});
 
 				output.helpers.sidebar_menu_data.items.push(member_menu);
 

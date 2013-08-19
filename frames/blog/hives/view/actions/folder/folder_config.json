@@ -34,13 +34,14 @@
 			"context": "head"
 		},
 		{
-			"url":     "/js/vendor/angular/ng-grid.debug.js",
-			"context": "head"
+            "url":     "/js/admin/vendor/angular/ng-grid-2.0.7.min.js",
+			"context": "head",
+            "requires": ["angular"]
 		},
 		{
 			"url":      "/js/home/controller.js",
 			"context":  "head",
-			"requires": ["/js/vendor/angular/angular.min.js"]
+			"requires": ["angular"]
 		}
 	]
 }

@@ -10,6 +10,11 @@
 
     "javascript": [
         {
+            "url":     "/js/admin/vendor/moment.min.js",
+            "defer":   true,
+            "context": "head"
+        },
+        {
             "url":     "/js/admin/vendor/underscore-min.js",
             "defer":   true,
             "context": "head"
@@ -32,7 +37,7 @@
             "require": ["angular"]
         },
         {
-            "url":     "/js/admin/vendor/angular/ng-grid.min.js",
+            "url":     "/js/admin/vendor/angular/ng-grid-2.0.7.min.js",
             "defer":   true,
             "context": "head",
             "require": ["angular"]
@@ -41,7 +46,7 @@
             "url":     "/js/admin/tweets/controller.js",
             "defer":   true,
             "context": "head",
-            "require": "angular"
+            "require": ["angular"]
         }
 
     ]

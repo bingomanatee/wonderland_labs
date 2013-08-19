@@ -11,10 +11,11 @@ var Mongoose_Model = require('hive-model-mongoose');
  */
 
 var tweets_schema = {
-    _id: 'number',
+    _id: 'string',
     user: {id: 'number', name: 'string', screen_name: 'string'},
     screen_name: 'string',
     text: 'string',
+    embed: 'string',
     created_at: 'date',
     entities: ['mixed']
 };
@@ -28,6 +29,8 @@ module.exports = function (apiary, cb) {
     if (model) return cb(null, model);
 
     var mongoose = apiary.get_config('mongoose');
+
+  //  mongoose.set('debug', true);
 
         Mongoose_Model(
         {

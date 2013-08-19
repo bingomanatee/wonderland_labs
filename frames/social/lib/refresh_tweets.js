@@ -2,8 +2,9 @@ var _ = require('underscore');
 var util = require('util');
 var path = require('path');
 var fs = require('fs');
-
+var assert = require('assert');
 var Twitter = require('twitter');
+var bigint = require('bigint');
 
 /* ------------ CLOSURE --------------- */
 
@@ -12,11 +13,6 @@ var Twitter = require('twitter');
  *  @TODO: ask for fewer fields
  *
  */
-function return_tweets(user_id, tweets, done) {
-    var query = {'user.id': parseInt(user_id)};
-
-    tweets.find(query, done);
-}
 
 /**
  *
@@ -32,60 +28,99 @@ function refresh_tweets(user_id, config, done, flush) {
     var twitter = new Twitter(config);
     var max_id = null;
 
-    function get_tweets() {
-        var props = { 'user_id': user_id, count: 200, trim_user: true, include_entities: true};
-        if (max_id) {
-            props.max_id = max_id;
+    function reconcile_found_and_new_tweets(err, saved_tweets, found_tweets) {
+        if (err) {
+            console.log('error: %s', err);
+           return done(err);
+        }
+        console.log('saved_tweets: %s', saved_tweets.length);
+        var saved_ids = _.pluck(saved_tweets, '_id');
+        console.log('    ids: %s .... %s', util.inspect(saved_ids.slice(0, 3)), util.inspect(saved_ids.slice(saved_ids.length - 6)));
+        var saved_text = _.pluck(saved_tweets, 'text').map(function (t) {
+            return t.substr(0, 24)
+        });
+        console.log('    saved_text: %s .... %s', saved_text.slice(0, 3).join(', '), saved_text.slice(saved_text.length - 6).join(', '));
+
+        if (saved_tweets.length > 0) {
+
+            // don't save tweets alread cached
+            found_tweets = _.reject(found_tweets, function (t) {
+                return _.contains(saved_ids, t.id_str);
+            });
+
+            found_tweets.forEach(function (t) {
+                t._id = t.id_str + '';
+            });
+
+            // you may not have new tweets at this point
+            if (found_tweets.length) {
+                tweets.add(found_tweets, done, true);
+            } else {
+               done();
+            }
+        } else {
+            console.log('asking for tweets up to %s', max_id);
+            // save found tweets, and ask for next lowest set
+            found_tweets.forEach(function (t) {
+                t._id = t.id_str
+            });
+            tweets.add(found_tweets, get_tweets, true);
+        }
+    }
+
+    function process_tweets(found_tweets) {
+        if (found_tweets.error) {
+            console.log('error in found_tweets: %s', found_tweets.error);
+           return done(found_tweets.error);
         }
 
-        twitter.getUserTimeline(props,
+        console.log('process_tweets return: %s tweets', found_tweets.length);
+        if ((!found_tweets) || (!_.isArray(found_tweets)) || ( !found_tweets.length)) {
+            console.log('no tweets returned from Twitter.');
+            done();
+        } else {
+            console.log('return getUserTimeLine: (max %s): %s tweets', max_id, found_tweets.length);
 
-            function (data) {
-                if ((!data) || (!_.isArray(data)) || ( !data.length)) {
-                    return return_tweets();
+            var ids = _.pluck(found_tweets, 'id_str');
+            console.log('ids: %s .... %s', ids.slice(0, 3).join(', '), ids.slice(ids.length - 6).join(', '));
+            var saved_text = _.pluck(found_tweets, 'text').map(function (t) {
+                return t.substr(0, 24)
+            });
+            console.log('saved_text: %s .... %s', saved_text.slice(0, 3).join(', '), saved_text.slice(saved_text.length - 6).join(', '));
+            // set stage for polling older tweets
+            var low_id = ids.reduce(function (out, id) {
+                id = bigint(id);
+                if (!out) {
+                    return id;
+                } else if (id.cmp(out) < 0) {
+                    return id;
+                } else {
+                    return out;
                 }
+            }, '');
 
-                console.log('return count  from GUT: for max_id %s: %s',
-                    max_id, util.inspect(data, true, 5));
+            max_id = low_id.sub(1).toString();
 
+            // see if we have pulled any tweets that are already in the database
+            tweets.find({_id: {$in: ids}}, function (err, saved_tweets) {
 
-                var ids = _.pluck(data, 'id');
-                // set stage for polling older tweets
-                max_id = _.min(ids) - 1;
+                ids.splice(4, ids.length - 8, ['...']);
+                console.log('found %s tweets with ids in %s', saved_tweets.length, util.inspect(ids));
 
-                // add all found tweets, and see if any of them have already been saved.
-                tweets.find({_id: {$in: ids}}, function (err, found) {
-                    console.log('poll of old tweets: %s', found.length);
-
-                    if (found.length > 0) {
-                        var found_ids = _.pluck(found, '_id');
-
-                        data = _.reject(data, function (t) {
-                            return _.contains(found_ids, t._id);
-                        });
-
-                        data.forEach(function (t) {
-                            t._id = t.id
-                        });
-
-                        // you may not have new tweets at this point
-                        if (data.length) {
-                            tweets.add(data, function () {
-                                return_tweets(user_id, tweets, done);
-                            }, true);
-                        } else {
-                            return_tweets(user_id, tweets, done);
-                        }
-                    } else {
-                        data.forEach(function (t) {
-                            t._id = t.id
-                        });
-                        tweets.add(data, get_tweets, true);
-                    }
-                });
-
+                reconcile_found_and_new_tweets(err, saved_tweets, found_tweets);
 
             });
+        }
+    }
+
+    function get_tweets() {
+        var query = { 'user_id': user_id, count: 200, trim_user: true, include_entities: true};
+        if (max_id) {
+            query.max_id = max_id;
+        }
+
+        console.log('getting tweets whose id is <= %s', max_id);
+        twitter.getUserTimeline(query, process_tweets);
     }
 
     if (flush) {

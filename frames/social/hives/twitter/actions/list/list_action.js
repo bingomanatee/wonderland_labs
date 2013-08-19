@@ -15,18 +15,17 @@ module.exports = {
         var member_model = this.model('member');
 
         member_model.find_one({
-            'oauthProfiles._id': context.user_id
-            , 'oauthProfiles.provider': 'twitter'
-        }, function(err, member){
-           if (!member){
-              done('cannot find user ' + context.user_id);
-           } else {
-               done();
-           }
+            'oauthProfiles._id': context.user_id, 'oauthProfiles.provider': 'twitter'
+        }, function (err, member) {
+            if (!member) {
+                done('cannot find user ' + context.user_id);
+            } else {
+                done();
+            }
         });
     },
 
-    twitter_config: function(){
+    twitter_config: function () {
 
         var apiary = this.get_config('apiary');
 
@@ -44,13 +43,31 @@ module.exports = {
 
         var tweets = this.model('social_tweets');
 
-        tweets.refresh_tweets(context.user_id, config, function(err, tweets){
-            if (err){
-                done(err);
-            } else {
-                context.$send(tweets, done);
+        tweets.refresh_tweets(context.user_id, config, done);
+
+    },
+
+    on_get_output: function (context, done) {
+
+        var tweets = this.model('social_tweets');
+        context.$res.write('[');
+
+        var stream = tweets.model.find({'user.id': context.user_id}).stream();
+        var count = 0;
+
+        stream.on('data', function (tweet) {
+            if (count > 0) {
+                context.$res.write(',');
             }
+            ++count;
+            context.$res.write(JSON.stringify(tweet.toJSON()));
+            console.log('written record %s', count);
         });
+
+        stream.on('end', function () {
+            context.$res.end(']');
+            done('redirect');
+        })
 
     }
 
