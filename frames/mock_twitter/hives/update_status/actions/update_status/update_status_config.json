@@ -1,0 +1,10 @@
+{
+    "layout_name": "hiveblog",
+    "routes": {
+        "get": "/mock_twitter/update_status"
+    },
+
+    "static":  {
+        "js": "/js/mock_twitter"
+    }
+}

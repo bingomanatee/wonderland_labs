@@ -1,0 +1,6 @@
+{
+    "layout_name": "hiveblog",
+    "routes": {
+        "get": "/mock_twitter/tweet/:id"
+    }
+}

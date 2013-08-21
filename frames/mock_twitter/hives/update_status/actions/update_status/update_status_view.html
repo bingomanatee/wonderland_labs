@@ -1,0 +1,27 @@
+<h1>Update Status</h1>
+
+<form class="form-horizontal" method="post" id="send_tweet" action="/1.1/statuses/update.json">
+    <div class="control-group">
+        <label class="control-label" for="inputUser">User</label>
+
+        <div class="controls">
+            <input type="text" name="user" id="inputUser" placeholder="User">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputStatus">Status</label>
+
+        <div class="controls">
+            <input type="text" name="status" id="inputStatus" placeholder="Status">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-primary">Update Status</button>
+        </div>
+    </div>
+</form>
+
+<script language="javascript" src="/js/mock_twitter/submit.js" defer="defer">
+
+</script>
