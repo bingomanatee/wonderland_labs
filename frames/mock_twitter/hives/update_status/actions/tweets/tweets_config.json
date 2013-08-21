@@ -7,5 +7,13 @@
 
     "static": {
         "js": "/js/mock_twitter"
-    }
+    },
+
+    "javascript": [
+        {
+            "url": "/js/mock_twitter/underscore_min.js",
+            "context": "head"
+        }
+
+    ]
 }
