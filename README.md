@@ -1,50 +1,16 @@
-This is a specific website -- and a template for other hive sites.
+This branch reflects a mock twitter demo
 
-INSTALL/REQUIREMENTS
+INSTALLATION REQUIREMENTS
 
-the following resources need to be present:
+Install node >= 0.10.x.
 
-* canvas
-* gmp
-* mongo 2.5+ (running on 27017
+http://nodejs.org/dist/v0.10.16/node-v0.10.16.pkg
 
-the following configuration files must be added to the root folder:
+inside the root directory run npm install
 
-site_identity.json
+run sudo node app.js
 
-``` json
+note - runs on port 80; PORT config can be changed if that is a problem
 
-{
-	"domain_url": "http://wonderlandlabs.com",
-	"domain":     "wonderlandlabs.com"
-}
+In browser, go to "localhost" or 127.0.0.1
 
-```
-
-passport_config.json
-
-``` json
-
-{
-"facebook_app_id": int,
-"facebook_app_secret": "string",
-
-"twitter_consumer_key": 	"string",
-"twitter_consumer_secret": "string",
-
-"twitter_access_token":	"string",
-"twitter_access_token_secret":	"string"
-}
-
-```
-
-article_config.json
-
-``` json
-{
-	"article_root": "../../wll_content"
-}
-
-```
-
-additionally, npm install must be run both in the root and in each frame with a package.json
