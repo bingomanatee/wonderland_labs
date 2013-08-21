@@ -3,6 +3,6 @@
 <h2><%= tweet.text %></h2>
 
 <blockquote>
-    <%= tweet.user %>
+    <a href="/mock_tweets/user_status/<%= tweet.user %>"><%= tweet.user %></a>
     <%= new Date(tweet.created) %>
 </blockquote>
