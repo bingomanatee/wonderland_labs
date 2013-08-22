@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="/js/vendor/angular/ng-grid.css"/>
+<link rel="stylesheet" type="text/css" href="/js/blog_folders/vendor/angular/ng-grid.min.css"/>
 <ul class="breadcrumb">
     <li><a href="/">Home</a></li>
     <li><div class="divider">~</div></li>
@@ -61,6 +61,8 @@
                 No articles to display.
                 <button class="btn" ng-click="clear_filters()">Clear your filters</button>
             </section>
+
+            {{ $errors | json }}
         </div>
     </div>
 </div>
@@ -71,7 +73,6 @@
     $(function () {
         var scope = angular.element('#article_list').scope();
         scope.folder_filter='<%= folder %>';
-        scope.gridOptions.showGroupPanel = false;
         scope._apply();
     });
 </script>

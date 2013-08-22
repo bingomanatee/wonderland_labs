@@ -144,20 +144,19 @@ console.log('controller loaded');
 		}, 5000);
 
 		$scope.gridOptions = {
-			data:           $scope.grid_articles,
-			showGroupPanel: true,
+			data:           'grid_articles',
+			showGroupPanel: false,
 			showFilter:     true,
 			columnDefs:     [
 				{field: 'title', displayName: 'Title', width: '*****', groupable: false,
-				/*	cellTemplate: '<div><div class="ngCellText">' +
+					cellTemplate: '<div><div class="ngCellText">' +
 						              '<a ng-click="go(row.entity)">{{ row.getProperty(col.field) }}</a>' +
-						'</div></div>'*/
+						'</div></div>'
 
 				},
-				{field: 'folder', displayName: 'Folder', width: "**"},
 				{field: 'intro', displayName: ' ', width: '*********', groupable: false},
-				{field: 'revised', displayName: 'Revised', width: '***', cellFilter: "date:'MMM dd, yyyy'"},
-/*				sortFn: function(a, b){
+				{field: 'revised', displayName: 'Revised', width: '***', cellFilter: "date:'MMM dd, yyyy'"
+,			sortFn: function(a, b){
 					a = moment(a, 'MMM DD, YYYY').unix();
 					b = moment(b, 'MMM DD, YYYY').unix();
 					if (a < b){
@@ -167,7 +166,7 @@ console.log('controller loaded');
 					} else {
 						return 0;
 					}
-				}*/
+                }},
 
 
 				{field:           '_id', displayName: ' ', width: '**', groupable: false,

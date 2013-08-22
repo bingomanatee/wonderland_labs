@@ -14,27 +14,27 @@
 
 	"javascript": [
 		{
-			"url":     "/js/vendor/moment.js",
+			"url":     "/js/blog_folders/vendor/moment.min.js",
 			"context": "head"
 		},
 		{
-			"url":     "/js/vendor/underscore-min.js",
+			"url":     "/js/blog_folders/vendor/underscore-min.js",
 			"context": "head"
 		},
 		{
-			"url":     "/js/hiveblog/vendor/jquery-1.10.1.min.js",
+			"url":     "/js/blog_folders/vendor/jquery-1.10.1.min.js",
 			"context": "head"
 		},
 		{
-			"url":     "/js/vendor/angular/angular.js",
+			"url":     "/js/blog_folders/vendor/angular/angular.js",
 			"context": "head"
 		},
 		{
-			"url":     "/js/vendor/angular/angular-resource.min.js",
+			"url":     "/js/blog_folders/vendor/angular/angular-resource.min.js",
 			"context": "head"
 		},
 		{
-            "url":     "/js/admin/vendor/angular/ng-grid-2.0.7.min.js",
+            "url":     "/js/blog_folders/vendor/angular/ng-grid-2.0.7.debug.js",
 			"context": "head",
             "requires": ["angular"]
 		},

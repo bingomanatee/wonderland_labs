@@ -211,11 +211,11 @@ section.homepage-articles article h3 {
 }
 
 section.homepage-articles-grid .ngGrid {
-    font-family: 'Roboto Condensed', Helvetica Neue, Arial, sans-serif;
-    font-size: 120%;
+    font-family: Helvetica Neue, Arial, sans-serif;
+    font-size: 100%;
 }
 
-section.homepage-articles-grid .ngGrid .ngCell.col3 {
+section.homepage-articles-grid .ngGrid .ngCell.col4 {
     font-family: Helvetica, sans-serif;
     font-size: 80%;
 }
