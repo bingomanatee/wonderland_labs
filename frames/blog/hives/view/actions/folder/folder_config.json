@@ -9,8 +9,7 @@
 	},
 
 	"static": {
-		"js":  "/js/home",
-		"css": "/css/home"
+		"js":  "/js/blog_folders"
 	},
 
 	"javascript": [
@@ -40,7 +39,7 @@
             "requires": ["angular"]
 		},
 		{
-			"url":      "/js/home/controller.js",
+			"url":      "/js/blog_folders/controller.js",
 			"context":  "head",
 			"requires": ["angular"]
 		}
