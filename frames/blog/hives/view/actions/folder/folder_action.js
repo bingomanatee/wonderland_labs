@@ -24,8 +24,8 @@ module.exports = {
 
 		context.$out.set('moment', moment);
 		context.$out.set('_', _);
-		context.$out.set('folder', context.folder);
-		model.folder_html(context.folder, function(err, html){
+		context.$out.set('folder', context.folder || '');
+		model.folder_html(context.folder | '', function(err, html){
 
 			context.$out.set('html',  html);
 			cb();

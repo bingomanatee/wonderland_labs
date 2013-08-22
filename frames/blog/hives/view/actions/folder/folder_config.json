@@ -3,7 +3,8 @@
 	"layout_name": "hiveblog",
 	"routes":      {
 		"get": [
-			"/blog_folder/:folder"
+			"/blog_folder/:folder",
+            "/blog_articles/"
 		]
 	},
 
