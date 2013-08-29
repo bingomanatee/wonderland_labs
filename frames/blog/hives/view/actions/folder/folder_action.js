@@ -21,7 +21,7 @@ module.exports = {
 
 	on_get_output: function(context, cb){
 		var model = this.model('blog_article');
-        if (!content.folder) content.folder = '';
+        if (!context.folder) context.folder = '';
 
 		context.$out.set('moment', moment);
 		context.$out.set('_', _);
