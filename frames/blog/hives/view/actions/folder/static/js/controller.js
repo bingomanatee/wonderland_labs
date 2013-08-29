@@ -139,10 +139,6 @@ console.log('controller loaded');
 			}
 		};
 
-		if (_DEBUG) setInterval(function () {
-			console.log('scope: ', $scope);
-		}, 5000);
-
 		$scope.gridOptions = {
 			data:           'grid_articles',
 			showGroupPanel: false,
