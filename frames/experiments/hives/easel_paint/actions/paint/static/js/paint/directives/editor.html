@@ -1,0 +1,25 @@
+<canvas class="paint-canvas" style="border: 1px solid black">
+
+</canvas>
+<div class="controls">
+    <div class="draw_buttons">
+        <button class="rectangle" title="add rectangle" ng-click="add_rectangle()"></button>
+        <button class="circle" title="add oval" ng-click="add_oval()"></button>
+        <button class="triangle" title="add triangle" ng-click="add_triangle()"></button>
+        <button ng_class="draw_button_class('polygon')" title="add polygon" ng-click="add_polygon()"></button>
+        <span class="poly_buttons" ng-show="show_poly_buttons()">
+        <button ng_class="draw_button_pp_class('add')" title="add poly point" ng-click="add_polygon_point()"></button>
+        <button ng_class="draw_button_pp_class('delete')" title="delete poly point" ng-click="delete_polygon_point()"></button>
+        <button ng_class="draw_button_pp_class('move')" title="move poly point" ng-click="move_polygon_point()"></button>
+        <button class="done_poly" ng-click="close_poly()">close poly</button>
+        </span>
+        <button class="move_up" title="move up" ng-show="show_move('up')" ng-click="move_up()"></button>
+        <button class="move_down" title="move down" ng-show="show_move('down')" ng-click="move_down()"></button>
+        <button class="rotate" title="rotate" ng-click="rotate()"></button>
+    </div>
+    <div class="color">
+        <label for="colorInput">Color</label>
+        <input id="colorInput" class="input input-small" type="text" ng-model="current_color"/>
+        <button class="btn" ng-click="choose_color()">Choose</button>
+    </div>
+</div>

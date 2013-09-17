@@ -1,0 +1,11 @@
+{
+    "routes": {
+        "get": "/paint"
+    },
+
+    "static": {
+        "js": "/js",
+        "css": "/css",
+        "img": "/img"
+    }
+}
