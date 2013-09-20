@@ -15,7 +15,7 @@
     "hive-loader": ">=0.0.2",
     "hive-mvc": "0.0.3",
     "hive-model": "0.0.1e",
-    "hive-menu" : "*",
+    "hive-menu": "*",
     "mongoose": "~3.6.7",
     "hive-queen": ">=0.0.1b",
     "request": "~2.21.0",
@@ -23,7 +23,8 @@
     "async": "~0.2.8",
     "hive-component": "0.0.1a",
     "moment": "~2.0.0",
-    "passport": "~0.1.17"
+    "passport": "~0.1.17",
+    "node-compass": "~0.2.3"
   },
   "devDependencies": {
     "tap": "~0.4.3"

@@ -322,7 +322,7 @@ section.homepage-articles-grid .ngGrid {
     .navbar-inverse .nav-collapse .nav > li > a,
     .navbar-inverse .nav-collapse .dropdown-menu a {
         color: white !important;
-        font-family: "Helvetica Neue", Helvetica;, sans-serif;
+        font-family: "Helvetica Neue", Helvetica, sans-serif;
     }
 
     .navbar-inverse .brand , .navbar-inverse .nav > li > a  {
