@@ -1,4 +1,4 @@
-/*! easel-paint 2013-09-19 */
+/*! easel-paint 2013-09-21 */
 (function () {
     angular.module("Paint", [])
 })(window);
@@ -555,10 +555,8 @@
             start_y = this.get_y()
         }
         return function (move_event) {
-            var x = start_x + move_event.stageX - event.stageX;
-            x = self.manager.snap(Math.max(0, Math.min(x, this.manager.screen_width(true) - this.get_width())));
-            var y = start_y + move_event.stageY - event.stageY;
-            y = self.manager.snap(Math.max(0, Math.min(y, this.manager.screen_height(true) - this.get_height())));
+            var x = self.manager.snap(start_x + move_event.stageX - event.stageX);
+            var y = self.manager.snap(start_y + move_event.stageY - event.stageY);
             if (self.parent) {
                 self.parent.set_x(x);
                 self.parent.set_y(y)
@@ -1019,7 +1017,7 @@
             return function LinkingFunction($scope, $linkElement, $linkAttributes) {
                 $scope.show_drawing = true;
                 $scope.tab_class = function (which) {
-                    if (which == $scope.tab ) {
+                    if (which == "drawing" == $scope.show_drawing) {
                         return"tab active"
                     } else {
                         return"tab"

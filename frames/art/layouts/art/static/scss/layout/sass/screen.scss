@@ -56,6 +56,10 @@ body {
   color: white;
 }
 
+.modal {
+  color: black;
+}
+
 .well.sidebar-nav {
   padding: 9px 0;
   @include background(linear-gradient(rgb(50,50,50) 70%, rgb(100,100,100)));

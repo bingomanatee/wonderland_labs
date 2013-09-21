@@ -1,9 +1,9 @@
 <div class="paint">
     <div class="tabs">
         <div ng-class="tab_class('drawing')" ng-click="tab = 'drawing'">Drawing</div>
-        <div ng-class="tab_class('manifest')" ng-click="tab = 'manifest'">Drawn Shape</div>
-        <div ng-class="tab_class('gallery')" ng-click="tab = 'gallery' ">Gallery</div>
-        <button class="btn btn-primary" ng-click="export()">Save Drawing</button>
+        <div ng-class="tab_class('manifest')" ng-click="tab = 'manifest'">Shapes Drawn</div>
+        <div ng-class="tab_class('gallery')" ng-show="false" ng-click="tab = 'gallery' ">Gallery</div>
+        <button class="btn btn-primary" ng-show="member" ng-click="save()">Save Drawing</button>
     </div>
     <div class="drawing tab-panel" ng-show="tab ==  'drawing'">
         <canvas class="paint-canvas" style="border: 1px solid black">

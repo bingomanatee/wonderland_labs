@@ -68,13 +68,17 @@ body {
     color: white;
 }
 
+.modal {
+    color: black;
+}
+
 .well.sidebar-nav {
     padding: 9px 0;
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #323232), color-stop(100%, #646464));
-    background: -webkit-linear-gradient(#323232, #646464);
-    background: -moz-linear-gradient(#323232, #646464);
-    background: -o-linear-gradient(#323232, #646464);
-    background: linear-gradient(#323232, #646464);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(70%, #323232), color-stop(100%, #646464));
+    background: -webkit-linear-gradient(#323232 70%, #646464);
+    background: -moz-linear-gradient(#323232 70%, #646464);
+    background: -o-linear-gradient(#323232 70%, #646464);
+    background: linear-gradient(#323232 70%, #646464);
     border: none;
 }
 .well.sidebar-nav a, .well.sidebar-nav a:link, .well.sidebar-nav a:visited {

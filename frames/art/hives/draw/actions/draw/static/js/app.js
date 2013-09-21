@@ -1,7 +1,7 @@
 angular.module("PaintApp", ['Paint', 'drawingsService']);
 
 
-angular.module('drawingsService', ['ngResource']).factory('drawings',
+angular.module('drawingsService', ['ngResource', 'ui.bootstrap', 'ui.bootstrap.modal']).factory('drawings',
     function ($resource) {
         return $resource('/art/rest/drawings/:_id', {_id: '@_id'}, {
             get: {method: 'GET'},

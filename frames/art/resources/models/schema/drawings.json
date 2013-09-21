@@ -1,11 +1,18 @@
 {
+    "name": "string",
+    "description": "string",
+    "public": "boolean",
+    "creator": "ObjectId",
     "tokens": [
         {
+            "color": "number",
             "shape_type": "String",
             "w": "number",
             "h": "number",
             "points": ["number"],
-            "shapes": [{}]
+            "shapes": [
+                {}
+            ]
         }
     ],
     "clut": ["String"],
@@ -14,6 +21,8 @@
             "x": "number",
             "y": "number",
             "r": "number",
+            "scaleX": "number",
+            "scaleY": "number",
             "token": "number"
         }
     ]

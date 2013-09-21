@@ -28,6 +28,13 @@
             "defer": true
         },
         {
+            "url": "/js/art/vendor/angular/ui-bootstrap-tpls-0.6.0.js",
+            "context": "foot",
+            "name": "angular_bootstrap",
+            "defer": true,
+            "requires": ["angular"]
+        },
+        {
             "url": "/js/art/vendor/easel/easeljs-0.6.1.min.js",
             "context": "foot",
             "name": "easel",
@@ -57,7 +64,7 @@
         {
             "url": "/js/art/draw/controller.js",
             "context": "foot",
-            "requires": ["angular", "easel"],
+            "requires": ["angular", "easel", "angular_bootstrap"],
             "name": "paint",
             "defer": true
         }

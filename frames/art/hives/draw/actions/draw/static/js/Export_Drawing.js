@@ -33,13 +33,17 @@
                     x: shape.get_x(),
                     y: shape.get_y(),
                     w: shape.get_width(),
-                    h: shape.get_height()
+                    h: shape.get_height(),
+                    scaleX: 1,
+                    scaleY: 1
                 };
 
 
                 switch (shape.type) {
                     case 'group':
                         shape_data.shapes = shape.shapes.map(_shape_to_data);
+                        shape_data.scaleX = shape.container.scaleX;
+                        shape_data.scaleY = shape.container.scaleY;
                         break;
 
                     case 'polygon':

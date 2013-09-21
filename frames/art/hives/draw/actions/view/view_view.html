@@ -1,0 +1,11 @@
+<link rel="stylesheet" type="text/css" href="/css/art/view/view.css"/>
+
+<h1><%= drawing.name %> (<%= drawing._id %>)</h1>
+<script language="javascript">
+    var drawing_id = "<%= drawing._id %>"
+</script>
+<div class="drawing_frame">
+    <canvas id="drawing" width="800" height="600"></canvas>
+</div>
+
+<p><%= drawing.description %></p>

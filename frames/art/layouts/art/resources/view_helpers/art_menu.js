@@ -43,9 +43,10 @@ module.exports = function (apiary, cb) {
 					name: 'site',
 					title: 'Site',
 					items: [
-						{name: 'home', title: 'Home', link: '/', weight: -1000000}
+                        {name: 'home', title: 'Home', link: '/', weight: -1000000},
+                        {name: 'draw', title: 'Draw', link: '/art/draw', weight: 0}
 					]
-				})
+				});
 
 				var menu = new hm.Menu({name: 'sidebar', title: '', items: [
 					site_menu
