@@ -1,9 +1,15 @@
 <link rel="stylesheet" type="text/css" href="/css/art/draw/paint.css"/>
 
 <script language="javascript">
-    window.member = <%- member ? JSON.stringify(member) : false %>;
-
+    window.member = <%- member ? JSON.stringify(member) : 'false' %>;
+    window.drawing_id = "<%= drawing ? drawing._id : '' %>";
 </script>
+
+<% if (drawing){ %>
+<h1>Edit drawing &quot;<%= drawing.name %>&quot; (<%= drawing._id %>)</h1>
+<% } else { %>
+<h1>Create a drawing!</h1>
+<% } %>
 
 <div ng-app="PaintApp">
     <div ng-controller="PaintCtrl">
@@ -18,8 +24,8 @@
 
             <div class="modal-body">
                 <p>You have not signed in. Because of this, your drawing cannot be saved. You are free to
-                draw for the fun of it but if you plan on saving your drawing, you'll want to log in
-                with the left nav's member menu before beginning your drawing.</p>
+                    draw for the fun of it but if you plan on saving your drawing, you'll want to log in
+                    with the left nav's member menu before beginning your drawing.</p>
             </div>
 
             <div class="modal-footer">

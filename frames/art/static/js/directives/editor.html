@@ -4,6 +4,7 @@
         <div ng-class="tab_class('manifest')" ng-click="tab = 'manifest'">Shapes Drawn</div>
         <div ng-class="tab_class('gallery')" ng-show="false" ng-click="tab = 'gallery' ">Gallery</div>
         <button class="btn btn-primary" ng-show="member" ng-click="save()">Save Drawing</button>
+        <button class="btn" ng-click="new_drawing()">New Drawing</button>
     </div>
     <div class="drawing tab-panel" ng-show="tab ==  'drawing'">
         <canvas class="paint-canvas" style="border: 1px solid black">
@@ -24,11 +25,12 @@
                             ng-click="move_polygon_point()"></button>
                     <button class="done_poly" ng-click="close_poly()">close poly</button>
                 </span>
-                <span class="active_shape_btns">
+                <span class="active_shape_btns" ng-show="paint_manager.active_shape">
                     <button class="move_up" title="move up" ng-show="show_move('up')" ng-click="move_up()"></button>
                     <button class="move_down" title="move down" ng-show="show_move('down')" ng-click="move_down()"></button>
                     <button class="rotate" title="rotate" ng-click="rotate()"></button>
                     <button class="clone" title="clone" ng-click="clone()"></button>
+                    <button class="remove" title="remove" ng-click="remove_shape()"></button>
                 </span>
             </div>
             <div class="color">

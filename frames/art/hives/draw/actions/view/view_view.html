@@ -9,3 +9,10 @@
 </div>
 
 <p><%= drawing.description %></p>
+
+<% if (can_edit) {%>
+<p>
+    <button class="btn btn-primary" onClick="document.location='/art/edit/<%= drawing._id %>'">Edit Drawing</button>
+    <button class="btn btn-danger" onClick="document.location='/art/delete/<%= drawing._id %>'">Delete Drawing</button>
+</p>
+<% } %>

@@ -25,5 +25,6 @@
             "scaleY": "number",
             "token": "number"
         }
-    ]
+    ],
+    "deleted": {"type": "boolean", "default": "false"}
 }

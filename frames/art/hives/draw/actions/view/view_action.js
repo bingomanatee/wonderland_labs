@@ -21,28 +21,36 @@ module.exports = {
 
     on_input: function (context, done) {
         var model = this.model('drawings');
+        context.$out.set('can_edit', false);
 
         model.get(context._id, function (err, drawing) {
             if (!drawing) {
                 context.add_message('cannot find drawing ' + context._id);
                 context.$go('/art/draw', done);
             } else {
-                if (drawing.public) {
-                    context.$out.set('drawing', drawing);
-                    done();
-                } else {
-                    var member = context.$session('member');
-                    if (!member) {
-                        context.add_message('This is a private drawing; log in if this drawing is yours', 'error');
-                        return context.$go('/art/draw', done);
-                    } else if (member._id.toString() == drawing.creator.toString()) {
+                var member = context.$session('member');
+                if (!member) {
+                    context.$out.set('can_edit', false);
+                    if (drawing.public) {
                         context.$out.set('drawing', drawing);
                         done();
+                    } else {
+                        context.add_message('This is a private drawing; log in if this drawing is yours', 'error');
+                        return context.$go('/art/draw', done);
+                    }
+                } else if (member._id.toString() == drawing.creator.toString()) {
+                    context.$out.set('drawing', drawing);
+                    context.$out.set('can_edit', true);
+                    done();
+                } else {
+                    if (drawing.public) {
+                        context.$out.set('can_edit', false);
                     } else {
                         context.add_message('This is a private drawing', 'error');
                         return context.$go('/art/draw', done);
                     }
                 }
+
             }
         });
     },

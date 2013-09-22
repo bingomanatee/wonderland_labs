@@ -21,7 +21,10 @@ module.exports = function (apiary, cb) {
 
     Mongoose_Model(
         {
-            name: 'drawings'
+            name: 'drawings',
+            can_edit: function (drawing, member) {
+                return drawing.creator.toString() == member._id.toString();
+            }
         },
 
         {

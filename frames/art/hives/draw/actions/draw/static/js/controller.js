@@ -1,10 +1,10 @@
 (function () {
 
-    function DrawingSaveEditor($scope, $modalInstance, drawing_metadata){
+    function DrawingSaveEditor($scope, $modalInstance, drawing_metadata) {
         $scope.drawing_metadata = _.clone(drawing_metadata);
 
-        $scope.save_drawing_dlog = function(preserve){
-            if (preserve){
+        $scope.save_drawing_dlog = function (preserve) {
+            if (preserve) {
 
                 $modalInstance.close($scope.drawing_metadata);
             } else {
@@ -13,13 +13,13 @@
         }
     }
 
-    function NoMemberWarningController($scope, $modalInstance){
-        $scope.warning_read = function(){
+    function NoMemberWarningController($scope, $modalInstance) {
+        $scope.warning_read = function () {
             $modalInstance.close();
         }
     }
 
-    function PaintCtrl($scope, $filter, $compile, $window, $modal, Export_Drawing, drawings) {
+    function PaintCtrl($scope, $filter, $compile, $window, $modal, Export_Drawing, Import_Drawing, drawings) {
 
         $scope.tab = 'drawing';
         $scope.$watch('current_color', function (color) {
@@ -32,7 +32,7 @@
         $scope.member = $window.member;
         $scope.member_warning = false;
 
-        if (!$scope.member){
+        if (!$scope.member) {
 
             var modalInstance = $modal.open({
                 templateUrl: 'noMemberWarning.html',
@@ -41,7 +41,17 @@
 
         }
 
+        $scope.$watch('paint_manager', function(pm){
+            if ( pm && $window.drawing_id) {
+                Import_Drawing($window.drawing_id, pm);
+            }
+        });
+
         $scope.drawing_metadata = {name: '', description: '', public: 1};
+
+        $scope.new_drawing = function(){
+            document.location = '/art/draw?rand=' + Math.random();
+        },
 
         $scope.save = function () {
             var modalInstance = $modal.open({
@@ -58,7 +68,7 @@
                 console.log('done with metadata', drawing_metadata);
                 $scope.drawing_metadata = drawing_metadata;
                 $scope.export(drawing_metadata);
-            }, function(){
+            }, function () {
                 console.log('dismissed');
             });
 
@@ -75,13 +85,14 @@
 
             drawings.add(data, function (saved) {
                 console.log('saved ', data, 'as', saved);
-                document.location="/art/draw/" + saved._id;
+                document.location = "/art/draw/" + saved._id;
             });
 
         }
     }
 
-    PaintCtrl.$inject = ['$scope', '$filter', '$compile', '$window', '$modal', 'Export_Drawing', 'drawings'];
+    PaintCtrl.$inject = ['$scope', '$filter', '$compile', '$window', '$modal',
+        'Export_Drawing', 'Import_Drawing', 'drawings'];
 
     angular.module('PaintApp').controller('PaintCtrl', PaintCtrl);
 

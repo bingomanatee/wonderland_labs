@@ -109,6 +109,9 @@
             }
 
             return function (manager) {
+
+                console.log('exporting manager: ', manager);
+
                 var out = {
                     clut: _colors(manager.shapes),
                     shapes: [],
