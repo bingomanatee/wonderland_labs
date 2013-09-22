@@ -25,7 +25,7 @@
                             ng-click="move_polygon_point()"></button>
                     <button class="done_poly" ng-click="close_poly()">close poly</button>
                 </span>
-                <span class="active_shape_btns" ng-show="paint_manager.active_shape">
+                <span class="active_shape_btns" ng-show="is_active">
                     <button class="move_up" title="move up" ng-show="show_move('up')" ng-click="move_up()"></button>
                     <button class="move_down" title="move down" ng-show="show_move('down')" ng-click="move_down()"></button>
                     <button class="rotate" title="rotate" ng-click="rotate()"></button>

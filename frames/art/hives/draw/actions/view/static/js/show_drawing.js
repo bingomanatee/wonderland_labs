@@ -1,49 +1,47 @@
 (function () {
 
-    function _render_drawing(data) {
-        var canvas = $('body').find('canvas#drawing')[0];
+    function _render_rectangle(shape, token_data) {
+        shape.graphics.f(token_data.color).dr(0, 0, token_data.w, token_data.h).ef();
+    }
 
+    function _render_oval(shape, token_data) {
+        var diameter = Math.min(token_data.w, token_data.h);
+        var rad = diameter / 2;
+        shape.graphics.f(token_data.color).dc(token_data.w / 2, token_data.h / 2, rad).ef();
+        if (token_data.w > token_data.h) {
+            shape.scaleX = token_data.w / token_data.h
+        } else if (token_data.w < token_data.h) {
+            shape.scaleY = token_data.h / token_data.w
+        }
+    }
 
-        function _render_rectangle(shape, token_data) {
-            shape.graphics.f(token_data.color).dr(0, 0, token_data.w, token_data.h).ef();
+    function _render_polygon(shape, token_data) {
+        shape.graphics.f(token_data.color);
+        var points = [];
+
+        while (token_data.points.length) {
+            var x = token_data.points.shift() + token_data.w / 2;
+            var y = token_data.points.shift() + token_data.h / 2;
+            points.push({x: x, y: y});
         }
 
-        function _render_oval(shape, token_data) {
-            var diameter = Math.min(token_data.w, token_data.h);
-            var rad = diameter / 2;
-            shape.graphics.f(token_data.color).dc(token_data.w / 2, token_data.h / 2, rad).ef();
-            if (token_data.w > token_data.h) {
-                shape.scaleX = token_data.w / token_data.h
-            } else if (token_data.w < token_data.h) {
-                shape.scaleY = token_data.h / token_data.w
+        _.each(points, function (point, i) {
+            if (i) {
+                shape.graphics.lt(point.x, point.y);
+            } else {
+                shape.graphics.mt(point.x, point.y);
             }
-        }
+        });
 
-        function _render_polygon(shape, token_data) {
-            shape.graphics.f(token_data.color);
-            var points = [];
+        shape.graphics.ef();
+    }
 
-            while (token_data.points.length) {
-                var x = token_data.points.shift() + token_data.w / 2;
-                var y = token_data.points.shift() + token_data.h / 2;
-                points.push({x: x, y: y});
-            }
+    function _render_triangle(shape, token_data) {
+        shape.graphics.f(token_data.color).mt(0, token_data.h).lt(token_data.w / 2, 0).lt(token_data.w, token_data.h).ef();
+    }
 
-            _.each(points, function (point, i) {
-                if (i) {
-                    shape.graphics.lt(point.x, point.y);
-                } else {
-                    shape.graphics.mt(point.x, point.y);
-                }
-            });
 
-            shape.graphics.ef();
-        }
-
-        function _render_triangle(shape, token_data) {
-            shape.graphics.f(token_data.color).mt(0, token_data.h).lt(token_data.w / 2, 0).lt(token_data.w, token_data.h).ef();
-        }
-
+    function _render_drawing(data, canvas) {
         function _render_shapes(shapes, parent) {
             _.each(shapes, function (shape_info) {
                 var token_data = data.tokens[shape_info.token];
@@ -107,7 +105,6 @@
             });
         }
 
-
         _.each(data.tokens, function (token) {
             token.color = data.clut[token.color];
         });
@@ -116,14 +113,14 @@
 
         _render_shapes(data.shapes, stage);
         stage.update();
-    };
+    }
 
     console.log('drawing id:', drawing_id);
 
     $.get("/art/rest/drawings/" + drawing_id, function (data) {
         console.log('data:', data);
 
-        _render_drawing(data);
+        _render_drawing(data, $('body').find('canvas#drawing')[0]);
     })
 
 })(window);

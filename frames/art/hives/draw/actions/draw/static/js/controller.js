@@ -41,17 +41,17 @@
 
         }
 
-        $scope.$watch('paint_manager', function(pm){
-            if ( pm && $window.drawing_id) {
+        $scope.$watch('paint_manager', function (pm) {
+            if (pm && $window.drawing_id) {
                 Import_Drawing($window.drawing_id, pm);
             }
         });
 
         $scope.drawing_metadata = {name: '', description: '', public: 1};
 
-        $scope.new_drawing = function(){
+        $scope.new_drawing = function () {
             document.location = '/art/draw?rand=' + Math.random();
-        },
+        };
 
         $scope.save = function () {
             var modalInstance = $modal.open({
@@ -73,6 +73,20 @@
             });
 
         };
+
+        $scope.$watch('paint_manager.active_shape', function(as){
+            $scope.is_active = as;
+            console.log('is_active', as);
+        });
+
+        setInterval(function(){
+
+            var current = $scope.paint_manager.active_shape;
+            if (current != $scope.active_shape){
+                $scope.$apply();
+            }
+
+        }, 500);
 
         $scope.export = function (meta) {
             var data = Export_Drawing($scope.paint_manager);
