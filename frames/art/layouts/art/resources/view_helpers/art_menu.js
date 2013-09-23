@@ -44,6 +44,7 @@ module.exports = function (apiary, cb) {
 					title: 'Site',
 					items: [
                         {name: 'home', title: 'Home', link: '/', weight: -1000000},
+                        {name: 'gallery', title: 'Gallery', link: '/art', weight: 0},
                         {name: 'draw', title: 'Draw', link: '/art/draw', weight: 0}
 					]
 				});

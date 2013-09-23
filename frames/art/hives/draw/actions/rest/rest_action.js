@@ -40,13 +40,21 @@ module.exports = {
                 }
             })
         } else {
-            done('not ready to pull all drawings');
+            model.all(function(err, drawings){
+                if (err) return done(err);
+               context.drawings = drawings;
+                done();
+            });
         }
     },
 
     on_get_process: function(context, done){
       if (context._id){
             context.$send(context.drawing, done);
+      } else {
+          context.$send(context.drawings.map(function(drawing){
+              return drawing.toJSON();
+          }), done);
       }
     },
 
