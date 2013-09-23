@@ -21,7 +21,25 @@
 
 .breadcrumb {
     background-color: transparent;
-    font-size: 80%;
+    font-size: 90%;
+    margin-left: 0;
+    margin-bottom: 0.2em;
+    padding: 0;
+    text-shadow: none;
+}
+
+.breadcrumb li {
+    color: rgb(200,200,200);
+    font-family: 'Roboto Condensed', Helvetica Neue, Arial, sans-serif;
+    text-rendering: optimizelegibility;
+    text-shadow: none;
+}
+
+.breadcrumb a, .breadcrumb a:link, .breadcrumb a:visited {
+    font-family: 'Roboto Condensed', Helvetica Neue, Arial, sans-serif;
+    text-rendering: optimizelegibility;
+    color: red;
+    text-shadow: none;
 }
 
 .navbar-inner {

@@ -111,7 +111,7 @@
 
         var stage = new createjs.Stage(canvas);
         var shrinker = new createjs.Container();
-        shrinker.scaleX = shrinker.scaleY = 0.2;
+        shrinker.scaleX = shrinker.scaleY = 1/5;
         stage.addChild(shrinker);
 
         _render_shapes(data.shapes, shrinker);
