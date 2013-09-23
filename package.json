@@ -23,8 +23,7 @@
     "async": "~0.2.8",
     "hive-component": "0.0.1a",
     "moment": "~2.0.0",
-    "passport": "~0.1.17",
-    "node-compass": "~0.2.3"
+    "passport": "~0.1.17"
   },
   "devDependencies": {
     "tap": "~0.4.3"

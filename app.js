@@ -8,8 +8,7 @@ var express = require('express')
     , util = require('util')
     , mvc = require('hive-mvc')
     , passport = require('passport')
-    , mongoose = require('mongoose')
-    , compass = require('node-compass');
+    , mongoose = require('mongoose');
 
 var app = express();
 var PORT = 80;
@@ -19,7 +18,6 @@ app.configure(function () {
     app.set('views', __dirname + '/views');
     app.set('view engine', 'ejs');
     app.engine('html', require('ejs').renderFile);
-    app.use(compass());
     app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
