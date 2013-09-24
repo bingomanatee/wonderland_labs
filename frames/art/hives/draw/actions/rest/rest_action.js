@@ -11,6 +11,7 @@ module.exports = {
 
     on_get_input: function(context, done){
       var model = this.model('drawings');
+        var member = context.$session('member');
 
         if (context._id){
             model.get(context._id, function(err, drawing){
@@ -18,9 +19,8 @@ module.exports = {
                     done(err);
                 } else if (drawing) {
                     if (!drawing.public){
-                        var member = context.$session('member');
                         if (!member){
-                            done('Viewing private drwing');
+                            done('Viewing private drawing');
                         } else {
                             var id = member._id.toString();
                             var creator = drawing.creator.toString();
@@ -40,10 +40,16 @@ module.exports = {
                 }
             })
         } else {
-            model.all(function(err, drawings){
+            model.find({public: true}, function(err, drawings){
                 if (err) return done(err);
-               context.drawings = drawings;
-                done();
+               context.drawings = drawings || [];
+                if (member){
+                    model.find({public: false, creator: member._id}, function(err, my_drawings){
+                       if (my_drawings && my_drawings.length){
+                           context.drawings = context.drawings.concat(my_drawings);
+                       }
+                    });
+                }
             });
         }
     },
