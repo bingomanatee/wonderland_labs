@@ -41,14 +41,20 @@ module.exports = {
             })
         } else {
             model.find({public: true}, function(err, drawings){
+                console.log('public drawings: ', util.inspect(drawings));
                 if (err) return done(err);
-               context.drawings = drawings || [];
+               context.drawings = drawings  ? drawings : [];
                 if (member){
                     model.find({public: false, creator: member._id}, function(err, my_drawings){
                        if (my_drawings && my_drawings.length){
                            context.drawings = context.drawings.concat(my_drawings);
+                           done();
+                       } else {
+                           done();
                        }
                     });
+                } else {
+                    done();
                 }
             });
         }
@@ -58,9 +64,7 @@ module.exports = {
       if (context._id){
             context.$send(context.drawing, done);
       } else {
-          context.$send(context.drawings.map(function(drawing){
-              return drawing.toJSON();
-          }), done);
+          context.$send(context.drawings, done);
       }
     },
 
@@ -88,6 +92,61 @@ module.exports = {
     },
 
     on_post_output: function (context, done) {
+        context.$send(context.drawing_saved.toJSON(), done);
+    },
+
+    /* ***************** PUT *************** */
+
+    on_put_validate: function (context, done) {
+        if (!context.$session('member')){
+            return done('You must be logged in to save drawings');
+        } else if (!context._id) {
+            return done ('no ID found');
+        } else {
+            done();
+        }
+    },
+
+    on_put_input: function (context, done) {
+
+        var model = this.model('drawings');
+
+        model.get(context._id, function(err, drawing){
+            if (err) {
+                return done(err);
+            }
+
+            var drawing_data =  _.pick(context, 'clut', 'tokens', 'shapes', 'name', 'description', 'public', 'creator');
+
+            if (drawing.creator.toString() != drawing_data.creator){
+                return done('You did not create the original version of drawing ' + context._id);
+            }
+
+            delete drawing_data.creator;
+
+            _.extend(drawing, drawing_data);
+
+            context.drawing = drawing;
+
+            done();
+
+        });
+
+    },
+
+    on_put_process: function (context, done) {
+        var model = this.model('drawings');
+        model.put(context.drawing, function (err, drawing) {
+            if (err) {
+                done(err);
+            } else {
+                context.drawing_saved = drawing;
+                done();
+            }
+        });
+    },
+
+    on_put_output: function (context, done) {
         context.$send(context.drawing_saved.toJSON(), done);
     }
 }

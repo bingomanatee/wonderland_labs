@@ -36,7 +36,7 @@ module.exports = {
                         done();
                     } else {
                         context.add_message('This is a private drawing; log in if this drawing is yours', 'error');
-                        return context.$go('/art/draw', done);
+                        return context.$go('/art', done);
                     }
                 } else if (member._id.toString() == drawing.creator.toString()) {
                     context.$out.set('drawing', drawing);
@@ -47,7 +47,7 @@ module.exports = {
                         context.$out.set('can_edit', false);
                     } else {
                         context.add_message('This is a private drawing', 'error');
-                        return context.$go('/art/draw', done);
+                        return context.$go('/art', done);
                     }
                 }
 

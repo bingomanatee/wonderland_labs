@@ -8,6 +8,12 @@
             $scope._unrendered_drawings = drawings.slice();
         });
 
+        $scope.member = $window.member || false;
+
+        $scope.new_drawing = function(){
+            document.location = '/art/draw';
+        }
+
     }
 
     ArtCtrl.$inject = ['$scope', '$filter', '$compile', '$window', '$modal', 'drawings'];

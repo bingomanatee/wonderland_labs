@@ -14,6 +14,7 @@ module.exports = {
     },
 
     on_input: function (context, done) {
+       context.$out.set('member', context.$session('member') || false);
         done();
     },
 
