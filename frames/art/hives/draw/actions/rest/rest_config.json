@@ -2,6 +2,7 @@
     "routes": {
         "get": ["/art/rest/drawings", "/art/rest/drawings/:_id"],
         "post": "/art/rest/drawings",
-        "put": "/art/rest/drawings/:_id"
+        "put": "/art/rest/drawings/:_id",
+        "delete": "/art/rest/drawings/:_id"
     }
 }

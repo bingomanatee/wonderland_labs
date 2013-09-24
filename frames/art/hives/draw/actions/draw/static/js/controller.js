@@ -43,6 +43,7 @@
 
         $scope.$watch('paint_manager', function (pm) {
             if (pm && $window.drawing_id) {
+                $scope.drawing_id = $window.drawing_id;
                 Import_Drawing($window.drawing_id, pm);
                 drawings.get({_id: $window.drawing_id}, function (data) {
                     $scope.original_creator = data.creator;
@@ -58,6 +59,21 @@
         $scope.new_drawing = function () {
             //@TODO: clear paint_manager instead.
             document.location = '/art/draw?rand=' + Math.random();
+        };
+
+        $scope.delete_drawing = function(){
+
+            if (!$scope.member) {
+                return alert('You must be logged in to delete a drawing');
+            }
+
+            if (!$scope.original_creator == $scope.member._id){
+                return alert('this is not your own drawing -- you cant delete it!')
+            }
+
+            drawings.remove({_id: $scope.drawing_id}, function(){
+                document.location = '/art';
+            });
         };
 
         $scope.save = function () {

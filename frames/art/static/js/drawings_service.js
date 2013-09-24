@@ -5,6 +5,7 @@ angular.module('drawingsService', ['ngResource']).factory('drawings',
             get: {method: 'GET'},
             query: {method: 'GET', isArray: true},
             add: {method: 'POST'},
-            update: {method: 'PUT'}
+            update: {method: 'PUT'},
+            remove: {method: 'REMOVE'}
         });
     });
