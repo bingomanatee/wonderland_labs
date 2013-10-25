@@ -20,7 +20,7 @@ module.exports = {
 			context.add_message("missing oauth token or verifier", 'error');
 			context.$go("/", done);
 		} else if (!context.$session('oauth:twitter')){
-			contet.add_message('no oauth for twitter', 'error');
+			context.add_message('no oauth for twitter', 'error');
 			context.$go("/", done);
 		} else {
 			done();
