@@ -14,6 +14,18 @@ var passport = require('passport');
 /* ********* EXPORTS ******** */
 
 module.exports = {
+	
+	on_validate: function(context, done){
+		if (!(context.oauth_token && context.oauth_verifier)){
+			context.add_message("missing oauth token or verifier", 'error');
+			context.$go("/", done);
+		} else if (!context.$session('oauth:twitter')){
+			context.add_message('no oauth for twitter', 'error');
+			context.$go("/", done);
+		} else {
+			done();
+		}
+	},
 
     on_input: function(context, done){
         context.$session_set('oauth_token', context.oauth_token);
