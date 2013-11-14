@@ -1,0 +1,37 @@
+{
+    "routes": {
+
+        "get": "/art/hex"
+
+    },
+    "layout_name": "art",
+
+    "static": {
+        "js": "/js/art/hex"
+    },
+
+    "javascript":[
+
+        {
+            "url": "/js/art/hex/vendor/create.js",
+            "context": "head"
+        },
+
+        {
+            "url": "/js/art/hex/vendor/jquery-1.10.2.min.js",
+            "context": "head"
+        },
+
+        {
+            "url": "/js/art/hex/easel-mapper.js",
+            "context": "foot"
+        },
+
+        {
+            "url": "/js/art/hex/draw_map.js",
+            "context": "head"
+        }
+
+    ]
+
+}
