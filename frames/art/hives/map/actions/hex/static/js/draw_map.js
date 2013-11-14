@@ -182,7 +182,7 @@
         });
 
         $('#zoom_out').click(function () {
-            if (rende_params.scale > 0.125){
+            if (render_params.scale > 0.125){
             render_params.scale /= 2;
             map.render(render_params, stage);
             }
