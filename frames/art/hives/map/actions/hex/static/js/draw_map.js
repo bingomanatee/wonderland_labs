@@ -29,7 +29,7 @@
         });
 
         hex_layer.post_render = function (stage, render_params) {
-            console.log('cell count: ', hex_layer.cells.length);
+          //  console.log('cell count: ', hex_layer.cells.length);
             _.each(hex_layer.cells, function (cell) {
                 var color = _.find(color_DB, function (d) {
                   return cell.equals(d);
@@ -53,7 +53,7 @@
         };
 
         hex_layer.on_click_ = function (cell) { // disabled - being more granular
-            console.log('clicked on cell ', cell, cell.color);
+       //     console.log('clicked on cell ', cell, cell.color);
             function match(d) {
                 return d.row == cell.row && d.col == cell.col;
             }
@@ -76,7 +76,7 @@
         hex_layer.strokeIndex = 0;
         var last_cell = null;
         hex_layer.on_down = function (e, cell) {
-            console.log('cell down: ', cell.row, cell.col);
+         //   console.log('cell down: ', cell.row, cell.col);
             hex_layer.paint = true;
             ++hex_layer.strokeIndex;
 
@@ -110,7 +110,7 @@
         hex_layer.on_over = function (e, cell) {
             if (hex_layer.paint && ((!cell.strokeIndex) || (cell.strokeIndex < hex_layer.strokeIndex))) {
 
-                console.log('cell over: ', cell.row, cell.col, hex_layer.strokeIndex);
+             //   console.log('cell over: ', cell.row, cell.col, hex_layer.strokeIndex);
 
                 cell.strokeIndex = hex_layer.strokeIndex;
                 function match(d) {
@@ -150,7 +150,7 @@
         };
 
         hex_layer.on_pressup = function (e, cell) {
-            console.log('cell up: ', cell.row, cell.col);
+           // console.log('cell up: ', cell.row, cell.col);
 
             hex_layer.paint_container.removeAllChildren();
             hex_layer.paint = false;
